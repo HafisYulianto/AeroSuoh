@@ -2,14 +2,13 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Info, Navigation, MousePointer2 } from "lucide-react";
+import { X, Info, Navigation, MousePointer2, Thermometer, Droplets, Wind, Wifi, BatteryMedium, Compass, Crosshair } from "lucide-react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
 // --- TOKEN MAPBOX ---
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN || ""; 
 
-// Data titik lokasi dengan koordinat presisi
 const locations = [
   {
     id: 1,
@@ -18,6 +17,7 @@ const locations = [
     status: "Normal",
     lng: 104.27882688457521, lat: -5.238698319624318,
     desc: "Danau dengan tingkat keasaman tinggi. Mengandung belerang, sering digunakan sebagai indikator aktivitas vulkanik pasif.",
+    sensor: { temp: "42°C", ph: "2.1", sulfur: "12 ppm" }
   },
   {
     id: 2,
@@ -26,6 +26,7 @@ const locations = [
     status: "Aman Dikunjungi",
     lng: 104.274690, lat: -5.251999,
     desc: "Kawasan danau air tawar terluas di Suoh. Menjadi pusat aktivitas ekonomi lokal dan penyewaan perahu wisata.",
+    sensor: { temp: "26°C", ph: "7.0", sulfur: "0.5 ppm" }
   },
   {
     id: 3,
@@ -34,6 +35,7 @@ const locations = [
     status: "Normal",
     lng: 104.266782, lat: -5.246098,
     desc: "Permukaan airnya terlihat seperti dilapisi minyak. Memiliki aroma khas dan menjadi salah satu daya tarik unik.",
+    sensor: { temp: "35°C", ph: "4.5", sulfur: "8 ppm" }
   },
   {
     id: 4,
@@ -42,6 +44,7 @@ const locations = [
     status: "Aman (Patuhi Jalur)",
     lng: 104.26727197333017, lat: -5.236056616428336,
     desc: "Hamparan pasir berwarna kuning akibat endapan sulfur (belerang). Spot foto favorit pengunjung namun perlu kehati-hatian.",
+    sensor: { temp: "55°C", ph: "3.0", sulfur: "25 ppm" }
   },
   {
     id: 5,
@@ -50,6 +53,7 @@ const locations = [
     status: "Waspada (Zona Merah)",
     lng: 104.25928872886739, lat: -5.237142698064301,
     desc: "Area manifestasi panas bumi aktif dengan letupan lumpur panas. Suhu permukaan sangat tinggi, perlu pemantauan ketat.",
+    sensor: { temp: "95°C", ph: "1.5", sulfur: "85 ppm" }
   },
   {
     id: 6,
@@ -58,6 +62,7 @@ const locations = [
     status: "Waspada (Zona Kuning)",
     lng: 104.2635823976347, lat: -5.239053909820962,
     desc: "Dataran endapan kawah yang mengeras dan retak menyerupai lantai keramik. Mengeluarkan asap belerang tebal.",
+    sensor: { temp: "78°C", ph: "2.8", sulfur: "60 ppm" }
   },
 ];
 
@@ -67,9 +72,10 @@ export default function AerialExplorer() {
   const [selectedLoc, setSelectedLoc] = useState<typeof locations[0] | null>(null);
   const [isRotating, setIsRotating] = useState(true);
   
-  // Ref untuk mengontrol animasi rotasi
+  // STATE BARU: Menyimpan koordinat LIVE dari kamera Mapbox
+  const [liveCoords, setLiveCoords] = useState({ lng: 104.2690, lat: -5.2430 });
+  
   const isRotatingRef = useRef(true);
-  // Ref untuk menyimpan fungsi "Mulai Putar Kembali" agar bisa dipanggil oleh tombol X
   const startRotationRef = useRef<(() => void) | null>(null);
 
   useEffect(() => {
@@ -78,7 +84,7 @@ export default function AerialExplorer() {
     const map = new mapboxgl.Map({
       container: mapContainer.current,
       style: "mapbox://styles/mapbox/satellite-streets-v12",
-      center: [104.2690, -5.2430], // Titik tengah
+      center: [104.2690, -5.2430],
       zoom: 13,
       pitch: 65,
       bearing: 0,
@@ -97,27 +103,54 @@ export default function AerialExplorer() {
       });
       map.setTerrain({ source: "mapbox-dem", exaggeration: 1.5 });
 
+      const routeCoordinates = locations.map(loc => [loc.lng, loc.lat]);
+      routeCoordinates.push([locations[0].lng, locations[0].lat]); 
+
+      map.addSource("flight-path", {
+        type: "geojson",
+        data: {
+          type: "Feature",
+          properties: {},
+          geometry: {
+            type: "LineString",
+            coordinates: routeCoordinates,
+          },
+        },
+      });
+
+      map.addLayer({
+        id: "flight-path-line",
+        type: "line",
+        source: "flight-path",
+        layout: {
+          "line-join": "round",
+          "line-cap": "round",
+        },
+        paint: {
+          "line-color": "#f59e0b", 
+          "line-width": 2.5,
+          "line-dasharray": [2, 4], 
+          "line-opacity": 0.8,
+        },
+      });
+
       let animationId: number;
 
-      // Logika putaran kamera (diperbarui agar lebih smooth saat dilanjutkan)
       const rotateCamera = () => {
         if (!isRotatingRef.current) return; 
         const currentBearing = map.getBearing();
-        // Menambah 0.15 derajat setiap frame agar putarannya halus
         map.rotateTo(currentBearing + 0.15, { duration: 0 });
         animationId = requestAnimationFrame(rotateCamera);
       };
       
       rotateCamera();
 
-      // Fungsi mengerem putaran kamera
       const stopRotation = () => {
         isRotatingRef.current = false;
         setIsRotating(false);
         if (animationId) cancelAnimationFrame(animationId);
       };
 
-      // Simpan fungsi ke ref agar tombol X di luar useEffect bisa memanggilnya
       startRotationRef.current = () => {
         if (!isRotatingRef.current) {
           isRotatingRef.current = true;
@@ -128,7 +161,18 @@ export default function AerialExplorer() {
 
       locations.forEach((loc) => {
         const el = document.createElement("div");
-        el.className = "w-4 h-4 bg-emerald-400 rounded-full border-2 border-white shadow-[0_0_15px_rgba(52,211,153,0.8)] cursor-pointer animate-pulse";
+        
+        const isKawah = loc.type.includes("Geotermal");
+        const bgColor = isKawah ? "bg-orange-500" : "bg-cyan-500";
+        const shadowColor = isKawah ? "shadow-[0_0_15px_rgba(249,115,22,0.8)]" : "shadow-[0_0_15px_rgba(6,182,212,0.8)]";
+        
+        el.innerHTML = `
+          <div class="relative flex items-center justify-center w-8 h-8">
+            <span class="absolute inline-flex w-full h-full rounded-full ${bgColor} opacity-40 animate-ping"></span>
+            <div class="relative flex items-center justify-center w-4 h-4 rounded-full border-2 border-white ${bgColor} ${shadowColor}"></div>
+          </div>
+        `;
+        el.className = "cursor-pointer";
         
         new mapboxgl.Marker(el)
           .setLngLat([loc.lng, loc.lat])
@@ -137,20 +181,19 @@ export default function AerialExplorer() {
         el.addEventListener("click", (e) => {
           e.stopPropagation();
           setSelectedLoc(loc);
-          
-          stopRotation(); // Rem kamera
-          
-          // Terbang ke lokasi
-          map.flyTo({
-            center: [loc.lng, loc.lat],
-            zoom: 15.5,
-            pitch: 70,
-            essential: true,
-          });
+          stopRotation(); 
+          map.flyTo({ center: [loc.lng, loc.lat], zoom: 15.5, pitch: 70, essential: true });
         });
       });
 
-      // Berhenti berputar jika user menggeser map manual
+      // EVENT LISTENER BARU: Mengambil koordinat setiap kali kamera bergerak
+      map.on("move", () => {
+        setLiveCoords({
+          lng: map.getCenter().lng,
+          lat: map.getCenter().lat
+        });
+      });
+
       map.on("dragstart", stopRotation);
       map.on("zoomstart", stopRotation);
     });
@@ -163,26 +206,12 @@ export default function AerialExplorer() {
     };
   }, []);
 
-  // FUNGSI BARU: Logika saat tombol X (Tutup) diklik
   const handleClosePopup = () => {
-    setSelectedLoc(null); // 1. Hilangkan panel informasinya
-
+    setSelectedLoc(null); 
     if (mapRef.current) {
-      // 2. Terbang (Zoom Out) kembali ke posisi awal
-      mapRef.current.flyTo({
-        center: [104.2690, -5.2430], // Koordinat tengah awal
-        zoom: 13,
-        pitch: 65,
-        essential: true,
-        speed: 1.2, // Kecepatan kembali
-      });
-
-      // 3. Setelah animasi terbang selesai, putar kameranya lagi!
+      mapRef.current.flyTo({ center: [104.2690, -5.2430], zoom: 13, pitch: 65, essential: true, speed: 1.2 });
       mapRef.current.once("moveend", () => {
-        // Cek kembali untuk memastikan tidak ada konflik
-        if (startRotationRef.current && !isRotatingRef.current) {
-          startRotationRef.current();
-        }
+        if (startRotationRef.current && !isRotatingRef.current) startRotationRef.current();
       });
     }
   };
@@ -197,8 +226,31 @@ export default function AerialExplorer() {
       <div className="relative w-full h-[600px] bg-slate-200 rounded-3xl overflow-hidden border-4 border-white shadow-xl">
         <div ref={mapContainer} className="absolute inset-0 w-full h-full" />
 
-        <div className="absolute top-4 left-4 pointer-events-none z-10 flex flex-col gap-2">
-          <p className="bg-slate-900/70 backdrop-blur-md text-emerald-400 font-mono text-sm px-3 py-1.5 rounded-lg flex items-center gap-2 border border-emerald-500/30">
+        {/* === FITUR BARU: HUD TELEMETRI (BAR ATAS) === */}
+        <div className="absolute top-0 left-0 w-full bg-slate-900/85 backdrop-blur-md border-b border-emerald-500/30 text-emerald-400 font-mono text-[10px] sm:text-xs z-10 px-4 py-2 flex flex-wrap justify-between items-center shadow-lg shadow-emerald-900/20">
+          <div className="flex items-center gap-4">
+            <span className="flex items-center gap-1.5 font-bold tracking-wider text-emerald-300">
+              <Crosshair size={14} className="animate-spin-slow" /> AEROSUOH VTOL-X1
+            </span>
+            <span className="hidden md:flex items-center gap-1 text-emerald-500"><Wifi size={14} /> 98%</span>
+            <span className="hidden md:flex items-center gap-1 text-emerald-500"><BatteryMedium size={14} /> 84% 22.4V</span>
+          </div>
+          
+          <div className="flex items-center gap-4 text-emerald-200">
+            <span className="hidden sm:inline-block">ALT: 450m ASL</span>
+            <span className="hidden sm:inline-block">SPD: 12 m/s</span>
+            {/* KOORDINAT LIVE YANG BERGERAK */}
+            <span className="bg-emerald-900/50 px-2 py-1 rounded border border-emerald-700/50 flex items-center gap-2">
+              <Compass size={14} className="text-emerald-400" />
+              LAT: {liveCoords.lat.toFixed(5)} | LNG: {liveCoords.lng.toFixed(5)}
+            </span>
+          </div>
+        </div>
+        {/* ============================================== */}
+
+        {/* Indikator Autopilot sekarang pindah agak ke bawah (top-12) agar tidak tertutup HUD */}
+        <div className="absolute top-12 left-4 pointer-events-none z-10 flex flex-col gap-2 mt-2">
+          <p className="bg-slate-900/70 backdrop-blur-md text-emerald-400 font-mono text-sm px-3 py-1.5 rounded-lg flex items-center gap-2 border border-emerald-500/30 shadow-lg">
             <Navigation size={16} className={isRotating ? "animate-spin" : ""} /> 
             {isRotating ? "AUTOPILOT: ACTIVE" : "MANUAL OVERRIDE"}
           </p>
@@ -209,7 +261,7 @@ export default function AerialExplorer() {
           )}
         </div>
 
-        <div className="absolute bottom-4 right-4 pointer-events-none z-10 text-white bg-slate-900/60 px-3 py-2 rounded-lg backdrop-blur text-xs flex items-center gap-2 border border-slate-700">
+        <div className="absolute bottom-4 right-4 pointer-events-none z-10 text-white bg-slate-900/60 px-3 py-2 rounded-lg backdrop-blur text-xs flex items-center gap-2 border border-slate-700 shadow-lg">
           <MousePointer2 size={14} /> Drag: Geser | Scroll: Zoom | Klik Kanan: Putar 3D
         </div>
 
@@ -219,9 +271,8 @@ export default function AerialExplorer() {
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 50 }}
-              className="absolute top-6 right-6 w-80 md:w-96 bg-white/95 backdrop-blur-md rounded-2xl p-6 shadow-2xl border border-slate-200 z-20"
+              className="absolute top-16 right-6 w-80 md:w-96 bg-white/95 backdrop-blur-md rounded-2xl p-6 shadow-2xl border border-slate-200 z-20"
             >
-              {/* TOMBOL X SEKARANG MEMANGGIL handleClosePopup */}
               <button 
                 onClick={handleClosePopup}
                 className="absolute top-4 right-4 text-slate-400 hover:text-red-500 transition-colors"
@@ -230,7 +281,7 @@ export default function AerialExplorer() {
               </button>
               <h3 className="text-xl font-bold text-slate-900 mb-1">{selectedLoc.name}</h3>
               <p className="text-xs font-mono text-emerald-600 mb-4 bg-emerald-50 inline-block px-2 py-1 rounded border border-emerald-100">
-                GPS: {selectedLoc.lat.toFixed(5)}, {selectedLoc.lng.toFixed(5)}
+                TGT LOCK: {selectedLoc.lat.toFixed(5)}, {selectedLoc.lng.toFixed(5)}
               </p>
               
               <div className="flex items-center gap-2 mb-4">
@@ -238,6 +289,24 @@ export default function AerialExplorer() {
                 <span className={`px-2 py-1 text-xs rounded-full font-medium shadow-sm border ${selectedLoc.status.includes('Waspada') ? 'bg-red-50 text-red-600 border-red-200' : 'bg-emerald-50 text-emerald-600 border-emerald-200'}`}>
                   {selectedLoc.status}
                 </span>
+              </div>
+
+              <div className="grid grid-cols-3 gap-2 mb-4">
+                <div className="bg-slate-50 border border-slate-100 rounded-lg p-2 flex flex-col items-center text-center shadow-sm">
+                  <Thermometer size={18} className="text-rose-500 mb-1" />
+                  <span className="text-[10px] text-slate-400 font-bold tracking-wider">SUHU</span>
+                  <span className="text-sm font-mono font-bold text-slate-800">{selectedLoc.sensor.temp}</span>
+                </div>
+                <div className="bg-slate-50 border border-slate-100 rounded-lg p-2 flex flex-col items-center text-center shadow-sm">
+                  <Droplets size={18} className="text-blue-500 mb-1" />
+                  <span className="text-[10px] text-slate-400 font-bold tracking-wider">pH AIR</span>
+                  <span className="text-sm font-mono font-bold text-slate-800">{selectedLoc.sensor.ph}</span>
+                </div>
+                <div className="bg-slate-50 border border-slate-100 rounded-lg p-2 flex flex-col items-center text-center shadow-sm">
+                  <Wind size={18} className="text-amber-500 mb-1" />
+                  <span className="text-[10px] text-slate-400 font-bold tracking-wider">H2S (GAS)</span>
+                  <span className="text-sm font-mono font-bold text-slate-800">{selectedLoc.sensor.sulfur}</span>
+                </div>
               </div>
               
               <div className="p-3 bg-slate-50 rounded-lg border border-slate-100">
