@@ -15,13 +15,13 @@ export default function Navbar() {
           
           {/* Bagian Menu Navigasi */}
           <div className="flex space-x-8">
-            <a href="#" className="flex items-center gap-2 text-emerald-50 hover:text-white hover:scale-105 transition-all font-medium">
+            <a href="#home" className="flex items-center gap-2 text-emerald-50 hover:text-white hover:scale-105 transition-all font-medium">
               <Home size={18} /> <span className="hidden sm:block">Beranda</span>
             </a>
-            <a href="#" className="flex items-center gap-2 text-emerald-50 hover:text-white hover:scale-105 transition-all font-medium">
+            <a href="#explorer" className="flex items-center gap-2 text-emerald-50 hover:text-white hover:scale-105 transition-all font-medium">
               <Map size={18} /> <span className="hidden sm:block">Pemetaan Udara</span>
             </a>
-            <a href="#" className="flex items-center gap-2 text-emerald-50 hover:text-white hover:scale-105 transition-all font-medium">
+            <a href="#dashboard" className="flex items-center gap-2 text-emerald-50 hover:text-white hover:scale-105 transition-all font-medium">
               <Activity size={18} /> <span className="hidden sm:block">Dasbor Sensor</span>
             </a>
           </div>

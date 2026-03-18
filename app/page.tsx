@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Navbar from "../components/Navbar";
 import Dashboard from "../components/Dashboard";
+import AerialExplorer from "../components/AerialExplorer"; // Import komponen baru
 
 export default function Home() {
   return (
@@ -10,9 +11,8 @@ export default function Home() {
       <Navbar />
       
       {/* Hero Section */}
-      <div className="relative min-h-screen flex flex-col items-center justify-center px-4 text-center z-10">
-        {/* Background cerah dengan gradasi hijau alam */}
-        <div className="absolute inset-0 bg-gradient-to-b from-emerald-100/50 to-slate-50 -z-10"></div>
+      <div id="home" className="relative min-h-screen flex flex-col items-center justify-center px-4 text-center z-10 pt-16">
+          <div className="absolute inset-0 bg-gradient-to-b from-emerald-100/50 to-slate-50 -z-10"></div>
         
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -43,13 +43,18 @@ export default function Home() {
           transition={{ delay: 0.8, duration: 0.5 }}
           className="flex flex-wrap justify-center gap-4"
         >
-          <button className="px-8 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-full shadow-lg shadow-emerald-600/30 transition-all">
+          <a href="#explorer" className="px-8 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-full shadow-lg shadow-emerald-600/30 transition-all">
             Mulai Eksplorasi
-          </button>
+          </a>
           <a href="#dashboard" className="px-8 py-3 bg-white hover:bg-slate-100 border border-slate-300 text-slate-700 font-semibold rounded-full shadow-sm transition-all cursor-pointer">
             Lihat Dasbor
           </a>
         </motion.div>
+      </div>
+
+      {/* Bagian Peta Interaktif (Baru ditambahkan) */}
+      <div className="relative z-10 bg-slate-50">
+        <AerialExplorer />
       </div>
 
       {/* Bagian Dasbor Sensor */}
