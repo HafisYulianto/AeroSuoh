@@ -7,21 +7,34 @@ import AerialExplorer from "../components/AerialExplorer"; // Import komponen ba
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-slate-50 text-slate-900 relative overflow-x-hidden">
-      <Navbar />
+    // Tambahan: print:bg-white agar background kertas putih bersih saat dicetak
+    <main className="min-h-screen bg-slate-50 text-slate-900 relative overflow-x-hidden print:bg-white">
       
-      {/* Hero Section */}
-      <div id="home" className="relative min-h-screen flex flex-col items-center justify-center px-4 text-center z-10 pt-16">
-          <div className="absolute inset-0 bg-gradient-to-b from-emerald-100/50 to-slate-50 -z-10"></div>
+      {/* Tambahan: Bungkus Navbar dengan print:hidden agar tidak ikut tercetak */}
+      <div className="print:hidden">
+        <Navbar />
+      </div>
+      
+      {/* Hero Section dengan Background Foto */}
+      {/* Tambahan: Tambahkan print:hidden di className Hero */}
+      <div 
+        id="home" 
+        className="relative min-h-screen flex flex-col items-center justify-center px-4 text-center z-10 pt-16 bg-cover bg-center bg-no-repeat print:hidden"
+        style={{ backgroundImage: "url('/hero-suoh.png')" }}
+      >
+        {/* Overlay Gelap agar teks dan foto sama-sama terlihat jelas */}
+        <div className="absolute inset-0 bg-slate-900/70 -z-10"></div>
         
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
         >
-          <h1 className="text-5xl md:text-7xl font-extrabold mb-6 tracking-tight text-slate-900">
+          {/* Warna teks diubah menjadi text-white agar kontras dengan background gelap */}
+          <h1 className="text-5xl md:text-7xl font-extrabold mb-6 tracking-tight text-white drop-shadow-md">
             Menjaga Harta Karun <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-amber-500">
+            {/* Gradien dicerahkan sedikit agar lebih menyala di layar gelap */}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-amber-400">
               Lampung Barat
             </span>
           </h1>
@@ -32,7 +45,8 @@ export default function Home() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5, duration: 1 }}
         >
-          <p className="max-w-2xl text-lg md:text-xl text-slate-600 mb-10">
+          {/* Warna teks deskripsi diubah menjadi text-slate-200 */}
+          <p className="max-w-2xl text-lg md:text-xl text-slate-200 mb-10 drop-shadow">
             Platform pariwisata ekologis pintar dan dasbor pemantauan geotermal masa depan untuk kawasan Suoh.
           </p>
         </motion.div>
@@ -43,22 +57,25 @@ export default function Home() {
           transition={{ delay: 0.8, duration: 0.5 }}
           className="flex flex-wrap justify-center gap-4"
         >
-          <a href="#explorer" className="px-8 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-full shadow-lg shadow-emerald-600/30 transition-all">
+          <a href="#explorer" className="px-8 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-full shadow-lg shadow-emerald-900/50 transition-all border border-emerald-500">
             Mulai Eksplorasi
           </a>
-          <a href="#dashboard" className="px-8 py-3 bg-white hover:bg-slate-100 border border-slate-300 text-slate-700 font-semibold rounded-full shadow-sm transition-all cursor-pointer">
+          {/* Tombol kedua dibuat efek kaca (glassmorphism) transparan agar menyatu dengan foto */}
+          <a href="#dashboard" className="px-8 py-3 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold rounded-full shadow-sm transition-all cursor-pointer">
             Lihat Dasbor
           </a>
         </motion.div>
       </div>
 
-      {/* Bagian Peta Interaktif (Baru ditambahkan) */}
-      <div className="relative z-10 bg-slate-50">
+      {/* Bagian Peta Interaktif */}
+      {/* Tambahan: print:hidden agar peta 3D tidak ikut di-print */}
+      <div className="relative z-10 bg-slate-50 print:hidden">
         <AerialExplorer />
       </div>
 
       {/* Bagian Dasbor Sensor */}
-      <div className="relative z-10 bg-slate-50">
+      {/* INI SATU-SATUNYA BAGIAN YANG AKAN DITAMPILKAN DI PDF */}
+      <div className="relative z-10 bg-slate-50 print:bg-white print:m-0 print:p-0">
         <Dashboard />
       </div>
 

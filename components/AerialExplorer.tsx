@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Info, Navigation, MousePointer2, Thermometer, Droplets, Wind, Wifi, BatteryMedium, Compass, Crosshair } from "lucide-react";
+import { X, Info, Navigation, MousePointer2, Thermometer, Droplets, Wind, Wifi, BatteryMedium, Compass, Crosshair, Power } from "lucide-react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
@@ -72,8 +72,10 @@ export default function AerialExplorer() {
   const [selectedLoc, setSelectedLoc] = useState<typeof locations[0] | null>(null);
   const [isRotating, setIsRotating] = useState(true);
   
-  // STATE BARU: Menyimpan koordinat LIVE dari kamera Mapbox
   const [liveCoords, setLiveCoords] = useState({ lng: 104.2690, lat: -5.2430 });
+  
+  // FITUR BARU: State untuk menyimpan status Kamera Thermal (On/Off)
+  const [isThermalMode, setIsThermalMode] = useState(false);
   
   const isRotatingRef = useRef(true);
   const startRotationRef = useRef<(() => void) | null>(null);
@@ -186,7 +188,6 @@ export default function AerialExplorer() {
         });
       });
 
-      // EVENT LISTENER BARU: Mengambil koordinat setiap kali kamera bergerak
       map.on("move", () => {
         setLiveCoords({
           lng: map.getCenter().lng,
@@ -223,10 +224,18 @@ export default function AerialExplorer() {
         <p className="text-slate-600">Pemetaan satelit 3D interaktif kawasan Kecamatan Suoh, Lampung Barat. Tahan klik kanan (Right-Click) untuk memutar.</p>
       </div>
 
-      <div className="relative w-full h-[600px] bg-slate-200 rounded-3xl overflow-hidden border-4 border-white shadow-xl">
-        <div ref={mapContainer} className="absolute inset-0 w-full h-full" />
+      <div className="relative w-full h-[600px] bg-slate-900 rounded-3xl overflow-hidden border-4 border-slate-800 shadow-xl">
+        
+        {/* KONTINER PETA: Ditambahkan transisi filter CSS untuk Mode Thermal */}
+        <div 
+          ref={mapContainer} 
+          className={`absolute inset-0 w-full h-full transition-all duration-[1500ms] ease-in-out ${
+            isThermalMode 
+              ? "hue-rotate-[220deg] saturate-[3] contrast-125 invert-[0.1]" 
+              : ""
+          }`} 
+        />
 
-        {/* === FITUR BARU: HUD TELEMETRI (BAR ATAS) === */}
         <div className="absolute top-0 left-0 w-full bg-slate-900/85 backdrop-blur-md border-b border-emerald-500/30 text-emerald-400 font-mono text-[10px] sm:text-xs z-10 px-4 py-2 flex flex-wrap justify-between items-center shadow-lg shadow-emerald-900/20">
           <div className="flex items-center gap-4">
             <span className="flex items-center gap-1.5 font-bold tracking-wider text-emerald-300">
@@ -239,16 +248,13 @@ export default function AerialExplorer() {
           <div className="flex items-center gap-4 text-emerald-200">
             <span className="hidden sm:inline-block">ALT: 450m ASL</span>
             <span className="hidden sm:inline-block">SPD: 12 m/s</span>
-            {/* KOORDINAT LIVE YANG BERGERAK */}
             <span className="bg-emerald-900/50 px-2 py-1 rounded border border-emerald-700/50 flex items-center gap-2">
               <Compass size={14} className="text-emerald-400" />
               LAT: {liveCoords.lat.toFixed(5)} | LNG: {liveCoords.lng.toFixed(5)}
             </span>
           </div>
         </div>
-        {/* ============================================== */}
 
-        {/* Indikator Autopilot sekarang pindah agak ke bawah (top-12) agar tidak tertutup HUD */}
         <div className="absolute top-12 left-4 pointer-events-none z-10 flex flex-col gap-2 mt-2">
           <p className="bg-slate-900/70 backdrop-blur-md text-emerald-400 font-mono text-sm px-3 py-1.5 rounded-lg flex items-center gap-2 border border-emerald-500/30 shadow-lg">
             <Navigation size={16} className={isRotating ? "animate-spin" : ""} /> 
@@ -260,6 +266,37 @@ export default function AerialExplorer() {
              </p>
           )}
         </div>
+
+        {/* === KOTAK KAMERA THERMAL SEKARANG BISA DIKLIK === */}
+        <div 
+          onClick={() => setIsThermalMode(!isThermalMode)}
+          className={`absolute bottom-4 left-4 z-10 w-36 sm:w-48 h-24 sm:h-32 bg-slate-900 border ${isThermalMode ? 'border-emerald-500 shadow-emerald-900/50' : 'border-rose-500/50 shadow-rose-900/20'} rounded-lg overflow-hidden shadow-lg cursor-pointer hover:scale-105 transition-all group`}
+        >
+          <div className="absolute top-1.5 left-2 flex items-center gap-1.5 z-20">
+            <div className={`w-2 h-2 rounded-full animate-pulse ${isThermalMode ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]' : 'bg-rose-500 shadow-[0_0_8px_rgba(244,63,94,0.8)]'}`}></div>
+            <span className="text-[9px] sm:text-[10px] font-mono font-bold text-white tracking-wider drop-shadow-md">
+              {isThermalMode ? 'THERMAL ON' : 'REC / THERMAL'}
+            </span>
+          </div>
+          
+          <div className="w-full h-full bg-gradient-to-br from-indigo-900 via-rose-600 to-amber-400 opacity-60 animate-pulse"></div>
+          
+          <div className="absolute inset-0 flex items-center justify-center opacity-40">
+            <div className="w-8 h-8 border border-white rounded-full flex items-center justify-center">
+              <div className="w-1 h-1 bg-white rounded-full"></div>
+            </div>
+          </div>
+          <div className="absolute top-0 left-0 w-full h-[2px] bg-white/20 animate-[ping_3s_ease-in-out_infinite]"></div>
+
+          {/* Overlay Instruksi Klik */}
+          <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center backdrop-blur-sm z-30">
+            <Power size={24} className={isThermalMode ? 'text-rose-400 mb-1' : 'text-emerald-400 mb-1'} />
+            <span className="text-white text-[10px] font-bold tracking-widest text-center px-2">
+              {isThermalMode ? 'MATIKAN THERMAL' : 'AKTIFKAN THERMAL'}
+            </span>
+          </div>
+        </div>
+        {/* ================================================== */}
 
         <div className="absolute bottom-4 right-4 pointer-events-none z-10 text-white bg-slate-900/60 px-3 py-2 rounded-lg backdrop-blur text-xs flex items-center gap-2 border border-slate-700 shadow-lg">
           <MousePointer2 size={14} /> Drag: Geser | Scroll: Zoom | Klik Kanan: Putar 3D

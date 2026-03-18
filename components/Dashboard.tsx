@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Thermometer, Wind, AlertTriangle, Activity, Droplets } from "lucide-react";
+import { Thermometer, Wind, AlertTriangle, Activity, Droplets, Printer } from "lucide-react";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 // Data simulasi grafik fluktuasi harian
@@ -49,76 +49,98 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <section className="py-20 px-4 max-w-7xl mx-auto" id="dashboard">
-      <div className="mb-12 text-center">
-        <h2 className="text-3xl font-bold text-slate-900 mb-4">Real-Time Eco-Monitor</h2>
-        <p className="text-slate-600">Pemantauan data satelit dan sensor geotermal kawasan Kecamatan Suoh, Lampung Barat.</p>
-        <p className="text-xs text-emerald-600 mt-2 font-mono bg-emerald-50 inline-block px-3 py-1 rounded-full border border-emerald-100">
-          Last API Sync: {lastUpdate}
-        </p>
+    <section className="py-20 px-4 max-w-7xl mx-auto print:py-4 print:px-0 print:max-w-none" id="dashboard">
+      
+      {/* === CSS TAMBAHAN KHUSUS UNTUK MEMAKSA TAMPILAN PRINT === */}
+      <style dangerouslySetInnerHTML={{__html: `
+        @media print {
+          /* Memaksa kertas landscape dan memberikan margin agar rapi */
+          @page { size: landscape; margin: 10mm; }
+          /* Memaksa background color tetap dicetak (tidak jadi putih semua) */
+          body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        }
+      `}} />
+      
+      <div className="mb-12 flex flex-col items-center justify-center text-center relative print:mb-6">
+        <h2 className="text-3xl font-bold text-slate-900 mb-4 print:mb-2">Real-Time Eco-Monitor</h2>
+        <p className="text-slate-600 max-w-2xl print:text-sm">Pemantauan data satelit dan sensor geotermal kawasan Kecamatan Suoh, Lampung Barat.</p>
+        
+        <div className="mt-6 flex flex-col sm:flex-row items-center gap-4 print:mt-3">
+          <p className="text-xs text-emerald-600 font-mono bg-emerald-50 inline-block px-3 py-2 rounded-full border border-emerald-100 print:px-2 print:py-1">
+            Last API Sync: {lastUpdate}
+          </p>
+          
+          <button 
+            onClick={() => window.print()} 
+            className="print:hidden flex items-center gap-2 px-5 py-2 bg-slate-900 text-white text-sm font-semibold rounded-full hover:bg-slate-800 hover:scale-105 transition-all shadow-lg shadow-slate-900/20"
+          >
+            <Printer size={16} /> Unduh Laporan PDF
+          </button>
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      {/* Tambahan class print:* agar grid tetap 3 kolom seperti di desktop saat dicetak */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 print:grid print:grid-cols-3 print:gap-4 print:w-full">
         
         {/* Kolom Kiri: Panel Kartu Sensor */}
-        <div className="lg:col-span-1 space-y-4">
+        <div className="lg:col-span-1 space-y-4 print:col-span-1 print:space-y-3">
           
-          {/* KARTU 1: SUHU UDARA (DATA API ASLI) */}
-          <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-start gap-4 hover:shadow-md transition-all">
-            <div className="p-3 bg-rose-50 rounded-xl text-rose-500">
-              <Thermometer size={28} />
+          {/* KARTU 1 */}
+          <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-start gap-4 hover:shadow-md transition-all print:p-4 print:shadow-none">
+            <div className="p-3 bg-rose-50 rounded-xl text-rose-500 print:p-2">
+              <Thermometer size={28} className="print:w-6 print:h-6" />
             </div>
             <div>
-              <p className="text-sm font-medium text-slate-500">Suhu Permukaan (Live)</p>
+              <p className="text-sm font-medium text-slate-500 print:text-xs">Suhu Permukaan (Live)</p>
               <div className="flex items-end gap-2">
-                <h3 className="text-3xl font-bold text-slate-800">{realTemp}</h3>
-                <span className="text-lg font-bold text-slate-400 mb-1">°C</span>
+                <h3 className="text-3xl font-bold text-slate-800 print:text-2xl">{realTemp}</h3>
+                <span className="text-lg font-bold text-slate-400 mb-1 print:text-sm">°C</span>
               </div>
               <p className="text-xs text-emerald-600 mt-1 font-medium bg-emerald-50 inline-block px-2 py-0.5 rounded">Satelit: Open-Meteo</p>
             </div>
           </div>
 
-          {/* KARTU 2: ANGIN (DATA API ASLI) */}
-          <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-start gap-4 hover:shadow-md transition-all">
-            <div className="p-3 bg-sky-50 rounded-xl text-sky-500">
-              <Wind size={28} />
+          {/* KARTU 2 */}
+          <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-start gap-4 hover:shadow-md transition-all print:p-4 print:shadow-none">
+            <div className="p-3 bg-sky-50 rounded-xl text-sky-500 print:p-2">
+              <Wind size={28} className="print:w-6 print:h-6" />
             </div>
             <div>
-              <p className="text-sm font-medium text-slate-500">Kecepatan Angin (Live)</p>
+              <p className="text-sm font-medium text-slate-500 print:text-xs">Kecepatan Angin (Live)</p>
               <div className="flex items-end gap-2">
-                <h3 className="text-3xl font-bold text-slate-800">{realWind}</h3>
-                <span className="text-sm font-bold text-slate-400 mb-1.5">km/h</span>
+                <h3 className="text-3xl font-bold text-slate-800 print:text-2xl">{realWind}</h3>
+                <span className="text-sm font-bold text-slate-400 mb-1.5 print:text-xs">km/h</span>
               </div>
               <p className="text-xs text-slate-500 mt-1">Mempengaruhi sebaran gas kawah.</p>
             </div>
           </div>
 
-          {/* KARTU 3: GAS H2S (SIMULASI SENSOR LOKAL) */}
-          <div className="bg-white p-6 rounded-2xl border border-amber-200 shadow-sm flex items-start gap-4 relative overflow-hidden">
+          {/* KARTU 3 */}
+          <div className="bg-white p-6 rounded-2xl border border-amber-200 shadow-sm flex items-start gap-4 relative overflow-hidden print:p-4 print:shadow-none print:border-amber-300">
             <div className="absolute top-0 right-0 w-16 h-16 bg-amber-100 rounded-bl-full -z-10 opacity-50"></div>
-            <div className="p-3 bg-amber-100 rounded-xl text-amber-600">
-              <AlertTriangle size={28} />
+            <div className="p-3 bg-amber-100 rounded-xl text-amber-600 print:p-2">
+              <AlertTriangle size={28} className="print:w-6 print:h-6" />
             </div>
             <div>
-              <p className="text-sm font-medium text-slate-500">Gas Belerang (H2S)</p>
+              <p className="text-sm font-medium text-slate-500 print:text-xs">Gas Belerang (H2S)</p>
               <div className="flex items-end gap-2">
-                <h3 className="text-3xl font-bold text-slate-800">45</h3>
-                <span className="text-sm font-bold text-slate-400 mb-1.5">ppm</span>
+                <h3 className="text-3xl font-bold text-slate-800 print:text-2xl">45</h3>
+                <span className="text-sm font-bold text-slate-400 mb-1.5 print:text-xs">ppm</span>
               </div>
               <p className="text-xs text-amber-600 mt-1 font-bold">Waspada: Kawah Nirwana</p>
             </div>
           </div>
 
-          {/* KARTU 4: pH AIR (SIMULASI SENSOR LOKAL) */}
-          <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-start gap-4">
-            <div className="p-3 bg-emerald-50 rounded-xl text-emerald-500">
-              <Droplets size={28} />
+          {/* KARTU 4 */}
+          <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-start gap-4 print:p-4 print:shadow-none">
+            <div className="p-3 bg-emerald-50 rounded-xl text-emerald-500 print:p-2">
+              <Droplets size={28} className="print:w-6 print:h-6" />
             </div>
             <div>
-              <p className="text-sm font-medium text-slate-500">Keasaman Air (pH)</p>
+              <p className="text-sm font-medium text-slate-500 print:text-xs">Keasaman Air (pH)</p>
               <div className="flex items-end gap-2">
-                <h3 className="text-3xl font-bold text-slate-800">2.1</h3>
-                <span className="text-sm font-bold text-slate-400 mb-1.5">pH</span>
+                <h3 className="text-3xl font-bold text-slate-800 print:text-2xl">2.1</h3>
+                <span className="text-sm font-bold text-slate-400 mb-1.5 print:text-xs">pH</span>
               </div>
               <p className="text-xs text-emerald-600 mt-1 font-bold">Danau Asam (Tinggi)</p>
             </div>
@@ -126,14 +148,14 @@ export default function Dashboard() {
 
         </div>
 
-        {/* Kolom Kanan: Grafik Aktivitas Geotermal */}
-        <div className="lg:col-span-2 bg-white p-6 md:p-8 rounded-2xl border border-slate-200 shadow-sm flex flex-col">
-          <div className="flex items-center gap-3 mb-8 border-b border-slate-100 pb-4">
+        {/* Kolom Kanan: Grafik Aktivitas Geotermal (Memaksa grafik tidak terpotong halaman baru dengan break-inside-avoid) */}
+        <div className="lg:col-span-2 bg-white p-6 md:p-8 rounded-2xl border border-slate-200 shadow-sm flex flex-col print:col-span-2 print:p-6 print:shadow-none print:border-slate-300 print:break-inside-avoid">
+          <div className="flex items-center gap-3 mb-8 border-b border-slate-100 pb-4 print:mb-4 print:pb-2">
             <Activity className="text-emerald-500" size={24} />
-            <h3 className="text-xl font-bold text-slate-800">Tren Aktivitas Geotermal & Emisi Gas</h3>
+            <h3 className="text-xl font-bold text-slate-800 print:text-lg">Tren Aktivitas Geotermal & Emisi Gas</h3>
           </div>
           
-          <div className="flex-grow w-full h-[300px] min-h-[300px]">
+          <div className="flex-grow w-full h-[300px] min-h-[300px] print:h-[450px]">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                 <defs>
@@ -158,7 +180,7 @@ export default function Dashboard() {
               </AreaChart>
             </ResponsiveContainer>
           </div>
-          <div className="mt-4 flex flex-wrap gap-4 justify-center text-xs font-medium text-slate-500">
+          <div className="mt-4 flex flex-wrap gap-4 justify-center text-xs font-medium text-slate-500 print:mt-2">
             <div className="flex items-center gap-2"><span className="w-3 h-3 rounded-full bg-amber-500"></span> Gas Belerang (Kawah Nirwana)</div>
             <div className="flex items-center gap-2"><span className="w-3 h-3 rounded-full bg-emerald-500"></span> Getaran Gempa Mikro (Seismik)</div>
           </div>
