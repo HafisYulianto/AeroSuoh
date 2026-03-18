@@ -33,7 +33,7 @@ export default function Home() {
           transition={{ delay: 0.5, duration: 1 }}
         >
           <p className="max-w-2xl text-lg md:text-xl text-slate-600 mb-10">
-            Platform pariwisata ekologis pintar dan dasbor pemantauan geotermal masa depan untuk kawasan Suoh dan BNS.
+            Platform pariwisata ekologis pintar dan dasbor pemantauan geotermal masa depan untuk kawasan Suoh.
           </p>
         </motion.div>
 

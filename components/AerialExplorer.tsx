@@ -220,7 +220,7 @@ export default function AerialExplorer() {
     <section className="py-20 px-4 max-w-7xl mx-auto" id="explorer">
       <div className="mb-10 text-center">
         <h2 className="text-3xl font-bold text-slate-900 mb-4">Live 3D Aerial Explorer</h2>
-        <p className="text-slate-600">Pemetaan satelit 3D interaktif kawasan Bandar Negeri Suoh. Tahan klik kanan (Right-Click) untuk memutar.</p>
+        <p className="text-slate-600">Pemetaan satelit 3D interaktif kawasan Kecamatan Suoh, Lampung Barat. Tahan klik kanan (Right-Click) untuk memutar.</p>
       </div>
 
       <div className="relative w-full h-[600px] bg-slate-200 rounded-3xl overflow-hidden border-4 border-white shadow-xl">
