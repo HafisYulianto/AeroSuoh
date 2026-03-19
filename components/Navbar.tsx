@@ -2,7 +2,8 @@ import { Map, Activity, Home } from "lucide-react";
 
 export default function Navbar() {
   return (
-    <nav className="fixed top-0 w-full z-50 bg-emerald-950 shadow-lg">
+    // UBAHAN: bg-emerald-950 diganti menjadi bg-[#013220] agar sama dengan Footer
+    <nav className="fixed top-0 w-full z-50 bg-[#013220] shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="flex items-center justify-between h-20">

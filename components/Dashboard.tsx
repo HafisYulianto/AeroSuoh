@@ -155,7 +155,7 @@ export default function Dashboard() {
             <h3 className="text-xl font-bold text-slate-800 print:text-lg">Tren Aktivitas Geotermal & Emisi Gas</h3>
           </div>
           
-          <div className="flex-grow w-full h-[300px] min-h-[300px] print:h-[450px]">
+          <div className="grow w-full h-75 min-h-75 print:h-112.5">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                 <defs>

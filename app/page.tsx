@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Navbar from "../components/Navbar";
 import Dashboard from "../components/Dashboard";
 import AerialExplorer from "../components/AerialExplorer"; // Import komponen baru
+import Footer from "../components/Footer"; // === TAMBAHAN: Import komponen Footer ===
 
 export default function Home() {
   return (
@@ -34,7 +35,7 @@ export default function Home() {
           <h1 className="text-5xl md:text-7xl font-extrabold mb-6 tracking-tight text-white drop-shadow-md">
             Menjaga Harta Karun <br />
             {/* Gradien dicerahkan sedikit agar lebih menyala di layar gelap */}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-amber-400">
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-emerald-400 to-amber-400">
               Lampung Barat
             </span>
           </h1>
@@ -78,6 +79,9 @@ export default function Home() {
       <div className="relative z-10 bg-slate-50 print:bg-white print:m-0 print:p-0">
         <Dashboard />
       </div>
+
+      {/* === TAMBAHAN: Memanggil Footer di paling bawah === */}
+      <Footer />
 
     </main>
   );

@@ -224,14 +224,14 @@ export default function AerialExplorer() {
         <p className="text-slate-600">Pemetaan satelit 3D interaktif kawasan Kecamatan Suoh, Lampung Barat. Tahan klik kanan (Right-Click) untuk memutar.</p>
       </div>
 
-      <div className="relative w-full h-[600px] bg-slate-900 rounded-3xl overflow-hidden border-4 border-slate-800 shadow-xl">
+      <div className="relative w-full h-150 bg-slate-900 rounded-3xl overflow-hidden border-4 border-slate-800 shadow-xl">
         
         {/* KONTINER PETA: Ditambahkan transisi filter CSS untuk Mode Thermal */}
         <div 
           ref={mapContainer} 
-          className={`absolute inset-0 w-full h-full transition-all duration-[1500ms] ease-in-out ${
+          className={`absolute inset-0 w-full h-full transition-all duration-1500 ease-in-out ${
             isThermalMode 
-              ? "hue-rotate-[220deg] saturate-[3] contrast-125 invert-[0.1]" 
+              ? "hue-rotate-220 saturate-[3] contrast-125 invert-[0.1]" 
               : ""
           }`} 
         />
@@ -279,14 +279,14 @@ export default function AerialExplorer() {
             </span>
           </div>
           
-          <div className="w-full h-full bg-gradient-to-br from-indigo-900 via-rose-600 to-amber-400 opacity-60 animate-pulse"></div>
+          <div className="w-full h-full bg-linear-to-br from-indigo-900 via-rose-600 to-amber-400 opacity-60 animate-pulse"></div>
           
           <div className="absolute inset-0 flex items-center justify-center opacity-40">
             <div className="w-8 h-8 border border-white rounded-full flex items-center justify-center">
               <div className="w-1 h-1 bg-white rounded-full"></div>
             </div>
           </div>
-          <div className="absolute top-0 left-0 w-full h-[2px] bg-white/20 animate-[ping_3s_ease-in-out_infinite]"></div>
+          <div className="absolute top-0 left-0 w-full h-0.5 bg-white/20 animate-[ping_3s_ease-in-out_infinite]"></div>
 
           {/* Overlay Instruksi Klik */}
           <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center backdrop-blur-sm z-30">
@@ -348,7 +348,7 @@ export default function AerialExplorer() {
               
               <div className="p-3 bg-slate-50 rounded-lg border border-slate-100">
                 <p className="text-sm text-slate-700 leading-relaxed flex items-start gap-2">
-                  <Info size={16} className="mt-0.5 flex-shrink-0 text-amber-500" />
+                  <Info size={16} className="mt-0.5 shrink-0 text-amber-500" />
                   {selectedLoc.desc}
                 </p>
               </div>
