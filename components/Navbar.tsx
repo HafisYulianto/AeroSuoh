@@ -1,4 +1,4 @@
-import { Map, Activity, Home } from "lucide-react";
+import { Map, Activity, Home, Camera } from "lucide-react"; // === TAMBAHAN: Import ikon Camera ===
 
 export default function Navbar() {
   return (
@@ -22,6 +22,12 @@ export default function Navbar() {
             <a href="#home" className="flex items-center gap-2 text-emerald-100 hover:text-white hover:scale-105 transition-all font-medium">
               <Home size={20} /> 
               <span className="hidden sm:block">Beranda</span>
+            </a>
+
+            {/* === TAMBAHAN MENU BARU: Mengarah ke id="gallery" di PhotoSlider === */}
+            <a href="#gallery" className="flex items-center gap-2 text-emerald-100 hover:text-white hover:scale-105 transition-all font-medium">
+              <Camera size={20} /> 
+              <span className="hidden sm:block">Pesona Suoh</span>
             </a>
 
             <a href="#explorer" className="flex items-center gap-2 text-emerald-100 hover:text-white hover:scale-105 transition-all font-medium">

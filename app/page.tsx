@@ -3,8 +3,10 @@
 import { motion } from "framer-motion";
 import Navbar from "../components/Navbar";
 import Dashboard from "../components/Dashboard";
-import AerialExplorer from "../components/AerialExplorer"; // Import komponen baru
-import Footer from "../components/Footer"; // === TAMBAHAN: Import komponen Footer ===
+import AerialExplorer from "../components/AerialExplorer"; 
+import Footer from "../components/Footer"; 
+// === TAMBAHAN: Import komponen PhotoSlider ===
+import PhotoSlider from "../components/PhotoSlider";
 
 export default function Home() {
   return (
@@ -68,9 +70,15 @@ export default function Home() {
         </motion.div>
       </div>
 
+      {/* === TAMBAHAN: Bagian Slider Foto Pesona Suoh === */}
+      {/* z-10 agar berada di atas background, print:hidden agar tidak ikut di-print */}
+      <div className="relative z-10 print:hidden">
+        <PhotoSlider />
+      </div>
+
       {/* Bagian Peta Interaktif */}
-      {/* Tambahan: print:hidden agar peta 3D tidak ikut di-print */}
-      <div className="relative z-10 bg-slate-50 print:hidden">
+      {/* UBAHAN: bg-slate-50 diubah jadi bg-slate-100 dan ditambah border-b serta shadow-inner */}
+      <div className="relative z-10 bg-slate-100 border-b border-slate-200 shadow-inner print:hidden">
         <AerialExplorer />
       </div>
 
@@ -80,7 +88,7 @@ export default function Home() {
         <Dashboard />
       </div>
 
-      {/* === TAMBAHAN: Memanggil Footer di paling bawah === */}
+      {/* === Memanggil Footer di paling bawah === */}
       <Footer />
 
     </main>
