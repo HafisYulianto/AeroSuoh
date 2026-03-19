@@ -8,10 +8,15 @@ import Footer from "../components/Footer";
 import PhotoSlider from "../components/PhotoSlider";
 import SafetyGuide from "../components/SafetyGuide";
 import GeothermalParticles from "../components/GeothermalParticles";
-// === TAMBAHAN: Import komponen Audio ===
 import AudioButton from "../components/AudioButton";
 
+// === TAMBAHAN: Import context bahasa global kita ===
+import { useLanguage } from "../context/LanguageContext";
+
 export default function Home() {
+  // === Panggil kekuatan Global State dan kamus terjemahan (fungsi 't') ===
+  const { t } = useLanguage();
+
   return (
     <main className="min-h-screen bg-slate-50 text-slate-900 relative overflow-x-hidden print:bg-white">
       
@@ -39,10 +44,11 @@ export default function Home() {
           transition={{ duration: 1 }}
           className="relative z-10" 
         >
+          {/* === TEKS DINAMIS MENGGUNAKAN KAMUS TERJEMAHAN === */}
           <h1 className="text-5xl md:text-7xl font-extrabold mb-6 tracking-tight text-white drop-shadow-md">
-            Menjaga Harta Karun <br />
+            {t("hero_title_1")} <br />
             <span className="text-transparent bg-clip-text bg-linear-to-r from-emerald-400 to-amber-400">
-              Lampung Barat
+              {t("hero_title_2")}
             </span>
           </h1>
         </motion.div>
@@ -53,8 +59,9 @@ export default function Home() {
           transition={{ delay: 0.5, duration: 1 }}
           className="relative z-10" 
         >
+          {/* === TEKS DINAMIS MENGGUNAKAN KAMUS TERJEMAHAN === */}
           <p className="max-w-2xl text-lg md:text-xl text-slate-200 mb-10 drop-shadow">
-            Platform pariwisata ekologis pintar dan dasbor pemantauan geotermal masa depan untuk kawasan Suoh.
+            {t("hero_desc")}
           </p>
         </motion.div>
 
@@ -64,11 +71,12 @@ export default function Home() {
           transition={{ delay: 0.8, duration: 0.5 }}
           className="relative z-10 flex flex-wrap justify-center gap-4" 
         >
+          {/* === TEKS DINAMIS MENGGUNAKAN KAMUS TERJEMAHAN === */}
           <a href="#explorer" className="px-8 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-full shadow-lg shadow-emerald-900/50 transition-all border border-emerald-500">
-            Mulai Eksplorasi
+            {t("hero_btn_1")}
           </a>
           <a href="#dashboard" className="px-8 py-3 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold rounded-full shadow-sm transition-all cursor-pointer">
-            Lihat Dasbor
+            {t("hero_btn_2")}
           </a>
         </motion.div>
       </div>

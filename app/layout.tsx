@@ -1,39 +1,45 @@
-  import type { Metadata } from "next";
-  import { Geist, Geist_Mono } from "next/font/google";
-  import "./globals.css";
+import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
+import "./globals.css";
 
-  const geistSans = Geist({
-    variable: "--font-geist-sans",
-    subsets: ["latin"],
-  });
+// === TAMBAHAN: Import LanguageProvider dari folder context ===
+import { LanguageProvider } from "../context/LanguageContext";
 
-  const geistMono = Geist_Mono({
-    variable: "--font-geist-mono",
-    subsets: ["latin"],
-  });
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
 
-  // === BAGIAN METADATA YANG DIPERBARUI ===
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+// === BAGIAN METADATA YANG DIPERBARUI ===
 export const metadata: Metadata = {
   title: "AeroSuoh | Geothermal Eco-Monitor",
   description: "Platform pariwisata ekologis pintar dan dasbor pemantauan geotermal masa depan untuk kawasan Suoh, Lampung Barat.",
   icons: {
-    icon: "/logo-aerosuoh2.png", // HAPUS kata 'public' dan gunakan garis miring '/'
+    icon: "/logo-aerosuoh2.png",
   },
 };
 // ======================================
 
-  export default function RootLayout({
-    children,
-  }: Readonly<{
-    children: React.ReactNode;
-  }>) {
-    return (
-      <html lang="id" className="scroll-smooth">
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="id" className="scroll-smooth">
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        {/* === BUNGKUS SELURUH APLIKASI DENGAN PROVIDER BAHASA === */}
+        <LanguageProvider>
           {children}
-        </body>
-      </html>
-    );
-  }
+        </LanguageProvider>
+      </body>
+    </html>
+  );
+}
