@@ -8,6 +8,8 @@ import Footer from "../components/Footer";
 import PhotoSlider from "../components/PhotoSlider";
 import SafetyGuide from "../components/SafetyGuide";
 import GeothermalParticles from "../components/GeothermalParticles";
+// === TAMBAHAN: Import komponen Audio ===
+import AudioButton from "../components/AudioButton";
 
 export default function Home() {
   return (
@@ -26,8 +28,8 @@ export default function Home() {
         {/* Overlay Gelap */}
         <div className="absolute inset-0 bg-slate-900/70 -z-10"></div>
         
-        {/* === EFEK UAP MERAH DI SINI === */}
-        <div className="absolute inset-0 z-0"> {/* Wrapper div untuk z-index */}
+        {/* === EFEK UAP PANAS BUMI === */}
+        <div className="absolute inset-0 z-0"> 
           <GeothermalParticles />
         </div>
         
@@ -35,7 +37,7 @@ export default function Home() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="relative z-10" // Harus z-10 agar di depan uap merah
+          className="relative z-10" 
         >
           <h1 className="text-5xl md:text-7xl font-extrabold mb-6 tracking-tight text-white drop-shadow-md">
             Menjaga Harta Karun <br />
@@ -49,7 +51,7 @@ export default function Home() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5, duration: 1 }}
-          className="relative z-10" // Harus z-10
+          className="relative z-10" 
         >
           <p className="max-w-2xl text-lg md:text-xl text-slate-200 mb-10 drop-shadow">
             Platform pariwisata ekologis pintar dan dasbor pemantauan geotermal masa depan untuk kawasan Suoh.
@@ -60,7 +62,7 @@ export default function Home() {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.8, duration: 0.5 }}
-          className="relative z-10 flex flex-wrap justify-center gap-4" // Harus z-10
+          className="relative z-10 flex flex-wrap justify-center gap-4" 
         >
           <a href="#explorer" className="px-8 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-full shadow-lg shadow-emerald-900/50 transition-all border border-emerald-500">
             Mulai Eksplorasi
@@ -114,6 +116,9 @@ export default function Home() {
       >
         <Dashboard />
       </motion.div>
+
+      {/* === SENJATA RAHASIA #1: AUDIO IMERSIF === */}
+      <AudioButton />
 
       <Footer />
 
