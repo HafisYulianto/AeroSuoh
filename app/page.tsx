@@ -6,38 +6,39 @@ import Dashboard from "../components/Dashboard";
 import AerialExplorer from "../components/AerialExplorer"; 
 import Footer from "../components/Footer"; 
 import PhotoSlider from "../components/PhotoSlider";
-// === TAMBAHAN: Import komponen SafetyGuide ===
 import SafetyGuide from "../components/SafetyGuide";
+import GeothermalParticles from "../components/GeothermalParticles";
 
 export default function Home() {
   return (
-    // Tambahan: print:bg-white agar background kertas putih bersih saat dicetak
     <main className="min-h-screen bg-slate-50 text-slate-900 relative overflow-x-hidden print:bg-white">
       
-      {/* Tambahan: Bungkus Navbar dengan print:hidden agar tidak ikut tercetak */}
       <div className="print:hidden">
         <Navbar />
       </div>
       
-      {/* Hero Section dengan Background Foto */}
-      {/* Tambahan: Tambahkan print:hidden di className Hero */}
+      {/* Hero Section */}
       <div 
         id="home" 
         className="relative min-h-screen flex flex-col items-center justify-center px-4 text-center z-10 pt-16 bg-cover bg-center bg-no-repeat print:hidden"
         style={{ backgroundImage: "url('/hero-suoh.png')" }}
       >
-        {/* Overlay Gelap agar teks dan foto sama-sama terlihat jelas */}
+        {/* Overlay Gelap */}
         <div className="absolute inset-0 bg-slate-900/70 -z-10"></div>
+        
+        {/* === EFEK UAP MERAH DI SINI === */}
+        <div className="absolute inset-0 z-0"> {/* Wrapper div untuk z-index */}
+          <GeothermalParticles />
+        </div>
         
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
+          className="relative z-10" // Harus z-10 agar di depan uap merah
         >
-          {/* Warna teks diubah menjadi text-white agar kontras dengan background gelap */}
           <h1 className="text-5xl md:text-7xl font-extrabold mb-6 tracking-tight text-white drop-shadow-md">
             Menjaga Harta Karun <br />
-            {/* Gradien dicerahkan sedikit agar lebih menyala di layar gelap */}
             <span className="text-transparent bg-clip-text bg-linear-to-r from-emerald-400 to-amber-400">
               Lampung Barat
             </span>
@@ -48,8 +49,8 @@ export default function Home() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5, duration: 1 }}
+          className="relative z-10" // Harus z-10
         >
-          {/* Warna teks deskripsi diubah menjadi text-slate-200 */}
           <p className="max-w-2xl text-lg md:text-xl text-slate-200 mb-10 drop-shadow">
             Platform pariwisata ekologis pintar dan dasbor pemantauan geotermal masa depan untuk kawasan Suoh.
           </p>
@@ -59,40 +60,61 @@ export default function Home() {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.8, duration: 0.5 }}
-          className="flex flex-wrap justify-center gap-4"
+          className="relative z-10 flex flex-wrap justify-center gap-4" // Harus z-10
         >
           <a href="#explorer" className="px-8 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-full shadow-lg shadow-emerald-900/50 transition-all border border-emerald-500">
             Mulai Eksplorasi
           </a>
-          {/* Tombol kedua dibuat efek kaca (glassmorphism) transparan agar menyatu dengan foto */}
           <a href="#dashboard" className="px-8 py-3 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold rounded-full shadow-sm transition-all cursor-pointer">
             Lihat Dasbor
           </a>
         </motion.div>
       </div>
 
-      {/* Bagian Slider Foto Pesona Suoh */}
-      <div className="relative z-10 print:hidden">
+      {/* Animasi Scroll Reveal untuk Slider Foto */}
+      <motion.div 
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.1 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="relative z-10 print:hidden"
+      >
         <PhotoSlider />
-      </div>
+      </motion.div>
 
-      {/* === TAMBAHAN: Bagian Panduan Keselamatan === */}
-      <div className="relative z-10 print:hidden">
+      {/* Animasi Scroll Reveal untuk Panduan Keselamatan */}
+      <motion.div 
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="relative z-10 print:hidden"
+      >
         <SafetyGuide />
-      </div>
+      </motion.div>
 
-      {/* Bagian Peta Interaktif */}
-      <div className="relative z-10 bg-slate-100 border-b border-slate-200 shadow-inner print:hidden">
+      {/* Animasi Scroll Reveal untuk Peta Interaktif */}
+      <motion.div 
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.1 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="relative z-10 bg-slate-100 border-b border-slate-200 shadow-inner print:hidden"
+      >
         <AerialExplorer />
-      </div>
+      </motion.div>
 
-      {/* Bagian Dasbor Sensor */}
-      {/* INI SATU-SATUNYA BAGIAN YANG AKAN DITAMPILKAN DI PDF */}
-      <div className="relative z-10 bg-slate-50 print:bg-white print:m-0 print:p-0">
+      {/* Animasi Scroll Reveal untuk Dasbor Sensor */}
+      <motion.div 
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.1 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="relative z-10 bg-slate-50 print:bg-white print:m-0 print:p-0"
+      >
         <Dashboard />
-      </div>
+      </motion.div>
 
-      {/* Memanggil Footer di paling bawah */}
       <Footer />
 
     </main>
