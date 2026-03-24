@@ -5,76 +5,79 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, Info, Navigation, MousePointer2, Thermometer, Droplets, Wind, Wifi, BatteryMedium, Compass, Crosshair, Power } from "lucide-react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
+// === TAMBAHAN: Import context bahasa global ===
+import { useLanguage } from "../context/LanguageContext";
 
-// --- TOKEN MAPBOX ---
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN || ""; 
 
-const locations = [
+// Menggunakan KEY kamus untuk menerjemahkan data lokasi di Peta
+const mapLocations = [
   {
     id: 1,
-    name: "Danau Asam",
-    type: "Danau Vulkanik",
-    status: "Normal",
+    titleKey: "loc1_title",
+    typeKey: "loc1_type",
+    statusKey: "stat_normal",
     lng: 104.27882688457521, lat: -5.238698319624318,
-    desc: "Danau dengan tingkat keasaman tinggi. Mengandung belerang, sering digunakan sebagai indikator aktivitas vulkanik pasif.",
+    descKey: "loc1_desc",
     sensor: { temp: "42°C", ph: "2.1", sulfur: "12 ppm" }
   },
   {
     id: 2,
-    name: "Danau Lebar",
-    type: "Ekowisata",
-    status: "Aman Dikunjungi",
+    titleKey: "loc2_title",
+    typeKey: "loc2_type",
+    statusKey: "stat_safe1",
     lng: 104.274690, lat: -5.251999,
-    desc: "Kawasan danau air tawar terluas di Suoh. Menjadi pusat aktivitas ekonomi lokal dan penyewaan perahu wisata.",
+    descKey: "loc2_desc",
     sensor: { temp: "26°C", ph: "7.0", sulfur: "0.5 ppm" }
   },
   {
     id: 3,
-    name: "Danau Minyak",
-    type: "Danau Vulkanik",
-    status: "Normal",
+    titleKey: "loc3_title",
+    typeKey: "loc3_type",
+    statusKey: "stat_normal",
     lng: 104.266782, lat: -5.246098,
-    desc: "Permukaan airnya terlihat seperti dilapisi minyak. Memiliki aroma khas dan menjadi salah satu daya tarik unik.",
+    descKey: "loc3_desc",
     sensor: { temp: "35°C", ph: "4.5", sulfur: "8 ppm" }
   },
   {
     id: 4,
-    name: "Pasir Kuning",
-    type: "Area Geotermal",
-    status: "Aman (Patuhi Jalur)",
+    titleKey: "loc4_title",
+    typeKey: "loc4_type",
+    statusKey: "stat_safe2",
     lng: 104.26727197333017, lat: -5.236056616428336,
-    desc: "Hamparan pasir berwarna kuning akibat endapan sulfur (belerang). Spot foto favorit pengunjung namun perlu kehati-hatian.",
+    descKey: "loc4_desc",
     sensor: { temp: "55°C", ph: "3.0", sulfur: "25 ppm" }
   },
   {
     id: 5,
-    name: "Kawah Nirwana",
-    type: "Geotermal Aktif",
-    status: "Waspada (Zona Merah)",
+    titleKey: "loc5_title",
+    typeKey: "loc5_type",
+    statusKey: "stat_warn1",
     lng: 104.25928872886739, lat: -5.237142698064301,
-    desc: "Area manifestasi panas bumi aktif dengan letupan lumpur panas. Suhu permukaan sangat tinggi, perlu pemantauan ketat.",
+    descKey: "loc5_desc",
     sensor: { temp: "95°C", ph: "1.5", sulfur: "85 ppm" }
   },
   {
     id: 6,
-    name: "Kawah Keramikan",
-    type: "Geotermal Aktif",
-    status: "Waspada (Zona Kuning)",
+    titleKey: "loc6_title",
+    typeKey: "loc6_type",
+    statusKey: "stat_warn2",
     lng: 104.2635823976347, lat: -5.239053909820962,
-    desc: "Dataran endapan kawah yang mengeras dan retak menyerupai lantai keramik. Mengeluarkan asap belerang tebal.",
+    descKey: "loc6_desc",
     sensor: { temp: "78°C", ph: "2.8", sulfur: "60 ppm" }
   },
 ];
 
 export default function AerialExplorer() {
+  // === Panggil kekuatan Global State ===
+  const { t } = useLanguage();
+
   const mapContainer = useRef<HTMLDivElement>(null);
   const mapRef = useRef<mapboxgl.Map | null>(null);
-  const [selectedLoc, setSelectedLoc] = useState<typeof locations[0] | null>(null);
+  const [selectedLoc, setSelectedLoc] = useState<typeof mapLocations[0] | null>(null);
   const [isRotating, setIsRotating] = useState(true);
   
   const [liveCoords, setLiveCoords] = useState({ lng: 104.2690, lat: -5.2430 });
-  
-  // FITUR BARU: State untuk menyimpan status Kamera Thermal (On/Off)
   const [isThermalMode, setIsThermalMode] = useState(false);
   
   const isRotatingRef = useRef(true);
@@ -105,8 +108,8 @@ export default function AerialExplorer() {
       });
       map.setTerrain({ source: "mapbox-dem", exaggeration: 1.5 });
 
-      const routeCoordinates = locations.map(loc => [loc.lng, loc.lat]);
-      routeCoordinates.push([locations[0].lng, locations[0].lat]); 
+      const routeCoordinates = mapLocations.map(loc => [loc.lng, loc.lat]);
+      routeCoordinates.push([mapLocations[0].lng, mapLocations[0].lat]); 
 
       map.addSource("flight-path", {
         type: "geojson",
@@ -161,10 +164,11 @@ export default function AerialExplorer() {
         }
       };
 
-      locations.forEach((loc) => {
+      mapLocations.forEach((loc) => {
         const el = document.createElement("div");
         
-        const isKawah = loc.type.includes("Geotermal");
+        // Cek tipe menggunakan terjemahan ID sebagai dasar logika warna
+        const isKawah = loc.typeKey === "loc5_type" || loc.typeKey === "loc6_type" || loc.typeKey === "loc4_type"; 
         const bgColor = isKawah ? "bg-orange-500" : "bg-cyan-500";
         const shadowColor = isKawah ? "shadow-[0_0_15px_rgba(249,115,22,0.8)]" : "shadow-[0_0_15px_rgba(6,182,212,0.8)]";
         
@@ -220,13 +224,12 @@ export default function AerialExplorer() {
   return (
     <section className="py-20 px-4 max-w-7xl mx-auto" id="explorer">
       <div className="mb-10 text-center">
-        <h2 className="text-3xl font-bold text-slate-900 mb-4">Live 3D Aerial Explorer</h2>
-        <p className="text-slate-600">Pemetaan satelit 3D interaktif kawasan Kecamatan Suoh, Lampung Barat. Tahan klik kanan (Right-Click) untuk memutar.</p>
+        <h2 className="text-3xl font-bold text-slate-900 mb-4">{t("map_title")}</h2>
+        <p className="text-slate-600">{t("map_desc")}</p>
       </div>
 
-      <div className="relative w-full h-150 bg-slate-900 rounded-3xl overflow-hidden border-4 border-slate-800 shadow-xl">
+      <div className="relative w-full h-[600px] bg-slate-900 rounded-3xl overflow-hidden border-4 border-slate-800 shadow-xl">
         
-        {/* KONTINER PETA: Ditambahkan transisi filter CSS untuk Mode Thermal */}
         <div 
           ref={mapContainer} 
           className={`absolute inset-0 w-full h-full transition-all duration-1500 ease-in-out ${
@@ -256,18 +259,17 @@ export default function AerialExplorer() {
         </div>
 
         <div className="absolute top-12 left-4 pointer-events-none z-10 flex flex-col gap-2 mt-2">
-          <p className="bg-slate-900/70 backdrop-blur-md text-emerald-400 font-mono text-sm px-3 py-1.5 rounded-lg flex items-center gap-2 border border-emerald-500/30 shadow-lg">
+          <p className="bg-slate-900/70 backdrop-blur-md text-emerald-400 font-mono text-sm px-3 py-1.5 rounded-lg flex items-center gap-2 border border-emerald-500/30 shadow-lg uppercase">
             <Navigation size={16} className={isRotating ? "animate-spin" : ""} /> 
-            {isRotating ? "AUTOPILOT: ACTIVE" : "MANUAL OVERRIDE"}
+            {isRotating ? t("map_auto_on") : t("map_auto_off")}
           </p>
           {!isRotating && (
              <p className="text-xs text-white bg-red-500/80 px-2 py-1 rounded inline-block w-max shadow-lg shadow-red-500/20">
-               Auto-rotate dimatikan. Refresh halaman untuk mereset.
+               {t("map_auto_warn")}
              </p>
           )}
         </div>
 
-        {/* === KOTAK KAMERA THERMAL SEKARANG BISA DIKLIK === */}
         <div 
           onClick={() => setIsThermalMode(!isThermalMode)}
           className={`absolute bottom-4 left-4 z-10 w-36 sm:w-48 h-24 sm:h-32 bg-slate-900 border ${isThermalMode ? 'border-emerald-500 shadow-emerald-900/50' : 'border-rose-500/50 shadow-rose-900/20'} rounded-lg overflow-hidden shadow-lg cursor-pointer hover:scale-105 transition-all group`}
@@ -275,7 +277,7 @@ export default function AerialExplorer() {
           <div className="absolute top-1.5 left-2 flex items-center gap-1.5 z-20">
             <div className={`w-2 h-2 rounded-full animate-pulse ${isThermalMode ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]' : 'bg-rose-500 shadow-[0_0_8px_rgba(244,63,94,0.8)]'}`}></div>
             <span className="text-[9px] sm:text-[10px] font-mono font-bold text-white tracking-wider drop-shadow-md">
-              {isThermalMode ? 'THERMAL ON' : 'REC / THERMAL'}
+              {isThermalMode ? t("map_therm_on") : t("map_therm_off")}
             </span>
           </div>
           
@@ -288,18 +290,16 @@ export default function AerialExplorer() {
           </div>
           <div className="absolute top-0 left-0 w-full h-0.5 bg-white/20 animate-[ping_3s_ease-in-out_infinite]"></div>
 
-          {/* Overlay Instruksi Klik */}
           <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center backdrop-blur-sm z-30">
             <Power size={24} className={isThermalMode ? 'text-rose-400 mb-1' : 'text-emerald-400 mb-1'} />
             <span className="text-white text-[10px] font-bold tracking-widest text-center px-2">
-              {isThermalMode ? 'MATIKAN THERMAL' : 'AKTIFKAN THERMAL'}
+              {isThermalMode ? t("map_therm_btn_on") : t("map_therm_btn_off")}
             </span>
           </div>
         </div>
-        {/* ================================================== */}
 
         <div className="absolute bottom-4 right-4 pointer-events-none z-10 text-white bg-slate-900/60 px-3 py-2 rounded-lg backdrop-blur text-xs flex items-center gap-2 border border-slate-700 shadow-lg">
-          <MousePointer2 size={14} /> Drag: Geser | Scroll: Zoom | Klik Kanan: Putar 3D
+          <MousePointer2 size={14} /> {t("map_ctrl")}
         </div>
 
         <AnimatePresence>
@@ -316,32 +316,32 @@ export default function AerialExplorer() {
               >
                 <X size={20} />
               </button>
-              <h3 className="text-xl font-bold text-slate-900 mb-1">{selectedLoc.name}</h3>
+              <h3 className="text-xl font-bold text-slate-900 mb-1">{t(selectedLoc.titleKey as any)}</h3>
               <p className="text-xs font-mono text-emerald-600 mb-4 bg-emerald-50 inline-block px-2 py-1 rounded border border-emerald-100">
                 TGT LOCK: {selectedLoc.lat.toFixed(5)}, {selectedLoc.lng.toFixed(5)}
               </p>
               
               <div className="flex items-center gap-2 mb-4">
-                <span className="px-2 py-1 bg-slate-100 border border-slate-200 text-slate-700 text-xs rounded-full font-medium shadow-sm">{selectedLoc.type}</span>
-                <span className={`px-2 py-1 text-xs rounded-full font-medium shadow-sm border ${selectedLoc.status.includes('Waspada') ? 'bg-red-50 text-red-600 border-red-200' : 'bg-emerald-50 text-emerald-600 border-emerald-200'}`}>
-                  {selectedLoc.status}
+                <span className="px-2 py-1 bg-slate-100 border border-slate-200 text-slate-700 text-xs rounded-full font-medium shadow-sm">{t(selectedLoc.typeKey as any)}</span>
+                <span className={`px-2 py-1 text-xs rounded-full font-medium shadow-sm border ${t(selectedLoc.statusKey as any).includes('Waspada') || t(selectedLoc.statusKey as any).includes('Alert') ? 'bg-red-50 text-red-600 border-red-200' : 'bg-emerald-50 text-emerald-600 border-emerald-200'}`}>
+                  {t(selectedLoc.statusKey as any)}
                 </span>
               </div>
 
               <div className="grid grid-cols-3 gap-2 mb-4">
                 <div className="bg-slate-50 border border-slate-100 rounded-lg p-2 flex flex-col items-center text-center shadow-sm">
                   <Thermometer size={18} className="text-rose-500 mb-1" />
-                  <span className="text-[10px] text-slate-400 font-bold tracking-wider">SUHU</span>
+                  <span className="text-[10px] text-slate-400 font-bold tracking-wider">{t("map_temp")}</span>
                   <span className="text-sm font-mono font-bold text-slate-800">{selectedLoc.sensor.temp}</span>
                 </div>
                 <div className="bg-slate-50 border border-slate-100 rounded-lg p-2 flex flex-col items-center text-center shadow-sm">
                   <Droplets size={18} className="text-blue-500 mb-1" />
-                  <span className="text-[10px] text-slate-400 font-bold tracking-wider">pH AIR</span>
+                  <span className="text-[10px] text-slate-400 font-bold tracking-wider">{t("map_ph")}</span>
                   <span className="text-sm font-mono font-bold text-slate-800">{selectedLoc.sensor.ph}</span>
                 </div>
                 <div className="bg-slate-50 border border-slate-100 rounded-lg p-2 flex flex-col items-center text-center shadow-sm">
                   <Wind size={18} className="text-amber-500 mb-1" />
-                  <span className="text-[10px] text-slate-400 font-bold tracking-wider">H2S (GAS)</span>
+                  <span className="text-[10px] text-slate-400 font-bold tracking-wider">{t("map_gas")}</span>
                   <span className="text-sm font-mono font-bold text-slate-800">{selectedLoc.sensor.sulfur}</span>
                 </div>
               </div>
@@ -349,7 +349,7 @@ export default function AerialExplorer() {
               <div className="p-3 bg-slate-50 rounded-lg border border-slate-100">
                 <p className="text-sm text-slate-700 leading-relaxed flex items-start gap-2">
                   <Info size={16} className="mt-0.5 shrink-0 text-amber-500" />
-                  {selectedLoc.desc}
+                  {t(selectedLoc.descKey as any)}
                 </p>
               </div>
             </motion.div>

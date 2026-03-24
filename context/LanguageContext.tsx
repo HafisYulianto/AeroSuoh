@@ -10,7 +10,7 @@ interface LanguageContextType {
   t: (key: keyof typeof translations.ID) => string;
 }
 
-// === BRANKAS KAMUS TERJEMAHAN (UPDATE KESELAMATAN) ===
+// === BRANKAS KAMUS TERJEMAHAN ===
 const translations = {
   ID: {
     // Navbar & Hero
@@ -44,7 +44,7 @@ const translations = {
     dash_weather_loc: "Lokasi Satelit:",
     dash_loading: "Memuat...",
 
-    // Galeri
+    // Galeri & Lokasi
     gal_title: "Pesona Suoh",
     gal_subtitle: "Jelajahi keindahan 6 titik utama di kawasan Lampung Barat",
     gal_click_hint: "Klik untuk melihat sejarah & lokasi",
@@ -75,7 +75,7 @@ const translations = {
     loc6_desc: "Dataran endapan kawah yang mengeras dan retak menyerupai lantai keramik. Mengeluarkan asap belerang tebal.",
     loc6_hist: "Ini adalah mahakarya Gempa 1933. Saat letusan terjadi, lumpur vulkanik bersuhu ratusan derajat meluap ke permukaan...",
 
-    // === TAMBAHAN BARU: PANDUAN KESELAMATAN ===
+    // Panduan Keselamatan
     safe_badge: "Perhatian Pengunjung",
     safe_title: "Panduan Keselamatan Jelajah",
     safe_desc: "Kawasan Suoh adalah alam liar yang memukau sekaligus menyimpan potensi bahaya panas bumi. Demi keselamatan dan kenyamanan bersama, mohon patuhi protokol berikut.",
@@ -87,6 +87,26 @@ const translations = {
     safe_rule3_desc: "Jalur ekologis dan geotermal rawan ambles jika tidak hafal medan. Selalu patuhi arahan pemandu lokal.",
     safe_rule4_title: "Patuhi Zona Aman",
     safe_rule4_desc: "Jangan pernah melewati batas rambu peringatan zona merah atau mendekati pusat letupan lumpur.",
+
+    // === PERBAIKAN PETA UDARA: Judul ID diubah! ===
+    map_title: "Penjelajah Udara 3D Live",
+    map_desc: "Pemetaan satelit 3D interaktif kawasan Kecamatan Suoh, Lampung Barat. Tahan klik kanan (Right-Click) untuk memutar.",
+    map_auto_on: "AUTOPILOT: AKTIF",
+    map_auto_off: "KENDALI MANUAL",
+    map_auto_warn: "Auto-rotate dimatikan. Refresh halaman untuk mereset.",
+    map_therm_on: "THERMAL NYALA",
+    map_therm_off: "REKAM / THERMAL",
+    map_therm_btn_on: "MATIKAN THERMAL",
+    map_therm_btn_off: "AKTIFKAN THERMAL",
+    map_ctrl: "Drag: Geser | Scroll: Zoom | Klik Kanan: Putar 3D",
+    map_temp: "SUHU",
+    map_ph: "pH AIR",
+    map_gas: "H2S (GAS)",
+    stat_normal: "Normal",
+    stat_safe1: "Aman Dikunjungi",
+    stat_safe2: "Aman (Patuhi Jalur)",
+    stat_warn1: "Waspada (Zona Merah)",
+    stat_warn2: "Waspada (Zona Kuning)",
   },
   EN: {
     // Navbar & Hero
@@ -120,7 +140,7 @@ const translations = {
     dash_weather_loc: "Satellite Location:",
     dash_loading: "Loading...",
 
-    // Galeri
+    // Galeri & Lokasi
     gal_title: "Suoh Charm",
     gal_subtitle: "Explore the beauty of 6 main spots in the West Lampung region",
     gal_click_hint: "Click to view history & location",
@@ -151,7 +171,7 @@ const translations = {
     loc6_desc: "A hardened and cracked crater deposit plain resembling a ceramic floor. Emits thick sulfur smoke.",
     loc6_hist: "This is the masterpiece of the 1933 Earthquake. When the eruption occurred, volcanic mud at hundreds of degrees overflowed...",
 
-    // === TAMBAHAN BARU: PANDUAN KESELAMATAN ===
+    // Panduan Keselamatan
     safe_badge: "Important Notice",
     safe_title: "Exploration Safety Guide",
     safe_desc: "The Suoh area is a stunning wilderness that also holds geothermal hazards. For our mutual safety and comfort, please obey the following protocols.",
@@ -163,6 +183,26 @@ const translations = {
     safe_rule3_desc: "Ecological and geothermal paths are prone to caving in if you don't know the terrain. Always follow local guide instructions.",
     safe_rule4_title: "Obey Safe Zones",
     safe_rule4_desc: "Never cross the red zone warning signs or approach the center of mud eruptions.",
+
+    // Peta Udara
+    map_title: "Live 3D Aerial Explorer",
+    map_desc: "Interactive 3D satellite mapping of Suoh District, West Lampung. Hold Right-Click to rotate.",
+    map_auto_on: "AUTOPILOT: ACTIVE",
+    map_auto_off: "MANUAL OVERRIDE",
+    map_auto_warn: "Auto-rotate disabled. Refresh page to reset.",
+    map_therm_on: "THERMAL ON",
+    map_therm_off: "REC / THERMAL",
+    map_therm_btn_on: "DISABLE THERMAL",
+    map_therm_btn_off: "ENABLE THERMAL",
+    map_ctrl: "Drag: Pan | Scroll: Zoom | Right-Click: Rotate 3D",
+    map_temp: "TEMP",
+    map_ph: "WATER pH",
+    map_gas: "H2S (GAS)",
+    stat_normal: "Normal",
+    stat_safe1: "Safe to Visit",
+    stat_safe2: "Safe (Stay on Path)",
+    stat_warn1: "Alert (Red Zone)",
+    stat_warn2: "Alert (Yellow Zone)",
   }
 };
 
