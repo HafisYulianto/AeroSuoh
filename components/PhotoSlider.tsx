@@ -3,68 +3,73 @@
 import { useRef, useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight, Camera, MapPin, X, BookOpen } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+// === TAMBAHAN: Import context bahasa global ===
+import { useLanguage } from "../context/LanguageContext";
 
-// Data diperbarui dengan koordinat asli dari data AerialExplorer Komandan Hafis!
-const photos = [
+// Data diperbarui dengan menggunakan Kunci Kamus (Key) agar bisa diterjemahkan
+const photosData = [
   { 
     id: 1, 
     src: "/images/danau-asam-hd.png", 
-    title: "Danau Asam", 
-    type: "Danau Vulkanik",
-    desc: "Danau dengan tingkat keasaman tinggi. Mengandung belerang, sering digunakan sebagai indikator aktivitas vulkanik pasif.",
-    history: "Terbentuk dari letusan freatik (letusan uap panas) maha dahsyat Gunung Ratu yang dipicu oleh Gempa Bumi Suoh tahun 1933. Letusan tersebut meninggalkan lubang kawah raksasa yang seiring waktu terisi air hujan. Dinamakan 'Asam' karena airnya memiliki tingkat keasaman (pH) yang ekstrem akibat tingginya kandungan belerang dari dasar kawah.",
-    lng: 104.27882688457521, lat: -5.238698319624318 // Data asli pengguna!
+    titleKey: "loc1_title", 
+    typeKey: "loc1_type",
+    descKey: "loc1_desc",
+    historyKey: "loc1_hist",
+    lng: 104.27882688457521, lat: -5.238698319624318 
   },
   { 
     id: 2, 
     src: "/images/danau-lebar-hd.png", 
-    title: "Danau Lebar", 
-    type: "Ekowisata",
-    desc: "Kawasan danau air tawar terluas di Suoh. Menjadi pusat aktivitas ekonomi lokal dan penyewaan perahu wisata.",
-    history: "Merupakan 'saudara' dari Danau Asam yang juga lahir dari bencana vulkanik dan tektonik tahun 1933. Dengan luas mencapai 67 hektar, ini adalah danau terluas di Suoh. Keunikannya terletak pada air tawar jernih yang memantulkan warna biru pekat dari kejauhan, serta sebuah pulau kecil yang terbentuk secara alami di tengah-tengahnya.",
-    lng: 104.274690, lat: -5.251999 // Data asli pengguna!
+    titleKey: "loc2_title", 
+    typeKey: "loc2_type",
+    descKey: "loc2_desc",
+    historyKey: "loc2_hist",
+    lng: 104.274690, lat: -5.251999 
   },
   { 
     id: 3, 
     src: "/images/danau-minyak-hd.png", 
-    title: "Danau Minyak", 
-    type: "Danau Vulkanik",
-    desc: "Permukaan airnya terlihat seperti dilapisi minyak. Memiliki aroma khas dan menjadi salah satu daya tarik unik.",
-    history: "Danau vulkanik ini memiliki fenomena alam yang sangat ganjil. Sejak terbentuk pada 1933, permukaan airnya selalu terlihat mengkilap seolah dilapisi tumpahan minyak, bahkan dulunya sempat tercium aroma seperti minyak tanah. Fenomena ini disebabkan oleh material hidrokarbon dan gas vulkanik yang terperangkap di bawahnya.",
-    lng: 104.266782, lat: -5.246098 // Data asli pengguna!
+    titleKey: "loc3_title", 
+    typeKey: "loc3_type",
+    descKey: "loc3_desc",
+    historyKey: "loc3_hist",
+    lng: 104.266782, lat: -5.246098 
   },
   { 
     id: 4, 
     src: "/images/pasir-kuning-hd.png", 
-    title: "Pasir Kuning", 
-    type: "Area Geotermal",
-    desc: "Hamparan pasir berwarna kuning akibat endapan sulfur (belerang). Spot foto favorit pengunjung namun perlu kehati-hatian.",
-    history: "Bukan pasir biasa dari laut atau sungai. Hamparan pasir ini adalah murni endapan sulfur (belerang) padat yang terakumulasi selama puluhan tahun dari aktivitas panas bumi Suoh. Letaknya yang berada di tepian danau menciptakan ilusi seperti pantai kuning di tengah pegunungan.",
-    lng: 104.26727197333017, lat: -5.236056616428336 // Data asli pengguna!
+    titleKey: "loc4_title", 
+    typeKey: "loc4_type",
+    descKey: "loc4_desc",
+    historyKey: "loc4_hist",
+    lng: 104.26727197333017, lat: -5.236056616428336 
   },
   { 
     id: 5, 
     src: "/images/kawah-nirwana-hd.png", 
-    title: "Kawah Nirwana", 
-    type: "Geotermal Aktif",
-    desc: "Area manifestasi panas bumi aktif dengan letupan lumpur panas. Suhu permukaan sangat tinggi, perlu pemantauan ketat.",
-    history: "Dikenal sebagai kawasan yang 'hidup' dan pernah kembali erupsi pada Mei 2024 lalu. Dinamakan 'Nirwana' (surga) karena dari kejauhan, kepulan uap panas bumi yang tebal menutupi area ini hingga terlihat seperti gumpalan awan putih di langit. Berbeda dengan kawah lain yang datar, Nirwana dipenuhi gundukan-gundukan kawah aktif.",
-    lng: 104.25928872886739, lat: -5.237142698064301 // Data asli pengguna!
+    titleKey: "loc5_title", 
+    typeKey: "loc5_type",
+    descKey: "loc5_desc",
+    historyKey: "loc5_hist",
+    lng: 104.25928872886739, lat: -5.237142698064301 
   },
   { 
     id: 6, 
     src: "/images/kawah-keramikan-hd.png", 
-    title: "Kawah Keramikan", 
-    type: "Geotermal Aktif",
-    desc: "Dataran endapan kawah yang mengeras dan retak menyerupai lantai keramik. Mengeluarkan asap belerang tebal.",
-    history: "Ini adalah mahakarya Gempa 1933. Saat letusan terjadi, lumpur vulkanik bersuhu ratusan derajat meluap ke permukaan. Selama bertahun-tahun, lumpur tersebut mengendap dan mengeras membentuk lapisan lempengan batu vulkanik berwarna putih kekuningan yang retak-retak. Warga setempat menyebutnya 'Keramikan' karena hamparannya persis seperti lantai keramik raksasa.",
-    lng: 104.2635823976347, lat: -5.239053909820962 // Data asli pengguna!
+    titleKey: "loc6_title", 
+    typeKey: "loc6_type",
+    descKey: "loc6_desc",
+    historyKey: "loc6_hist",
+    lng: 104.2635823976347, lat: -5.239053909820962 
   },
 ];
 
 export default function PhotoSlider() {
+  // === Panggil kekuatan Global State ===
+  const { t } = useLanguage();
+  
   const sliderRef = useRef<HTMLDivElement>(null);
-  const [selectedPhoto, setSelectedPhoto] = useState<typeof photos[0] | null>(null);
+  const [selectedPhoto, setSelectedPhoto] = useState<typeof photosData[0] | null>(null);
 
   useEffect(() => {
     if (selectedPhoto) {
@@ -93,8 +98,8 @@ export default function PhotoSlider() {
               <Camera size={28} />
             </div>
             <div>
-              <h2 className="text-3xl font-bold text-white tracking-tight">Pesona Suoh</h2>
-              <p className="text-emerald-100/70 mt-1">Jelajahi keindahan 6 titik utama di kawasan Lampung Barat</p>
+              <h2 className="text-3xl font-bold text-white tracking-tight">{t("gal_title")}</h2>
+              <p className="text-emerald-100/70 mt-1">{t("gal_subtitle")}</p>
             </div>
           </div>
           
@@ -122,7 +127,7 @@ export default function PhotoSlider() {
             className="flex gap-6 overflow-x-auto snap-x snap-mandatory pb-8 pt-4 [&::-webkit-scrollbar]:hidden"
             style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
           >
-            {photos.map((photo) => (
+            {photosData.map((photo) => (
               <div 
                 key={photo.id} 
                 onClick={() => setSelectedPhoto(photo)}
@@ -131,7 +136,7 @@ export default function PhotoSlider() {
                 <div className="aspect-[4/3] w-full bg-slate-800">
                   <img 
                     src={photo.src} 
-                    alt={photo.title} 
+                    alt={t(photo.titleKey as any)} 
                     className="w-full h-full object-cover group-hover/card:scale-105 transition-transform duration-700" 
                     onError={(e) => (e.currentTarget.style.display = 'none')}
                   />
@@ -140,16 +145,16 @@ export default function PhotoSlider() {
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent flex flex-col justify-end p-6">
                   <div className="flex items-center gap-2 mb-2">
                     <span className="px-2 py-1 text-[10px] uppercase tracking-wider font-bold bg-emerald-600 text-white rounded-md">
-                      {photo.type}
+                      {t(photo.typeKey as any)}
                     </span>
                   </div>
                   <h3 className="text-white text-xl font-bold mb-2 flex items-center gap-2">
-                    <MapPin size={18} className="text-emerald-400" /> {photo.title}
+                    <MapPin size={18} className="text-emerald-400" /> {t(photo.titleKey as any)}
                   </h3>
-                  <p className="text-slate-300 text-sm line-clamp-3 leading-relaxed">{photo.desc}</p>
+                  <p className="text-slate-300 text-sm line-clamp-3 leading-relaxed">{t(photo.descKey as any)}</p>
                   
                   <div className="mt-4 text-emerald-400 text-xs font-semibold flex items-center gap-1 opacity-0 group-hover/card:opacity-100 transition-opacity">
-                    <BookOpen size={14} /> Klik untuk melihat sejarah & lokasi
+                    <BookOpen size={14} /> {t("gal_click_hint")}
                   </div>
                 </div>
               </div>
@@ -186,7 +191,7 @@ export default function PhotoSlider() {
               <div className="w-full md:w-1/2 h-64 md:h-auto relative bg-slate-800">
                 <img 
                   src={selectedPhoto.src} 
-                  alt={selectedPhoto.title} 
+                  alt={t(selectedPhoto.titleKey as any)} 
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#012518] to-transparent md:hidden"></div>
@@ -195,13 +200,12 @@ export default function PhotoSlider() {
               <div className="w-full md:w-1/2 p-6 md:p-8 flex flex-col overflow-y-auto custom-scrollbar">
                 <div className="flex items-center gap-2 mb-3">
                   <span className="px-3 py-1 text-xs uppercase tracking-wider font-bold bg-emerald-600 text-white rounded-md">
-                    {selectedPhoto.type}
+                    {t(selectedPhoto.typeKey as any)}
                   </span>
                 </div>
                 
-                {/* UBAHAN: Tata letak judul diubah menjadi Tautan Interaktif ke Google Maps */}
                 <a 
-                  href={`https://www.google.com/maps/search/?api=1&query=${selectedPhoto.lat},${selectedPhoto.lng}`} 
+                  href={`https://www.google.com/maps/search/?api=1&query=$${selectedPhoto.lat},${selectedPhoto.lng}`} 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="group/maps flex items-center gap-3 bg-emerald-950 border border-emerald-800 rounded-xl p-3 mb-6 hover:bg-emerald-800 transition-all cursor-pointer shadow-inner"
@@ -211,24 +215,24 @@ export default function PhotoSlider() {
                   </div>
                   <div className="flex-1">
                     <h3 className="text-2xl font-bold text-white mb-1 leading-tight group-hover/maps:text-white transition-colors">
-                      {selectedPhoto.title}
+                      {t(selectedPhoto.titleKey as any)}
                     </h3>
                     <p className="text-emerald-400 text-xs font-semibold group-hover/maps:text-white transition-colors">
-                      Buka lokasi di Google Maps →
+                      {t("gal_open_map")}
                     </p>
                   </div>
                 </a>
                 
                 <p className="text-emerald-100/80 text-sm mb-6 pb-6 border-b border-emerald-800/50 leading-relaxed text-justify">
-                  {selectedPhoto.desc}
+                  {t(selectedPhoto.descKey as any)}
                 </p>
 
                 <div>
                   <h4 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
-                    <BookOpen size={18} className="text-emerald-400" /> Sejarah & Asal-usul
+                    <BookOpen size={18} className="text-emerald-400" /> {t("gal_history_title")}
                   </h4>
                   <p className="text-slate-300 text-sm leading-relaxed text-justify">
-                    {selectedPhoto.history}
+                    {t(selectedPhoto.historyKey as any)}
                   </p>
                 </div>
               </div>
