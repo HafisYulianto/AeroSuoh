@@ -10,7 +10,7 @@ interface LanguageContextType {
   t: (key: keyof typeof translations.ID) => string;
 }
 
-// === BRANKAS KAMUS TERJEMAHAN ===
+// === BRANKAS KAMUS TERJEMAHAN (100% FINAL) ===
 const translations = {
   ID: {
     // Navbar & Hero
@@ -88,7 +88,7 @@ const translations = {
     safe_rule4_title: "Patuhi Zona Aman",
     safe_rule4_desc: "Jangan pernah melewati batas rambu peringatan zona merah atau mendekati pusat letupan lumpur.",
 
-    // === PERBAIKAN PETA UDARA: Judul ID diubah! ===
+    // Peta Udara
     map_title: "Penjelajah Udara 3D Live",
     map_desc: "Pemetaan satelit 3D interaktif kawasan Kecamatan Suoh, Lampung Barat. Tahan klik kanan (Right-Click) untuk memutar.",
     map_auto_on: "AUTOPILOT: AKTIF",
@@ -107,6 +107,14 @@ const translations = {
     stat_safe2: "Aman (Patuhi Jalur)",
     stat_warn1: "Waspada (Zona Merah)",
     stat_warn2: "Waspada (Zona Kuning)",
+
+    // === TAMBAHAN BARU: FOOTER ===
+    foot_nav_title: "Navigasi Sistem",
+    foot_nav_safety: "Panduan Keselamatan",
+    foot_loc_title: "Lokasi",
+    foot_loc_1: "Kecamatan Suoh, Kabupaten Lampung Barat,",
+    foot_loc_2: "Lampung, Indonesia",
+    foot_copy: "© 2026 AeroSuoh Eco-Monitor. Hak Cipta Dilindungi.",
   },
   EN: {
     // Navbar & Hero
@@ -203,6 +211,14 @@ const translations = {
     stat_safe2: "Safe (Stay on Path)",
     stat_warn1: "Alert (Red Zone)",
     stat_warn2: "Alert (Yellow Zone)",
+
+    // === TAMBAHAN BARU: FOOTER ===
+    foot_nav_title: "System Navigation",
+    foot_nav_safety: "Safety Guide",
+    foot_loc_title: "Location",
+    foot_loc_1: "Suoh District, West Lampung Regency,",
+    foot_loc_2: "Lampung, Indonesia",
+    foot_copy: "© 2026 AeroSuoh Eco-Monitor. All Rights Reserved.",
   }
 };
 
