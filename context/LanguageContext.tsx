@@ -10,11 +10,12 @@ interface LanguageContextType {
   t: (key: keyof typeof translations.ID) => string;
 }
 
-// === BRANKAS KAMUS TERJEMAHAN (100% FINAL) ===
+// === BRANKAS KAMUS TERJEMAHAN (UPDATE TENTANG & SDGS) ===
 const translations = {
   ID: {
     // Navbar & Hero
     nav_home: "Beranda",
+    nav_about: "Tentang",
     nav_gallery: "Pesona Suoh",
     nav_map: "Pemetaan Udara",
     nav_dash: "Dasbor Sensor",
@@ -24,6 +25,17 @@ const translations = {
     hero_btn_1: "Mulai Eksplorasi",
     hero_btn_2: "Lihat Dasbor",
     
+    // === TAMBAHAN BARU: TENTANG & SDGS ===
+    about_badge: "Latar Belakang & Misi",
+    about_title: "Mengangkat Surga Tersembunyi Suoh ke Kancah Global",
+    about_desc_1: "Kawasan Suoh menyimpan pesona alam yang luar biasa—mulai dari danau vulkanik yang asri hingga fenomena geotermal yang eksotis. Sayangnya, keindahan alami yang masih sangat terjaga ini belum sepenuhnya terekspos ke dunia luar.",
+    about_desc_2: "AeroSuoh hadir untuk menjembatani kesenjangan tersebut. Kami memadukan promosi keajaiban alam ini dengan teknologi pemantauan masa depan. Harapan kami, pariwisata Suoh tidak hanya semakin dikenal di tingkat nasional, tetapi juga mampu bersinar di kancah internasional secara aman dan terkendali.",
+    sdg_title: "Mendukung Tujuan Pembangunan Berkelanjutan (SDGs)",
+    sdg1_title: "SDG 8 & 11: Ekonomi & Komunitas Berkelanjutan",
+    sdg1_desc: "Memberdayakan ekonomi masyarakat lokal melalui sektor pariwisata yang aman, inklusif, dan berkelanjutan.",
+    sdg2_title: "SDG 13 & 15: Konservasi & Mitigasi Iklim",
+    sdg2_desc: "Mengedukasi pengunjung tentang aktivitas geotermal serta pelestarian ekosistem daratan dan danau vulkanik.",
+
     // Dasbor
     dash_title: "Real-Time Eco-Monitor",
     dash_desc: "Pemantauan data satelit dan sensor geotermal kawasan Kecamatan Suoh, Lampung Barat.",
@@ -108,7 +120,7 @@ const translations = {
     stat_warn1: "Waspada (Zona Merah)",
     stat_warn2: "Waspada (Zona Kuning)",
 
-    // === TAMBAHAN BARU: FOOTER ===
+    // Footer
     foot_nav_title: "Navigasi Sistem",
     foot_nav_safety: "Panduan Keselamatan",
     foot_loc_title: "Lokasi",
@@ -119,6 +131,7 @@ const translations = {
   EN: {
     // Navbar & Hero
     nav_home: "Home",
+    nav_about: "About",
     nav_gallery: "Suoh Gallery",
     nav_map: "Aerial Map",
     nav_dash: "Sensor Dash",
@@ -128,6 +141,17 @@ const translations = {
     hero_btn_1: "Start Exploring",
     hero_btn_2: "View Dashboard",
     
+    // === TAMBAHAN BARU: TENTANG & SDGS ===
+    about_badge: "Background & Mission",
+    about_title: "Elevating Suoh's Hidden Paradise to the Global Stage",
+    about_desc_1: "The Suoh region harbors extraordinary natural charm—from pristine volcanic lakes to exotic geothermal phenomena. Unfortunately, this beautifully preserved 'hidden paradise' remains underexposed to the outside world.",
+    about_desc_2: "AeroSuoh was created to bridge this gap. We combine the promotion of these pristine natural wonders with futuristic monitoring technology. Our hope is that Suoh's tourism will not only be recognized nationally but will shine internationally in a safe and sustainable manner.",
+    sdg_title: "Supporting Sustainable Development Goals (SDGs)",
+    sdg1_title: "SDG 8 & 11: Sustainable Economy & Communities",
+    sdg1_desc: "Empowering the local community's economy through safe, inclusive, and sustainable tourism.",
+    sdg2_title: "SDG 13 & 15: Climate Mitigation & Conservation",
+    sdg2_desc: "Educating visitors on climate mitigation, geothermal activity, and the conservation of terrestrial and volcanic lake ecosystems.",
+
     // Dasbor
     dash_title: "Real-Time Eco-Monitor",
     dash_desc: "Satellite data and geothermal sensor monitoring for Suoh District, West Lampung.",
@@ -212,7 +236,7 @@ const translations = {
     stat_warn1: "Alert (Red Zone)",
     stat_warn2: "Alert (Yellow Zone)",
 
-    // === TAMBAHAN BARU: FOOTER ===
+    // Footer
     foot_nav_title: "System Navigation",
     foot_nav_safety: "Safety Guide",
     foot_loc_title: "Location",

@@ -1,7 +1,7 @@
 "use client";
 
-import { Map, Activity, Home, Camera, Globe } from "lucide-react";
-// === TAMBAHAN: Import context bahasa global kita ===
+// === TAMBAHAN: Menambahkan ikon 'Info' dari lucide-react ===
+import { Map, Activity, Home, Camera, Globe, Info } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
 
 export default function Navbar() {
@@ -33,6 +33,13 @@ export default function Navbar() {
                 <Home size={20} /> 
                 <span>{t("nav_home")}</span>
               </a>
+
+              {/* === MENU TENTANG BARU === */}
+              <a href="#about" className="flex items-center gap-2 text-emerald-100 hover:text-white hover:scale-105 transition-all font-medium">
+                <Info size={20} /> 
+                <span>{t("nav_about")}</span>
+              </a>
+              {/* ======================== */}
 
               <a href="#gallery" className="flex items-center gap-2 text-emerald-100 hover:text-white hover:scale-105 transition-all font-medium">
                 <Camera size={20} /> 

@@ -2,6 +2,8 @@
 
 import { motion } from "framer-motion";
 import Navbar from "../components/Navbar";
+// === TAMBAHAN: Import komponen About ===
+import About from "../components/About";
 import Dashboard from "../components/Dashboard";
 import AerialExplorer from "../components/AerialExplorer"; 
 import Footer from "../components/Footer"; 
@@ -80,6 +82,17 @@ export default function Home() {
           </a>
         </motion.div>
       </div>
+
+      {/* === KOMPONEN BARU: TENTANG KAMI & SDGs === */}
+      <motion.div 
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.1 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="relative z-10 print:hidden"
+      >
+        <About />
+      </motion.div>
 
       {/* Animasi Scroll Reveal untuk Slider Foto */}
       <motion.div 

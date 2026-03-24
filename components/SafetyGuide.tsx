@@ -41,7 +41,8 @@ export default function SafetyGuide() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="text-center mb-12">
-          <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100 text-amber-700 text-sm font-bold tracking-wide uppercase mb-4 border border-amber-200">
+          {/* === REVISI: Menambahkan animate-pulse agar seluruh lencana berkedip redup-terang === */}
+          <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100 text-amber-700 text-sm font-bold tracking-wide uppercase mb-4 border border-amber-200 animate-pulse">
             <ShieldAlert size={16} /> {t("safe_badge")}
           </span>
           <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">

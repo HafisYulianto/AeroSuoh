@@ -18,44 +18,70 @@ const chartData = [
 ];
 
 export default function Dashboard() {
-  // === Panggil kekuatan Global State ===
   const { t, lang } = useLanguage();
 
   const [realTemp, setRealTemp] = useState<number | string>("...");
   const [realWind, setRealWind] = useState<number | string>("...");
-  const [lastUpdate, setLastUpdate] = useState<string>("...");
-  
-  // UBAHAN TRIK: Simpan KODE cuacanya saja, bukan teksnya, agar bisa diterjemahkan live
   const [weatherCode, setWeatherCode] = useState<number | null>(null);
+  
+  // State untuk menyimpan waktu real-time
+  const [currentTime, setCurrentTime] = useState<Date | null>(null);
 
+  // === FUNGSI PERTAMA: Tarik data API sensor ASLI dari Open-Meteo ===
   useEffect(() => {
-    setLastUpdate(t("dash_loading")); // Set teks loading awal
-    
     const fetchRealData = async () => {
       try {
-        const res = await fetch("https://api.open-meteo.com/v1/forecast?latitude=-5.25&longitude=104.27&current=temperature_2m,wind_speed_10m,weathercode");
+        const res = await fetch("https://api.open-meteo.com/v1/forecast?latitude=-5.25&longitude=104.27&current=temperature_2m,wind_speed_10m,weathercode&timezone=Asia%2FJakarta");
         const data = await res.json();
         
         setRealTemp(data.current.temperature_2m);
         setRealWind(data.current.wind_speed_10m);
-        setWeatherCode(data.current.weathercode); // Simpan kodenya saja
-
-        const now = new Date();
-        setLastUpdate(`${now.getHours()}:${now.getMinutes() < 10 ? '0' : ''}${now.getMinutes()} WIB`);
+        setWeatherCode(data.current.weathercode); 
       } catch (error) {
         console.error("Gagal mengambil data satelit", error);
         setRealTemp(28.5); 
         setRealWind(12);
-        setWeatherCode(999); // Kode error/fallback
+        setWeatherCode(999); 
       }
     };
 
     fetchRealData();
-    const interval = setInterval(fetchRealData, 300000);
-    return () => clearInterval(interval);
-  }, [t]);
+    const intervalData = setInterval(fetchRealData, 300000); // Sinkronisasi tiap 5 menit
+    return () => clearInterval(intervalData);
+  }, []); 
 
-  // FUNGSI PENERJEMAH CUACA OTOMATIS
+  // === FUNGSI KEDUA: Jam Real-Time ===
+  useEffect(() => {
+    setCurrentTime(new Date()); // Set awal
+    const timer = setInterval(() => setCurrentTime(new Date()), 1000); // Detak tiap detik untuk presisi menit
+    return () => clearInterval(timer);
+  }, []);
+
+  // Format Waktu Tanpa Detik
+  let syncBadgeText = t("dash_loading");
+  let panelDate = "";
+  let panelTime = "";
+
+  if (currentTime) {
+    const locale = lang === "ID" ? "id-ID" : "en-US";
+    
+    // Format Tanggal: "Selasa, 24 Maret 2026"
+    const dateOptions: Intl.DateTimeFormatOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', timeZone: 'Asia/Jakarta' };
+    const dateStr = new Intl.DateTimeFormat(locale, dateOptions).format(currentTime);
+    
+    // Format Jam: "20.52" (tanpa detik)
+    const timeOptions: Intl.DateTimeFormatOptions = { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'Asia/Jakarta' };
+    let timeStrRaw = new Intl.DateTimeFormat(locale, timeOptions).format(currentTime);
+    // Pastikan separator jam dan menit menggunakan titik dua atau titik (menyesuaikan format standar)
+    timeStrRaw = timeStrRaw.replace('.', ':'); 
+    
+    const timeStr = `${timeStrRaw} WIB`;
+
+    syncBadgeText = lang === "ID" ? `${dateStr} pukul ${timeStr}` : `${dateStr} at ${timeStr}`;
+    panelDate = dateStr;
+    panelTime = timeStr;
+  }
+
   const getWeatherText = () => {
     if (weatherCode === null) return t("dash_loading");
     
@@ -95,8 +121,10 @@ export default function Dashboard() {
         <p className="text-slate-600 max-w-2xl print:text-sm">{t("dash_desc")}</p>
         
         <div className="mt-6 flex flex-col sm:flex-row items-center gap-4 print:mt-3">
-          <p className="text-xs text-emerald-600 font-mono bg-emerald-50 inline-block px-3 py-2 rounded-full border border-emerald-100 print:px-2 print:py-1">
-            {t("dash_sync")} {lastUpdate}
+          {/* LENCANA ATAS: Waktu tanpa detik */}
+          <p className="text-xs text-emerald-600 font-mono bg-emerald-50 inline-block px-3 py-2 rounded-full border border-emerald-100 print:px-2 print:py-1 shadow-inner group">
+            <span className="animate-pulse inline-block w-2 h-2 rounded-full bg-emerald-500 mr-2 group-hover:scale-125 transition-transform"></span>
+            {t("dash_sync")} <span className="text-slate-800 font-bold">{syncBadgeText}</span>
           </p>
           
           <button 
@@ -113,7 +141,6 @@ export default function Dashboard() {
         {/* Kolom Kiri */}
         <div className="lg:col-span-1 space-y-4 print:col-span-1 print:space-y-3">
           
-          {/* KARTU 1 */}
           <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-start gap-4 hover:shadow-md transition-all print:p-4 print:shadow-none">
             <div className="p-3 bg-rose-50 rounded-xl text-rose-500 print:p-2">
               <Thermometer size={28} className="print:w-6 print:h-6" />
@@ -128,7 +155,6 @@ export default function Dashboard() {
             </div>
           </div>
 
-          {/* KARTU 2 */}
           <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-start gap-4 hover:shadow-md transition-all print:p-4 print:shadow-none">
             <div className="p-3 bg-sky-50 rounded-xl text-sky-500 print:p-2">
               <Wind size={28} className="print:w-6 print:h-6" />
@@ -143,7 +169,6 @@ export default function Dashboard() {
             </div>
           </div>
 
-          {/* KARTU 3 */}
           <div className="bg-white p-6 rounded-2xl border border-amber-200 shadow-sm flex items-start gap-4 relative overflow-hidden print:p-4 print:shadow-none print:border-amber-300">
             <div className="absolute top-0 right-0 w-16 h-16 bg-amber-100 rounded-bl-full -z-10 opacity-50"></div>
             <div className="p-3 bg-amber-100 rounded-xl text-amber-600 print:p-2">
@@ -159,7 +184,6 @@ export default function Dashboard() {
             </div>
           </div>
 
-          {/* KARTU 4 */}
           <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-start gap-4 print:p-4 print:shadow-none">
             <div className="p-3 bg-emerald-50 rounded-xl text-emerald-500 print:p-2">
               <Droplets size={28} className="print:w-6 print:h-6" />
@@ -206,7 +230,6 @@ export default function Dashboard() {
                     contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
                     labelStyle={{ fontWeight: 'bold', color: '#0f172a', marginBottom: '4px' }}
                   />
-                  {/* Tooltip pada grafik kita biarkan statis karena bawaan Recharts agak kompleks untuk ditranslate langsung di hover */}
                   <Area type="monotone" name="Gas H2S (ppm)" dataKey="h2s" stroke="#f59e0b" strokeWidth={3} fillOpacity={1} fill="url(#colorH2S)" />
                   <Area type="monotone" name="Gempa" dataKey="gempa" stroke="#10b981" strokeWidth={3} fillOpacity={1} fill="url(#colorGempa)" />
                 </AreaChart>
@@ -226,13 +249,18 @@ export default function Dashboard() {
               </div>
               <div>
                 <p className="text-emerald-100 text-sm font-medium print:text-slate-500">{t("dash_weather_title")}</p>
-                {/* === TEXT CUACA SEKARANG DINAMIS MENGIKUTI BAHASA === */}
                 <h4 className="text-2xl font-bold tracking-tight">{getWeatherText()}</h4>
               </div>
             </div>
             <div className="text-right hidden sm:block">
               <p className="text-emerald-100 text-xs opacity-80 print:text-slate-500">{t("dash_weather_loc")}</p>
-              <p className="text-sm font-semibold font-mono">Suoh (-5.25°, 104.27°)</p>
+              <p className="text-sm font-semibold font-mono mb-1">Suoh (-5.25°, 104.27°)</p>
+              
+              {/* PENAMBAHAN WAKTU DI PANEL HIJAU */}
+              <div className="flex flex-col items-end">
+                <p className="text-xs text-emerald-200 font-medium">{panelDate}</p>
+                <p className="text-sm font-bold text-white tracking-wide">{panelTime}</p>
+              </div>
             </div>
           </div>
 
