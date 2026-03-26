@@ -58,7 +58,7 @@ const translations = {
 
     // === GALERI, SEJARAH, & MITOS (UPDATE SUPER LENGKAP) ===
     gal_title: "Pesona Suoh",
-    gal_subtitle: "Jelajahi keindahan 6 titik utama di kawasan Lampung Barat",
+    gal_subtitle: "Jelajahi keindahan 6 titik utama di kawasan Suoh, Lampung Barat",
     gal_click_hint: "Lihat Detail",
     gal_open_map: "Buka Google Maps",
     gal_history_title: "Sejarah",
