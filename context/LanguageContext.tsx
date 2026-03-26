@@ -10,7 +10,7 @@ interface LanguageContextType {
   t: (key: keyof typeof translations.ID) => string;
 }
 
-// === BRANKAS KAMUS TERJEMAHAN (UPDATE TENTANG & SDGS) ===
+// === BRANKAS KAMUS TERJEMAHAN (UPDATE SEJARAH LENGKAP & MITOS LOKAL) ===
 const translations = {
   ID: {
     // Navbar & Hero
@@ -25,7 +25,7 @@ const translations = {
     hero_btn_1: "Mulai Eksplorasi",
     hero_btn_2: "Lihat Dasbor",
     
-    // === TAMBAHAN BARU: TENTANG & SDGS ===
+    // Tentang & SDGS
     about_badge: "Latar Belakang & Misi",
     about_title: "Mengangkat Surga Tersembunyi Suoh ke Kancah Global",
     about_desc_1: "Kawasan Suoh menyimpan pesona alam yang luar biasa—mulai dari danau vulkanik yang asri hingga fenomena geotermal yang eksotis. Sayangnya, keindahan alami yang masih sangat terjaga ini belum sepenuhnya terekspos ke dunia luar.",
@@ -56,36 +56,54 @@ const translations = {
     dash_weather_loc: "Lokasi Satelit:",
     dash_loading: "Memuat...",
 
-    // Galeri & Lokasi
+    // === GALERI, SEJARAH, & MITOS (UPDATE SUPER LENGKAP) ===
     gal_title: "Pesona Suoh",
     gal_subtitle: "Jelajahi keindahan 6 titik utama di kawasan Lampung Barat",
-    gal_click_hint: "Klik untuk melihat sejarah & lokasi",
-    gal_open_map: "Buka lokasi di Google Maps →",
-    gal_history_title: "Sejarah & Asal-usul",
+    gal_click_hint: "Lihat Detail",
+    gal_open_map: "Buka Google Maps",
+    gal_history_title: "Sejarah",
+    
+    // Lokasi 1: Danau Asam
     loc1_title: "Danau Asam",
     loc1_type: "Danau Vulkanik",
-    loc1_desc: "Danau dengan tingkat keasaman tinggi. Mengandung belerang, sering digunakan sebagai indikator aktivitas vulkanik pasif.",
-    loc1_hist: "Terbentuk dari letusan freatik (letusan uap panas) maha dahsyat Gunung Ratu yang dipicu oleh Gempa Bumi Suoh tahun 1933...",
+    loc1_desc: "Danau dengan tingkat keasaman tinggi. Mengandung belerang, sering digunakan sebagai indikator aktivitas vulkanik pasif di wilayah Suoh.",
+    loc1_hist: "Danau ini terbentuk secara dramatis akibat letusan freatik (letusan uap panas bumi) yang maha dahsyat pada tahun 1933. Letusan tersebut dipicu oleh gempa tektonik berskala besar yang mengguncang kawasan Liwa-Suoh. Air danau ini memiliki kadar pH yang sangat rendah (asam) karena tingginya kandungan asam sulfat dari aktivitas vulkanik bawah tanah. Meski sangat asam, ekosistem di sekitar danau ini tetap hidup dengan vegetasi khas yang mampu beradaptasi dengan kondisi tanah bersulfur. Keberadaan danau ini menjadi laboratorium alam yang sangat berharga bagi para ahli vulkanologi dan geologi.",
+    loc1_mitos: "Masyarakat setempat percaya bahwa warna air Danau Asam bisa menjadi 'alarm' alam. Jika airnya yang biasa berwarna kehijauan tiba-tiba berubah menjadi kuning pekat atau bahkan memerah, hal itu dipercaya sebagai pertanda akan datangnya gempa bumi atau aktivitas kawah yang meningkat. Selain itu, ada pantangan untuk berteriak atau berkata kotor di sekitar danau agar tidak mengganggu 'penunggu' tak kasat mata di kawasan tersebut.",
+    
+    // Lokasi 2: Danau Lebar
     loc2_title: "Danau Lebar",
     loc2_type: "Ekowisata",
-    loc2_desc: "Kawasan danau air tawar terluas di Suoh. Menjadi pusat aktivitas ekonomi lokal dan penyewaan perahu wisata.",
-    loc2_hist: "Merupakan 'saudara' dari Danau Asam yang juga lahir dari bencana vulkanik dan tektonik tahun 1933...",
+    loc2_desc: "Kawasan danau air tawar terluas di Suoh. Menjadi pusat aktivitas ekonomi lokal dan penyewaan perahu wisata untuk memancing dan berkeliling.",
+    loc2_hist: "Lahir dari rahim bencana yang sama dengan Danau Asam, yakni gempa bumi Suoh tahun 1933. Benturan lempeng tektonik menyebabkan cekungan raksasa yang kemudian terisi oleh air hujan dan mata air tanah selama bertahun-tahun. Berbeda dengan Danau Asam yang beracun, Danau Lebar memiliki ekosistem air tawar yang subur. Ratusan spesies ikan endemik hidup di dalamnya, menjadikannya urat nadi kehidupan ekonomi masyarakat sekitar, terutama nelayan lokal. Luasnya yang mencapai puluhan hektar membuat danau ini seolah menyerupai lautan tenang di tengah lembah barisan.",
+    loc2_mitos: "Konon, di dasar Danau Lebar terdapat pusaran air misterius yang menghubungkan danau ini langsung dengan samudra di selatan. Nelayan lokal percaya bahwa di bulan-bulan tertentu, ikan-ikan raksasa akan muncul ke permukaan, yang dipercaya sebagai perwujudan roh leluhur yang menjaga keseimbangan ekosistem danau. Turis yang datang dilarang membuang sampah atau mencemari air jika ingin perjalanan mereka selamat.",
+    
+    // Lokasi 3: Danau Minyak
     loc3_title: "Danau Minyak",
     loc3_type: "Danau Vulkanik",
-    loc3_desc: "Permukaan airnya terlihat seperti dilapisi minyak. Memiliki aroma khas dan menjadi salah satu daya tarik unik.",
-    loc3_hist: "Danau vulkanik ini memiliki fenomena alam yang sangat ganjil. Sejak terbentuk pada 1933...",
+    loc3_desc: "Permukaan airnya terlihat seperti dilapisi minyak mengkilap. Memiliki aroma khas dan menjadi salah satu daya tarik visual yang unik.",
+    loc3_hist: "Danau ini adalah salah satu fenomena langka di Indonesia. Permukaan airnya selalu terlihat berkilau seperti tertutup lapisan minyak tebal, namun saat disentuh, airnya tidak berminyak. Efek visual optik ini terjadi akibat reaksi kimia kompleks antara gas hidrokarbon, hidrogen sulfida, dan mikroorganisme purba (archaea) yang hidup bebas di dasar danau. Terbentuk pasca letusan 1933, danau ini menjadi bukti betapa kayanya kandungan mineral yang tersembunyi di bawah perut bumi Suoh.",
+    loc3_mitos: "Nama 'Minyak' melahirkan cerita rakyat yang unik. Dahulu, dipercaya bahwa seorang raja sakti pernah menumpahkan cawan pusaka berisi minyak kehidupan di tempat ini saat terjadi peperangan gaib. Siapapun yang mencuci muka dengan air danau ini di malam purnama dipercaya akan awet muda, meskipun bau belerangnya cukup menyengat. Tentu saja, hal ini dilarang karena alasan kesehatan kulit.",
+    
+    // Lokasi 4: Pasir Kuning
     loc4_title: "Pasir Kuning",
     loc4_type: "Area Geotermal",
-    loc4_desc: "Hamparan pasir berwarna kuning akibat endapan sulfur (belerang). Spot foto favorit pengunjung namun perlu kehati-hatian.",
-    loc4_hist: "Bukan pasir biasa dari laut atau sungai. Hamparan pasir ini adalah murni endapan sulfur (belerang) padat...",
+    loc4_desc: "Hamparan padang luas berwarna kuning terang akibat endapan sulfur. Spot foto favorit pengunjung namun perlu kehati-hatian tinggi.",
+    loc4_hist: "Pasir Kuning bukanlah pasir silika seperti di pantai, melainkan hamparan kristal sulfur (belerang) padat yang telah mengendap selama ratusan tahun. Area ini merupakan zona pelepasan gas fumarol yang mengering. Endapan sulfur yang terbawa oleh uap panas perlahan-lahan menumpuk dan menutupi tanah, membunuh vegetasi di sekitarnya dan menciptakan lanskap tandus mirip permukaan planet Mars. Keindahan visualnya sangat kontras dengan hijaunya hutan tropis di sekelilingnya.",
+    loc4_mitos: "Masyarakat percaya bahwa hamparan kuning ini adalah sisa emas batangan milik kerajaan tak kasat mata yang dikutuk menjadi pasir karena keserakahan manusia di masa lalu. Berjalan di atas pasir ini diyakini membutuhkan hati yang bersih. Jika seseorang memiliki niat buruk, pasir yang diinjaknya akan terasa membakar kaki (secara logis, ini karena panas bumi yang keluar dari rongga-rongga tanah sulfur).",
+    
+    // Lokasi 5: Kawah Nirwana
     loc5_title: "Kawah Nirwana",
     loc5_type: "Geotermal Aktif",
-    loc5_desc: "Area manifestasi panas bumi aktif dengan letupan lumpur panas. Suhu permukaan sangat tinggi, perlu pemantauan ketat.",
-    loc5_hist: "Dikenal sebagai kawasan yang 'hidup' dan pernah kembali erupsi pada Mei 2024 lalu...",
+    loc5_desc: "Area manifestasi panas bumi sangat aktif dengan letupan lumpur panas. Suhu permukaan sangat tinggi, memerlukan pemantauan ketat.",
+    loc5_hist: "Jangan tertipu oleh namanya yang indah. Kawah Nirwana adalah titik geotermal paling agresif dan mematikan di Suoh. Suhu letupan lumpur di sini bisa menembus 100 derajat Celcius, cukup untuk merebus apapun yang jatuh ke dalamnya. Kawah ini terus mengalami perubahan bentuk dan memperluas diameternya seiring waktu. Pada Mei 2024, kawah ini sempat mengalami erupsi freatik kecil yang menyemburkan material vulkanik belasan meter ke udara, membuktikan bahwa 'jantung' Suoh masih berdetak kencang.",
+    loc5_mitos: "Dinamakan 'Nirwana' karena uap putih pekat yang selalu menyelimuti kawah ini menyerupai awan kahyangan. Namun, legenda lokal menyebutnya sebagai 'Gerbang Bawah Dunia'. Dipercayai bahwa letupan-letupan keras yang terdengar dari dalam kawah adalah suara napas naga raksasa yang tertidur di perut bumi. Pengunjung sangat diwajibkan didampingi kuncen atau pemandu lokal agar terhindar dari 'napas beracun' sang naga (gas H2S).",
+    
+    // Lokasi 6: Kawah Keramikan
     loc6_title: "Kawah Keramikan",
     loc6_type: "Geotermal Aktif",
-    loc6_desc: "Dataran endapan kawah yang mengeras dan retak menyerupai lantai keramik. Mengeluarkan asap belerang tebal.",
-    loc6_hist: "Ini adalah mahakarya Gempa 1933. Saat letusan terjadi, lumpur vulkanik bersuhu ratusan derajat meluap ke permukaan...",
+    loc6_desc: "Dataran luas endapan kawah yang mengeras, retak, dan menyerupai lantai keramik kekuningan. Mengeluarkan asap belerang tebal dari celah retakan.",
+    loc6_hist: "Kawah Keramikan adalah mahakarya geologi yang menakjubkan. Lapisannya terbentuk dari endapan silika dan kalsium karbonat yang terbawa oleh mata air panas vulkanik. Saat air tersebut menguap dan mengering selama puluhan tahun, mineral-mineral itu mengeras membentuk lapisan tebal yang retak-retak geometris, persis seperti lantai keramik rumah yang pecah. Ketebalan lapisan ini bervariasi, dan di beberapa titik, kerak 'keramik' ini sangat tipis sehingga bisa langsung amblas ke dalam lumpur mendidih jika diinjak.",
+    loc6_mitos: "Lantai keramik alami ini diyakini oleh tetua adat sebagai puing-puing pelataran istana jin yang hancur saat gempa besar tahun 1933. Retakan-retakannya dipercaya sebagai jalur labirin mistis. Ada pantangan keras bagi siapa saja untuk melompat-lompat atau menghentakkan kaki dengan sombong di atas Keramikan, karena diyakini dapat memicu kemarahan penghuni bawah tanah yang akan langsung membuka rekahan tanah.",
 
     // Panduan Keselamatan
     safe_badge: "Perhatian Pengunjung",
@@ -132,7 +150,7 @@ const translations = {
     // Navbar & Hero
     nav_home: "Home",
     nav_about: "About",
-    nav_gallery: "Suoh Gallery",
+    nav_gallery: "Suoh Charm",
     nav_map: "Aerial Map",
     nav_dash: "Sensor Dash",
     hero_title_1: "Guarding the Treasure of",
@@ -141,7 +159,7 @@ const translations = {
     hero_btn_1: "Start Exploring",
     hero_btn_2: "View Dashboard",
     
-    // === TAMBAHAN BARU: TENTANG & SDGS ===
+    // Tentang & SDGS
     about_badge: "Background & Mission",
     about_title: "Elevating Suoh's Hidden Paradise to the Global Stage",
     about_desc_1: "The Suoh region harbors extraordinary natural charm—from pristine volcanic lakes to exotic geothermal phenomena. Unfortunately, this beautifully preserved 'hidden paradise' remains underexposed to the outside world.",
@@ -172,36 +190,54 @@ const translations = {
     dash_weather_loc: "Satellite Location:",
     dash_loading: "Loading...",
 
-    // Galeri & Lokasi
+    // === GALERI, SEJARAH, & MITOS (ENGLISH UPDATE) ===
     gal_title: "Suoh Charm",
     gal_subtitle: "Explore the beauty of 6 main spots in the West Lampung region",
-    gal_click_hint: "Click to view history & location",
-    gal_open_map: "Open location in Google Maps →",
-    gal_history_title: "History & Origins",
+    gal_click_hint: "View Details",
+    gal_open_map: "Open Google Maps",
+    gal_history_title: "History",
+    
+    // Loc 1: Asam Lake
     loc1_title: "Asam Lake",
     loc1_type: "Volcanic Lake",
-    loc1_desc: "A lake with a very high acidity level. Contains sulfur and is often used as an indicator of passive volcanic activity.",
-    loc1_hist: "Formed by a massive phreatic (steam) eruption of Mount Ratu triggered by the 1933 Suoh Earthquake...",
+    loc1_desc: "A lake with a very high acidity level. Contains sulfur and is often used as an indicator of passive volcanic activity in the Suoh area.",
+    loc1_hist: "This lake was formed dramatically due to a massive phreatic (steam) eruption in 1933. The eruption was triggered by a large-scale tectonic earthquake that shook the Liwa-Suoh region. The water in this lake has a very low (acidic) pH level due to the high content of sulfuric acid from underground volcanic activity. Despite being highly acidic, the ecosystem around the lake continues to thrive with unique vegetation capable of adapting to sulfurous soil. The existence of this lake serves as an invaluable natural laboratory for volcanologists and geologists.",
+    loc1_mitos: "Local people believe that the watercolor of Lake Asam can act as a natural 'alarm'. If the normally greenish water suddenly turns thick yellow or even red, it is believed to be a sign of an impending earthquake or increased crater activity. In addition, there is a taboo against shouting or using foul language around the lake so as not to disturb the unseen 'guardians' of the area.",
+    
+    // Loc 2: Lebar Lake
     loc2_title: "Lebar Lake",
     loc2_type: "Ecotourism",
-    loc2_desc: "The largest freshwater lake in Suoh. Serves as the center for local economic activities and tourist boat rentals.",
-    loc2_hist: "A 'sibling' to Asam Lake, also born from the 1933 volcanic and tectonic disaster...",
+    loc2_desc: "The largest freshwater lake in Suoh. Serves as the center for local economic activities and tourist boat rentals for fishing and sightseeing.",
+    loc2_hist: "Born from the womb of the same disaster as Lake Asam, namely the 1933 Suoh earthquake. The collision of tectonic plates caused a giant basin which then filled with rainwater and groundwater springs over the years. Unlike the toxic Lake Asam, Lake Lebar has a fertile freshwater ecosystem. Hundreds of endemic fish species live in it, making it the lifeblood of the local community's economy, especially local fishermen. Its vastness, reaching dozens of hectares, makes this lake look like a calm ocean in the middle of a mountain valley.",
+    loc2_mitos: "It is said that at the bottom of Lake Lebar there is a mysterious whirlpool that connects this lake directly to the southern ocean. Local fishermen believe that in certain months, giant fish will rise to the surface, which is believed to be the embodiment of ancestral spirits guarding the lake's ecosystem. Tourists visiting are forbidden from littering or polluting the water if they want their journey to be safe.",
+    
+    // Loc 3: Minyak Lake
     loc3_title: "Minyak Lake",
     loc3_type: "Volcanic Lake",
-    loc3_desc: "The surface of the water looks as if it is coated with oil. It has a distinct aroma and is a unique attraction.",
-    loc3_hist: "This volcanic lake features a very bizarre natural phenomenon. Since its formation in 1933...",
+    loc3_desc: "The surface of the water looks as if it is coated with shiny oil. It has a distinct aroma and is one of the unique visual attractions.",
+    loc3_hist: "This lake is one of the rare phenomena in Indonesia. The surface of the water always looks shiny as if covered by a thick layer of oil, but when touched, the water is not oily. This optical visual effect occurs due to a complex chemical reaction between hydrocarbon gases, hydrogen sulfide, and ancient microorganisms (archaea) living freely at the bottom of the lake. Formed after the 1933 eruption, this lake is proof of how rich the mineral content is hidden beneath the belly of the Suoh earth.",
+    loc3_mitos: "The name 'Minyak' (Oil) birthed a unique folklore. In the past, it was believed that a powerful king once spilled a sacred chalice filled with the oil of life in this place during a supernatural war. Anyone who washes their face with the water of this lake on a full moon night is believed to stay young forever, even though the smell of sulfur is quite pungent. Of course, this is prohibited for skin health reasons.",
+    
+    // Loc 4: Yellow Sand
     loc4_title: "Yellow Sand",
     loc4_type: "Geothermal Area",
-    loc4_desc: "A stretch of yellow sand caused by sulfur deposits. A favorite photo spot for visitors, but caution is required.",
-    loc4_hist: "Not your regular beach or river sand. This stretch of sand is pure solid sulfur deposits...",
+    loc4_desc: "A vast expanse of bright yellow field caused by sulfur deposits. A favorite photo spot for visitors, but extreme caution is required.",
+    loc4_hist: "Yellow Sand is not silica sand like on the beach, but an expanse of solid sulfur crystals that have settled for hundreds of years. This area is a dried-up fumarole gas release zone. Sulfur deposits carried by hot steam slowly accumulate and cover the ground, killing the surrounding vegetation and creating a barren landscape resembling the surface of the planet Mars. Its visual beauty contrasts sharply with the green tropical rainforest surrounding it.",
+    loc4_mitos: "The community believes that this yellow expanse is the remnants of gold bullion belonging to an unseen kingdom that was cursed into sand due to human greed in the past. Walking on this sand is believed to require a pure heart. If someone has bad intentions, the sand they step on will feel like it's burning their feet (logically, this is due to the geothermal heat escaping from the sulfur soil cavities).",
+    
+    // Loc 5: Nirwana Crater
     loc5_title: "Nirwana Crater",
     loc5_type: "Active Geothermal",
-    loc5_desc: "An active geothermal manifestation area with bubbling hot mud. Extremely high surface temperatures, requires strict monitoring.",
-    loc5_hist: "Known as a 'living' area and had recently erupted again in May 2024...",
+    loc5_desc: "A highly active geothermal manifestation area with bubbling hot mud. Extremely high surface temperatures, requiring strict monitoring.",
+    loc5_hist: "Don't be fooled by its beautiful name. Nirwana Crater is the most aggressive and deadly geothermal point in Suoh. The temperature of the mud eruptions here can exceed 100 degrees Celsius, enough to boil anything that falls into it. This crater continues to change shape and expand its diameter over time. In May 2024, this crater experienced a small phreatic eruption that spewed volcanic material dozens of meters into the air, proving that the 'heart' of Suoh is still beating fast.",
+    loc5_mitos: "Named 'Nirwana' (Nirvana/Heaven) because the thick white steam that always envelops this crater resembles heavenly clouds. However, local legends call it the 'Gate of the Underworld'. It is believed that the loud popping sounds heard from inside the crater are the breathing sounds of a giant dragon sleeping in the belly of the earth. Visitors are highly required to be accompanied by a caretaker or local guide to avoid the dragon's 'poisonous breath' (H2S gas).",
+    
+    // Loc 6: Keramikan Crater
     loc6_title: "Keramikan Crater",
     loc6_type: "Active Geothermal",
-    loc6_desc: "A hardened and cracked crater deposit plain resembling a ceramic floor. Emits thick sulfur smoke.",
-    loc6_hist: "This is the masterpiece of the 1933 Earthquake. When the eruption occurred, volcanic mud at hundreds of degrees overflowed...",
+    loc6_desc: "A vast plain of hardened, cracked crater deposits resembling yellowish ceramic floors. Emits thick sulfur smoke from the cracks.",
+    loc6_hist: "Keramikan Crater is a stunning geological masterpiece. Its layers are formed from silica and calcium carbonate deposits carried by volcanic hot springs. When the water evaporates and dries over decades, those minerals harden to form a thick layer with geometric cracks, exactly like a broken house ceramic floor. The thickness of this layer varies, and at some points, this 'ceramic' crust is so thin that it can immediately collapse into boiling mud if stepped on.",
+    loc6_mitos: "This natural ceramic floor is believed by traditional elders to be the ruins of the courtyard of a jinn palace that was destroyed during the great earthquake of 1933. The cracks are believed to be mystical labyrinth paths. There is a strict taboo for anyone to jump around or stomp their feet arrogantly on the Keramikan, as it is believed it can trigger the anger of the underground dwellers who will immediately open the ground fissures.",
 
     // Panduan Keselamatan
     safe_badge: "Important Notice",
