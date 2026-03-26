@@ -14,23 +14,26 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-// === REVISI: METADATA SEO TINGKAT LANJUT (OpenGraph & Twitter Cards) ===
+// === REVISI: METADATA SEO TINGKAT LANJUT ===
 export const metadata: Metadata = {
+  // === TAMBAHAN WAJIB: Basis URL agar gambar terbaca oleh WhatsApp ===
+  metadataBase: new URL("https://aerosuoh.vercel.app"), 
+  
   title: "AeroSuoh | Geothermal Eco-Monitor",
   description: "Platform pariwisata pintar dan dasbor pemantauan geotermal masa depan untuk kawasan Suoh, Lampung Barat.",
   keywords: ["AeroSuoh", "Suoh", "Lampung Barat", "Geothermal", "Ecotourism", "Danau Asam", "Teknokrat"],
   authors: [{ name: "Hafis Yulianto" }],
   icons: {
-    icon: "/logo-aerosuoh2.png", // Favicon sudah aman!
+    icon: "/logo-aerosuoh2.png", 
   },
   openGraph: {
     title: "AeroSuoh | Geothermal Eco-Monitor",
     description: "Platform pariwisata pintar dan dasbor pemantauan geotermal masa depan untuk kawasan Suoh, Lampung Barat.",
-    url: "https://aerosuoh.vercel.app", // Ganti dengan domain Vercel asli Anda nanti jika perlu
+    url: "https://aerosuoh.vercel.app", 
     siteName: "AeroSuoh",
     images: [
       {
-        url: "/hero-suoh.png", // Akan menggunakan gambar Hero sebagai thumbnail saat dishare
+        url: "/hero-suoh.png", // Next.js otomatis menjadikannya absolut berkat metadataBase di atas
         width: 1200,
         height: 630,
         alt: "AeroSuoh Dashboard Preview",
