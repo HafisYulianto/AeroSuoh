@@ -14,15 +14,16 @@ export default function Footer() {
           {/* Kolom Kiri: Brand, Deskripsi, & Sosial Media */}
           <div className="flex flex-col gap-5">
             <div className="flex flex-col gap-4">
-              <div className="flex items-center gap-3">
-                <img src="/logo-aerosuoh2.png" alt="Logo AeroSuoh" className="h-10 w-auto object-contain" />
-                <span className="text-2xl font-bold text-white tracking-tight">Aero<span className="text-emerald-400">Suoh</span></span>
-              </div>
-              <p className="text-emerald-100/70 text-sm leading-relaxed max-w-sm">
-                {t("hero_desc")}
-              </p>
+              {/* flex items-center dibiarkan, tapi ditambahkan -ml-2 di gambar agar rata kiri dengan teks bawahnya */}
+            <div className="flex items-center">
+              {/* h-10 diubah menjadi h-20 agar lebih besar dan proporsional */}
+              <img src="/logo-aerosuoh2.png" alt="Logo AeroSuoh" className="h-35 w-auto object-contain -ml-2" />  
             </div>
-            
+            <p className="text-emerald-100/70 text-sm leading-relaxed max-w-sm">
+              {t("hero_desc")}
+            </p>
+          </div>
+
             {/* === BARU: Deretan Ikon Sosial Media === */}
             <div className="flex items-center gap-3 mt-1">
               <a href="#" className="p-2.5 bg-emerald-900/50 rounded-full text-emerald-400 hover:bg-emerald-500 hover:text-white hover:-translate-y-1 transition-all shadow-sm">
@@ -51,11 +52,6 @@ export default function Footer() {
               <li>
                 <a href="#gallery" className="flex items-center gap-2 text-sm hover:text-white hover:translate-x-1 transition-transform">
                   <Camera size={16} className="text-emerald-500" /> {t("nav_gallery")}
-                </a>
-              </li>
-              <li>
-                <a href="#safety" className="flex items-center gap-2 text-sm hover:text-white hover:translate-x-1 transition-transform">
-                  <ShieldAlert size={16} className="text-emerald-500" /> {t("foot_nav_safety")}
                 </a>
               </li>
               <li>
