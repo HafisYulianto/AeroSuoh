@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 // === REVISI: METADATA SEO TINGKAT LANJUT (OpenGraph & Twitter Cards) ===
 export const metadata: Metadata = {
   title: "AeroSuoh | Geothermal Eco-Monitor",
-  description: "Platform pariwisata ekologis pintar dan dasbor pemantauan geotermal masa depan untuk kawasan Suoh, Lampung Barat.",
+  description: "Platform pariwisata pintar dan dasbor pemantauan geotermal masa depan untuk kawasan Suoh, Lampung Barat.",
   keywords: ["AeroSuoh", "Suoh", "Lampung Barat", "Geothermal", "Ecotourism", "Danau Asam", "Teknokrat"],
   authors: [{ name: "Hafis Yulianto" }],
   icons: {
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "AeroSuoh | Geothermal Eco-Monitor",
-    description: "Platform pariwisata ekologis pintar dan dasbor pemantauan geotermal masa depan untuk kawasan Suoh, Lampung Barat.",
+    description: "Platform pariwisata pintar dan dasbor pemantauan geotermal masa depan untuk kawasan Suoh, Lampung Barat.",
     url: "https://aerosuoh.vercel.app", // Ganti dengan domain Vercel asli Anda nanti jika perlu
     siteName: "AeroSuoh",
     images: [
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "AeroSuoh | Geothermal Eco-Monitor",
-    description: "Platform pariwisata ekologis pintar dan dasbor pemantauan geotermal masa depan untuk kawasan Suoh, Lampung Barat.",
+    description: "Platform pariwisata pintar dan dasbor pemantauan geotermal masa depan untuk kawasan Suoh, Lampung Barat.",
     images: ["/hero-suoh.png"],
   },
 };

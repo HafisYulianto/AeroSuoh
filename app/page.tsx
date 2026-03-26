@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import Navbar from "../components/Navbar";
-// === TAMBAHAN: Import komponen About ===
 import About from "../components/About";
 import Dashboard from "../components/Dashboard";
 import AerialExplorer from "../components/AerialExplorer"; 
@@ -11,6 +10,8 @@ import PhotoSlider from "../components/PhotoSlider";
 import SafetyGuide from "../components/SafetyGuide";
 import GeothermalParticles from "../components/GeothermalParticles";
 import AudioButton from "../components/AudioButton";
+// === TAMBAHAN BARU: Import Smart Assistant kita ===
+import SmartAssistant from "../components/SmartAssistant";
 
 // === TAMBAHAN: Import context bahasa global kita ===
 import { useLanguage } from "../context/LanguageContext";
@@ -138,10 +139,10 @@ export default function Home() {
         <Dashboard />
       </motion.div>
 
-      {/* === SENJATA RAHASIA #1: AUDIO IMERSIF === */}
-      <AudioButton />
-
       <Footer />
+
+      {/* === SENJATA RAHASIA #2: SMART ASSISTANT (TICKET & CHATBOT) === */}
+      <SmartAssistant />
 
     </main>
   );

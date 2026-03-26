@@ -1,4 +1,4 @@
-import { MapPin, Mail, Home, Map, Activity, Camera, ShieldAlert } from "lucide-react";
+import { MapPin, Mail, Home, Map, Activity, Camera, ShieldAlert, Info } from "lucide-react";
 // === TAMBAHAN: Import context bahasa global ===
 import { useLanguage } from "../context/LanguageContext";
 
@@ -32,6 +32,15 @@ export default function Footer() {
                   <Home size={16} className="text-emerald-500" /> {t("nav_home")}
                 </a>
               </li>
+              
+              {/* === REVISI: MENAMBAHKAN MENU TENTANG === */}
+              <li>
+                <a href="#about" className="flex items-center gap-2 text-sm hover:text-white hover:translate-x-1 transition-transform">
+                  <Info size={16} className="text-emerald-500" /> {t("nav_about")}
+                </a>
+              </li>
+              {/* ======================================= */}
+
               <li>
                 <a href="#gallery" className="flex items-center gap-2 text-sm hover:text-white hover:translate-x-1 transition-transform">
                   <Camera size={16} className="text-emerald-500" /> {t("nav_gallery")}

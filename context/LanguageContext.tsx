@@ -21,7 +21,7 @@ const translations = {
     nav_dash: "Dasbor Sensor",
     hero_title_1: "Menjaga Harta Karun",
     hero_title_2: "Lampung Barat",
-    hero_desc: "Platform pariwisata ekologis pintar dan dasbor pemantauan geotermal masa depan untuk kawasan Suoh.",
+    hero_desc: "Platform pariwisata pintar dan dasbor pemantauan geotermal masa depan untuk kawasan Suoh.",
     hero_btn_1: "Mulai Eksplorasi",
     hero_btn_2: "Lihat Dasbor",
     
@@ -96,7 +96,7 @@ const translations = {
     safe_rule2_title: "Sepatu Trekking Tertutup",
     safe_rule2_desc: "Suhu permukaan tanah (seperti di Keramikan) bisa sangat panas. Dilarang keras memakai sandal.",
     safe_rule3_title: "Didampingi Pemandu",
-    safe_rule3_desc: "Jalur ekologis dan geotermal rawan ambles jika tidak hafal medan. Selalu patuhi arahan pemandu lokal.",
+    safe_rule3_desc: "Jalur dan geotermal rawan ambles jika tidak hafal medan. Selalu patuhi arahan pemandu lokal.",
     safe_rule4_title: "Patuhi Zona Aman",
     safe_rule4_desc: "Jangan pernah melewati batas rambu peringatan zona merah atau mendekati pusat letupan lumpur.",
 
