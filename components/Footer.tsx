@@ -1,4 +1,4 @@
-import { MapPin, Mail, Home, Map, Activity, Camera, ShieldAlert, Info } from "lucide-react";
+import { MapPin, Mail, Phone, Home, Map, Activity, Camera, ShieldAlert, Info, Instagram, Youtube, Linkedin, Github } from "lucide-react";
 // === TAMBAHAN: Import context bahasa global ===
 import { useLanguage } from "../context/LanguageContext";
 
@@ -11,16 +11,27 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
           
-          {/* Kolom Kiri: Brand & Deskripsi */}
-          <div className="flex flex-col gap-4">
-            <div className="flex items-center gap-3">
-              <img src="/logo-aerosuoh2.png" alt="Logo AeroSuoh" className="h-10 w-auto object-contain" />
-              <span className="text-2xl font-bold text-white tracking-tight">Aero<span className="text-emerald-400">Suoh</span></span>
+          {/* Kolom Kiri: Brand, Deskripsi, & Sosial Media */}
+          <div className="flex flex-col gap-5">
+            <div className="flex flex-col gap-4">
+              <div className="flex items-center gap-3">
+                <img src="/logo-aerosuoh2.png" alt="Logo AeroSuoh" className="h-10 w-auto object-contain" />
+                <span className="text-2xl font-bold text-white tracking-tight">Aero<span className="text-emerald-400">Suoh</span></span>
+              </div>
+              <p className="text-emerald-100/70 text-sm leading-relaxed max-w-sm">
+                {t("hero_desc")}
+              </p>
             </div>
-            {/* Menggunakan terjemahan dari deskripsi Hero agar konsisten */}
-            <p className="text-emerald-100/70 text-sm leading-relaxed max-w-sm">
-              {t("hero_desc")}
-            </p>
+            
+            {/* === BARU: Deretan Ikon Sosial Media === */}
+            <div className="flex items-center gap-3 mt-1">
+              <a href="#" className="p-2.5 bg-emerald-900/50 rounded-full text-emerald-400 hover:bg-emerald-500 hover:text-white hover:-translate-y-1 transition-all shadow-sm">
+                <Instagram size={18} />
+              </a>
+              <a href="#" className="p-2.5 bg-emerald-900/50 rounded-full text-emerald-400 hover:bg-emerald-500 hover:text-white hover:-translate-y-1 transition-all shadow-sm">
+                <Youtube size={18} />
+              </a>
+            </div>
           </div>
 
           {/* Kolom Tengah: Navigasi Sistem */}
@@ -32,15 +43,11 @@ export default function Footer() {
                   <Home size={16} className="text-emerald-500" /> {t("nav_home")}
                 </a>
               </li>
-              
-              {/* === REVISI: MENAMBAHKAN MENU TENTANG === */}
               <li>
                 <a href="#about" className="flex items-center gap-2 text-sm hover:text-white hover:translate-x-1 transition-transform">
                   <Info size={16} className="text-emerald-500" /> {t("nav_about")}
                 </a>
               </li>
-              {/* ======================================= */}
-
               <li>
                 <a href="#gallery" className="flex items-center gap-2 text-sm hover:text-white hover:translate-x-1 transition-transform">
                   <Camera size={16} className="text-emerald-500" /> {t("nav_gallery")}
@@ -64,7 +71,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Kolom Kanan: Pusat Kendali */}
+          {/* Kolom Kanan: Pusat Kendali & Kontak Lengkap */}
           <div>
             <h3 className="text-white font-bold text-lg mb-4">{t("foot_loc_title")}</h3>
             <ul className="space-y-4">
@@ -72,17 +79,55 @@ export default function Footer() {
                 <MapPin size={18} className="text-emerald-500 shrink-0 mt-0.5" />
                 <span className="leading-relaxed">{t("foot_loc_1")}<br />{t("foot_loc_2")}</span>
               </li>
+              
+              {/* === BARU: Kontak Tambahan === */}
+              <li className="flex items-center gap-3 text-sm">
+                <Phone size={18} className="text-emerald-500 shrink-0" />
+                <span className="leading-relaxed">+62 822-7948-5813</span>
+              </li>
+              <li className="flex items-center gap-3 text-sm">
+                <Mail size={18} className="text-emerald-500 shrink-0" />
+                <span className="leading-relaxed">aerosuoh@gmail.com</span>
+              </li>
             </ul>
           </div>
 
         </div>
 
-        {/* Garis Bawah & Copyright */}
-        <div className="mt-12 pt-6 border-t border-emerald-800/50 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p className="text-xs text-emerald-100/60">
+        {/* Garis Bawah, Copyright, & Developer Credit */}
+        <div className="mt-12 pt-6 border-t border-emerald-800/50 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-xs text-emerald-100/60 text-center md:text-left">
             {t("foot_copy")}
           </p>
-          <Activity size={16} className="text-emerald-500/50" />
+          
+          {/* === BARU: Developer Credit & Portfolio Links === */}
+          <div className="flex items-center gap-3">
+            <span className="text-xs text-emerald-100/60">
+              Developed by <span className="font-bold text-emerald-400">Hafis Yulianto</span>
+            </span>
+            <div className="h-4 w-px bg-emerald-800/80 hidden sm:block"></div>
+            <div className="flex items-center gap-2">
+              <a 
+                href="https://www.linkedin.com/in/hafisyulianto/" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="p-1.5 rounded-md text-emerald-500/70 hover:text-emerald-300 hover:bg-emerald-900/50 transition-colors"
+                title="Connect on LinkedIn"
+              >
+                <Linkedin size={16} />
+              </a>
+              <a 
+                href="https://github.com/HafisYulianto" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="p-1.5 rounded-md text-emerald-500/70 hover:text-emerald-300 hover:bg-emerald-900/50 transition-colors"
+                title="View GitHub Profile"
+              >
+                <Github size={16} />
+              </a>
+            </div>
+          </div>
+
         </div>
       </div>
     </footer>
