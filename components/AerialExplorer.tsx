@@ -270,9 +270,10 @@ export default function AerialExplorer() {
           )}
         </div>
 
+        {/* === HANYA BAGIAN INI YANG DIUBAH (Posisi & Bentuk Sudut) === */}
         <div 
           onClick={() => setIsThermalMode(!isThermalMode)}
-          className={`absolute bottom-4 left-4 z-10 w-36 sm:w-48 h-24 sm:h-32 bg-slate-900 border ${isThermalMode ? 'border-emerald-500 shadow-emerald-900/50' : 'border-rose-500/50 shadow-rose-900/20'} rounded-lg overflow-hidden shadow-lg cursor-pointer hover:scale-105 transition-all group`}
+          className={`absolute bottom-0 left-0 z-20 w-36 sm:w-48 h-24 sm:h-32 bg-slate-900 border-t border-r ${isThermalMode ? 'border-emerald-500 shadow-emerald-900/50' : 'border-rose-500/50 shadow-rose-900/20'} rounded-tr-2xl overflow-hidden shadow-lg cursor-pointer hover:scale-105 transition-all group`}
         >
           <div className="absolute top-1.5 left-2 flex items-center gap-1.5 z-20">
             <div className={`w-2 h-2 rounded-full animate-pulse ${isThermalMode ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]' : 'bg-rose-500 shadow-[0_0_8px_rgba(244,63,94,0.8)]'}`}></div>
