@@ -31,7 +31,7 @@ export default function Home() {
       <div 
         id="home" 
         className="relative min-h-screen flex flex-col items-center justify-center px-4 text-center z-10 pt-16 bg-cover bg-center bg-no-repeat print:hidden"
-        style={{ backgroundImage: "url('/hero-suoh.png')" }}
+        style={{ backgroundImage: "url('/hero-suoh2.png')" }}
       >
         {/* Overlay Gelap */}
         <div className="absolute inset-0 bg-slate-900/70 -z-10"></div>

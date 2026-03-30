@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     siteName: "AeroSuoh",
     images: [
       {
-        url: "/hero-suoh.png", // Next.js otomatis menjadikannya absolut berkat metadataBase di atas
+        url: "/hero-suoh2.png", // Next.js otomatis menjadikannya absolut berkat metadataBase di atas
         width: 1200,
         height: 630,
         alt: "AeroSuoh Dashboard Preview",
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "AeroSuoh | Geothermal Eco-Monitor",
     description: "Platform pariwisata pintar dan dasbor pemantauan geotermal masa depan untuk kawasan Suoh, Lampung Barat.",
-    images: ["/hero-suoh.png"],
+    images: ["/hero-suoh2.png"],
   },
 };
 // ======================================================================
