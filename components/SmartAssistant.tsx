@@ -17,7 +17,12 @@ export default function SmartAssistant() {
   // === STATE UNTUK AEROBOT (CHATBOT) ===
   const [chatInput, setChatInput] = useState("");
   const [messages, setMessages] = useState([
-    { sender: "bot", text: lang === "ID" ? "Halo! Saya AeroBot 🤖. Ada yang bisa saya bantu tentang kunjungan Anda ke Suoh? (Coba ketik: tiket, lokasi, atau keamanan)" : "Hello! I'm AeroBot 🤖. How can I help with your visit to Suoh? (Try typing: ticket, location, or safety)" }
+    { 
+      sender: "bot", 
+      text: lang === "ID" 
+        ? "Halo! Saya AeroBot 🤖. Asisten virtual pintar Anda untuk kawasan Suoh. Ada yang bisa saya bantu? (Coba ketik: tiket, cuaca, homestay, atau jam buka)" 
+        : "Hello! I'm AeroBot 🤖. Your smart virtual assistant for the Suoh region. How can I help you today? (Try typing: ticket, weather, homestay, or open hours)" 
+    }
   ]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -41,28 +46,105 @@ export default function SmartAssistant() {
       let botReply = "";
       const inputLower = userMsg.toLowerCase();
 
+      // ==========================================
       // Deteksi Kata Kunci (Bahasa Indonesia)
+      // ==========================================
       if (lang === "ID") {
-        if (inputLower.includes("tiket") || inputLower.includes("harga") || inputLower.includes("bayar")) {
+        if (inputLower.includes("halo") || inputLower.includes("hai") || inputLower.includes("pagi") || inputLower.includes("siang") || inputLower.includes("sore") || inputLower.includes("malam")) {
+          botReply = "Halo! Saya AeroBot. Ada yang bisa saya bantu terkait informasi wisata, tiket, atau kondisi kawasan Suoh hari ini? 👋";
+        } 
+        else if (inputLower.includes("tiket") || inputLower.includes("harga") || inputLower.includes("bayar") || inputLower.includes("biaya") || inputLower.includes("tarif")) {
           botReply = "Harga tiket Day Trip Pass adalah Rp 25.000/orang. Untuk paket menginap Eco-Staycation mulai Rp 175.000/malam. Pesan langsung lewat menu 'Pesan Tiket & Homestay' ya! 🎫";
-        } else if (inputLower.includes("aman") || inputLower.includes("bahaya") || inputLower.includes("gas") || inputLower.includes("meletus")) {
-          botReply = "Kawasan Geotermal Suoh dipantau ketat secara real-time oleh dasbor kami. Selama Anda berada di Zona Hijau dan mematuhi panduan, kunjungan Anda dijamin aman! 🛡️";
-        } else if (inputLower.includes("lokasi") || inputLower.includes("dimana") || inputLower.includes("rute")) {
-          botReply = "Suoh terletak di Kabupaten Lampung Barat. Anda bisa menggunakan Peta Interaktif di website ini untuk melihat rute panduan langsung. 🗺️";
-        } else {
-          botReply = "Maaf, AeroBot masih terus belajar. 🙏 Untuk pertanyaan spesifik, silakan gunakan menu pemesanan atau hubungi Admin kami via WhatsApp ya!";
+        } 
+        else if (inputLower.includes("homestay") || inputLower.includes("nginap") || inputLower.includes("menginap") || inputLower.includes("hotel") || inputLower.includes("penginapan")) {
+          botReply = "Kami menyediakan Homestay milik warga lokal yang terintegrasi di sistem Smart Booking. Nikmati pengalaman autentik khas Suoh dengan memesan di menu akomodasi kami! 🏡";
+        } 
+        else if (inputLower.includes("aman") || inputLower.includes("bahaya") || inputLower.includes("gas") || inputLower.includes("meletus") || inputLower.includes("belerang") || inputLower.includes("beracun")) {
+          botReply = "Kawasan Geotermal Suoh dipantau ketat secara real-time oleh dasbor kami. Selama Anda berada di Zona Hijau dan memakai masker yang disediakan, kunjungan dijamin aman! 🛡️";
+        } 
+        else if (inputLower.includes("lokasi") || inputLower.includes("dimana") || inputLower.includes("rute") || inputLower.includes("jalan") || inputLower.includes("akses")) {
+          botReply = "Suoh terletak di Kab. Lampung Barat. Akses jalan kini sudah cukup baik dan bisa dilalui kendaraan roda dua maupun empat. Cek Peta Interaktif kami untuk rute presisi! 🗺️";
+        } 
+        else if (inputLower.includes("jam") || inputLower.includes("buka") || inputLower.includes("tutup") || inputLower.includes("operasional") || inputLower.includes("kapan")) {
+          botReply = "Kawasan wisata Suoh buka setiap hari mulai pukul 07.00 hingga 17.00 WIB. Waktu terbaik berkunjung adalah pagi hari saat kabut masih menyelimuti danau! 🌅";
+        } 
+        else if (inputLower.includes("danau") || inputLower.includes("kawah") || inputLower.includes("wisata") || inputLower.includes("tempat") || inputLower.includes("destinasi")) {
+          botReply = "AeroSuoh memiliki 6 destinasi utama: Danau Asam, Danau Lebar, Danau Minyak, Pasir Kuning, Kawah Nirwana, dan Kawah Keramikan. Jelajahi virtualnya di menu Peta 3D kami! 🌋";
+        } 
+        else if (inputLower.includes("cuaca") || inputLower.includes("suhu") || inputLower.includes("hujan") || inputLower.includes("pantau") || inputLower.includes("sensor")) {
+          botReply = "Anda dapat melihat data cuaca, suhu air, dan kadar gas H2S secara langsung melalui menu Dasbor Sensor (Eco-Monitor) kami! 🌤️";
+        } 
+        else if (inputLower.includes("sejarah") || inputLower.includes("mitos") || inputLower.includes("cerita") || inputLower.includes("asal usul")) {
+          botReply = "Kawasan ini terbentuk dari letusan dahsyat gempa Liwa tahun 1933. Temukan cerita geologis lengkap dan mitos warga lokal di menu Ensiklopedia Budaya kami! 📜";
+        } 
+        else if (inputLower.includes("ngapain") || inputLower.includes("aktivitas") || inputLower.includes("foto") || inputLower.includes("camping") || inputLower.includes("kemah")) {
+          botReply = "Di sini Anda bisa berfoto estetik di kawah belerang, melihat fenomena danau 3 warna, hingga camping di area yang aman. Tersedia juga layanan tour guide lokal! ⛺📸";
+        } 
+        else if (inputLower.includes("kendaraan") || inputLower.includes("mobil") || inputLower.includes("motor") || inputLower.includes("transportasi") || inputLower.includes("ojek")) {
+          botReply = "Anda bisa menggunakan kendaraan pribadi. Namun untuk menjelajahi area kawah tertentu, warga lokal menyediakan jasa ojek motor trail agar lebih seru dan aman! 🚙🏍️";
+        } 
+        else if (inputLower.includes("pembuat") || inputLower.includes("developer") || inputLower.includes("hafis") || inputLower.includes("siapa yang buat") || inputLower.includes("teknokrat")) {
+          botReply = "Platform canggih AeroSuoh ini dikembangkan oleh Hafis Yulianto, mahasiswa Universitas Teknokrat Indonesia, sebagai dedikasi untuk memajukan pariwisata Lampung Barat! 💻🚀";
+        } 
+        else if (inputLower.includes("vtol") || inputLower.includes("drone") || inputLower.includes("pesawat") || inputLower.includes("kamera udara")) {
+          botReply = "AeroSuoh mensimulasikan pemantauan udara menggunakan drone VTOL-X1 untuk memetakan kawasan geotermal dengan aman. Anda bisa melacaknya di menu Aerial Explorer! 🚁";
+        } 
+        else if (inputLower.includes("bantuan") || inputLower.includes("admin") || inputLower.includes("tolong") || inputLower.includes("hubungi") || inputLower.includes("kontak")) {
+          botReply = "Butuh bantuan lebih lanjut? Anda bisa menghubungi Admin/Tour Guide lokal kami via WhatsApp melalui tombol kontak di bagian bawah website ini. 📞";
+        } 
+        else {
+          botReply = "Maaf, AeroBot masih terus belajar mengenali kata tersebut. 🙏 Silakan coba gunakan kata kunci lain seperti 'Harga', 'Lokasi', 'Homestay', atau 'Keamanan'.";
         }
       } 
+      
+      // ==========================================
       // Deteksi Kata Kunci (Bahasa Inggris)
+      // ==========================================
       else {
-        if (inputLower.includes("ticket") || inputLower.includes("price") || inputLower.includes("cost")) {
+        if (inputLower.includes("hello") || inputLower.includes("hi") || inputLower.includes("morning") || inputLower.includes("afternoon") || inputLower.includes("evening")) {
+          botReply = "Hello! I am AeroBot. How can I assist you today regarding Suoh's tourism, tickets, or conditions? 👋";
+        } 
+        else if (inputLower.includes("ticket") || inputLower.includes("price") || inputLower.includes("cost") || inputLower.includes("pay") || inputLower.includes("fee")) {
           botReply = "The Day Trip Pass is Rp 25.000/person. Eco-Staycation packages start at Rp 175.000/night. You can book directly using the 'Book Ticket' menu! 🎫";
-        } else if (inputLower.includes("safe") || inputLower.includes("danger") || inputLower.includes("gas")) {
-          botReply = "The Suoh Geothermal area is strictly monitored in real-time. As long as you stay in the Green Zone, your visit is totally safe! 🛡️";
-        } else if (inputLower.includes("location") || inputLower.includes("where") || inputLower.includes("route")) {
-          botReply = "Suoh is located in West Lampung. You can use our Interactive Map above to see the route. 🗺️";
-        } else {
-          botReply = "Sorry, AeroBot is still learning. 🙏 For detailed inquiries, please contact our Admin via WhatsApp!";
+        } 
+        else if (inputLower.includes("homestay") || inputLower.includes("stay") || inputLower.includes("sleep") || inputLower.includes("hotel") || inputLower.includes("accommodation")) {
+          botReply = "We offer local homestays integrated into our Smart Booking system. Enjoy an authentic Suoh experience by booking through our accommodation menu! 🏡";
+        } 
+        else if (inputLower.includes("safe") || inputLower.includes("danger") || inputLower.includes("gas") || inputLower.includes("toxic") || inputLower.includes("erupt")) {
+          botReply = "The Suoh Geothermal area is strictly monitored in real-time. As long as you stay in the Green Zone and follow guidelines, your visit is completely safe! 🛡️";
+        } 
+        else if (inputLower.includes("location") || inputLower.includes("where") || inputLower.includes("route") || inputLower.includes("road") || inputLower.includes("access")) {
+          botReply = "Suoh is located in West Lampung. The road access is suitable for both cars and motorcycles. Check our Interactive Map for the exact route! 🗺️";
+        } 
+        else if (inputLower.includes("hour") || inputLower.includes("open") || inputLower.includes("close") || inputLower.includes("time") || inputLower.includes("when")) {
+          botReply = "The Suoh tourism area is open daily from 07:00 AM to 05:00 PM (WIB). Morning is the best time to visit when the mist still covers the lakes! 🌅";
+        } 
+        else if (inputLower.includes("lake") || inputLower.includes("crater") || inputLower.includes("destination") || inputLower.includes("place") || inputLower.includes("spot")) {
+          botReply = "AeroSuoh features 6 main destinations: Lake Asam, Lake Lebar, Lake Minyak, Pasir Kuning, Nirvana Crater, and Keramikan Crater. Explore them on our 3D Map! 🌋";
+        } 
+        else if (inputLower.includes("weather") || inputLower.includes("temperature") || inputLower.includes("rain") || inputLower.includes("monitor") || inputLower.includes("sensor")) {
+          botReply = "You can check live weather, water temperature, and H2S gas levels directly through our Eco-Monitor Dashboard! 🌤️";
+        } 
+        else if (inputLower.includes("history") || inputLower.includes("myth") || inputLower.includes("story") || inputLower.includes("origin") || inputLower.includes("legend")) {
+          botReply = "This area was formed by the massive 1933 Liwa earthquake. Discover complete geological stories and local myths in our Cultural Encyclopedia menu! 📜";
+        } 
+        else if (inputLower.includes("activity") || inputLower.includes("photo") || inputLower.includes("camping") || inputLower.includes("camp") || inputLower.includes("what to do")) {
+          botReply = "You can take aesthetic photos at the sulfur craters, see the 3-colored lakes, or go camping in safe zones. Local tour guides are also available! ⛺📸";
+        } 
+        else if (inputLower.includes("transport") || inputLower.includes("car") || inputLower.includes("motorcycle") || inputLower.includes("vehicle") || inputLower.includes("taxi")) {
+          botReply = "You can use private vehicles. However, to explore certain crater areas, locals provide specialized dirt bike taxi services for a fun and safe ride! 🚙🏍️";
+        } 
+        else if (inputLower.includes("developer") || inputLower.includes("creator") || inputLower.includes("hafis") || inputLower.includes("who made") || inputLower.includes("teknokrat")) {
+          botReply = "This advanced AeroSuoh platform was developed by Hafis Yulianto, a student at Universitas Teknokrat Indonesia, dedicated to advancing West Lampung's tourism! 💻🚀";
+        } 
+        else if (inputLower.includes("vtol") || inputLower.includes("drone") || inputLower.includes("plane") || inputLower.includes("camera")) {
+          botReply = "AeroSuoh simulates aerial monitoring using a VTOL-X1 drone to map the geothermal area safely. You can track it in our Aerial Explorer menu! 🚁";
+        } 
+        else if (inputLower.includes("help") || inputLower.includes("admin") || inputLower.includes("support") || inputLower.includes("contact") || inputLower.includes("call")) {
+          botReply = "Need more help? You can contact our Admin/Local Tour Guide via WhatsApp using the contact button at the bottom of the page. 📞";
+        } 
+        else {
+          botReply = "Sorry, AeroBot is still learning to recognize that word. 🙏 Please try using keywords like 'Price', 'Location', 'Homestay', or 'Safety'.";
         }
       }
 
