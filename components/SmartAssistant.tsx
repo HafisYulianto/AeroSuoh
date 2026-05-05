@@ -13,6 +13,7 @@ export default function SmartAssistant() {
   // === STATE UNTUK FORM BOOKING ===
   const [bookingStep, setBookingStep] = useState(1);
   const [bookingData, setBookingData] = useState({ date: "", guests: 1, type: "", homestay: "" });
+  const [bookingErrors, setBookingErrors] = useState<{date?: string; guests?: string}>({});
 
   // === STATE UNTUK AEROBOT (CHATBOT) ===
   const [chatInput, setChatInput] = useState("");
@@ -50,50 +51,65 @@ export default function SmartAssistant() {
       // Deteksi Kata Kunci (Bahasa Indonesia)
       // ==========================================
       if (lang === "ID") {
-        if (inputLower.includes("halo") || inputLower.includes("hai") || inputLower.includes("pagi") || inputLower.includes("siang") || inputLower.includes("sore") || inputLower.includes("malam")) {
+        if (inputLower.includes("halo") || inputLower.includes("hai") || inputLower.includes("pagi") || inputLower.includes("siang") || inputLower.includes("sore") || inputLower.includes("malam") || inputLower.includes("assalamualaikum")) {
           botReply = "Halo! Saya AeroBot. Ada yang bisa saya bantu terkait informasi wisata, tiket, atau kondisi kawasan Suoh hari ini? 👋";
         } 
-        else if (inputLower.includes("tiket") || inputLower.includes("harga") || inputLower.includes("bayar") || inputLower.includes("biaya") || inputLower.includes("tarif")) {
+        else if (inputLower.includes("tiket") || inputLower.includes("harga") || inputLower.includes("bayar") || inputLower.includes("biaya") || inputLower.includes("tarif") || inputLower.includes("masuk") || inputLower.includes("karcis")) {
           botReply = "Harga tiket Day Trip Pass adalah Rp 25.000/orang. Untuk paket menginap Eco-Staycation mulai Rp 175.000/malam. Pesan langsung lewat menu 'Pesan Tiket & Homestay' ya! 🎫";
         } 
-        else if (inputLower.includes("homestay") || inputLower.includes("nginap") || inputLower.includes("menginap") || inputLower.includes("hotel") || inputLower.includes("penginapan")) {
-          botReply = "Kami menyediakan Homestay milik warga lokal yang terintegrasi di sistem Smart Booking. Nikmati pengalaman autentik khas Suoh dengan memesan di menu akomodasi kami! 🏡";
+        else if (inputLower.includes("homestay") || inputLower.includes("nginap") || inputLower.includes("menginap") || inputLower.includes("hotel") || inputLower.includes("penginapan") || inputLower.includes("tidur") || inputLower.includes("villa") || inputLower.includes("kamar")) {
+          botReply = "Kami menyediakan Homestay milik warga lokal yang terintegrasi di sistem Smart Booking. Tersedia Homestay Danau Asam dan Geothermal Cabin. Pesan sekarang melalui menu akomodasi kami! 🏡";
         } 
-        else if (inputLower.includes("aman") || inputLower.includes("bahaya") || inputLower.includes("gas") || inputLower.includes("meletus") || inputLower.includes("belerang") || inputLower.includes("beracun")) {
-          botReply = "Kawasan Geotermal Suoh dipantau ketat secara real-time oleh dasbor kami. Selama Anda berada di Zona Hijau dan memakai masker yang disediakan, kunjungan dijamin aman! 🛡️";
+        else if (inputLower.includes("aman") || inputLower.includes("bahaya") || inputLower.includes("gas") || inputLower.includes("meletus") || inputLower.includes("belerang") || inputLower.includes("beracun") || inputLower.includes("takut") || inputLower.includes("resiko")) {
+          botReply = "Kawasan Geotermal Suoh dipantau ketat secara real-time oleh dasbor kami. Selama Anda berada di Zona Hijau, mengikuti arahan guide, dan memakai masker yang disediakan, kunjungan dijamin aman! 🛡️";
         } 
-        else if (inputLower.includes("lokasi") || inputLower.includes("dimana") || inputLower.includes("rute") || inputLower.includes("jalan") || inputLower.includes("akses")) {
-          botReply = "Suoh terletak di Kab. Lampung Barat. Akses jalan kini sudah cukup baik dan bisa dilalui kendaraan roda dua maupun empat. Cek Peta Interaktif kami untuk rute presisi! 🗺️";
+        else if (inputLower.includes("lokasi") || inputLower.includes("dimana") || inputLower.includes("rute") || inputLower.includes("jalan") || inputLower.includes("akses") || inputLower.includes("alamat") || inputLower.includes("maps")) {
+          botReply = "Suoh terletak di Kab. Lampung Barat. Ada 2 rute utama: via Liwa (utara) dan via Tanggamus/BNS (selatan). Cek bagian Rute di halaman utama atau Peta Interaktif kami untuk koordinat presisi! 🗺️";
         } 
-        else if (inputLower.includes("jam") || inputLower.includes("buka") || inputLower.includes("tutup") || inputLower.includes("operasional") || inputLower.includes("kapan")) {
-          botReply = "Kawasan wisata Suoh buka setiap hari mulai pukul 07.00 hingga 17.00 WIB. Waktu terbaik berkunjung adalah pagi hari saat kabut masih menyelimuti danau! 🌅";
+        else if (inputLower.includes("jam") || inputLower.includes("buka") || inputLower.includes("tutup") || inputLower.includes("operasional") || inputLower.includes("kapan") || inputLower.includes("waktu")) {
+          botReply = "Kawasan wisata Suoh buka setiap hari mulai pukul 07.00 hingga 17.00 WIB. Waktu terbaik berkunjung adalah pagi hari (07.00 - 09.00) saat kabut masih menyelimuti danau! 🌅";
         } 
-        else if (inputLower.includes("danau") || inputLower.includes("kawah") || inputLower.includes("wisata") || inputLower.includes("tempat") || inputLower.includes("destinasi")) {
-          botReply = "AeroSuoh memiliki 6 destinasi utama: Danau Asam, Danau Lebar, Danau Minyak, Pasir Kuning, Kawah Nirwana, dan Kawah Keramikan. Jelajahi virtualnya di menu Peta 3D kami! 🌋";
+        else if (inputLower.includes("danau") || inputLower.includes("kawah") || inputLower.includes("wisata") || inputLower.includes("tempat") || inputLower.includes("destinasi") || inputLower.includes("spot") || inputLower.includes("bagus")) {
+          botReply = "AeroSuoh memiliki 6 spot memukau: Danau Asam, Danau Lebar, Danau Minyak, Pasir Kuning, Kawah Nirwana, dan Kawah Keramikan. Wajib datangi Semuanya! 🌋";
         } 
-        else if (inputLower.includes("cuaca") || inputLower.includes("suhu") || inputLower.includes("hujan") || inputLower.includes("pantau") || inputLower.includes("sensor")) {
-          botReply = "Anda dapat melihat data cuaca, suhu air, dan kadar gas H2S secara langsung melalui menu Dasbor Sensor (Eco-Monitor) kami! 🌤️";
+        else if (inputLower.includes("cuaca") || inputLower.includes("suhu") || inputLower.includes("hujan") || inputLower.includes("pantau") || inputLower.includes("sensor") || inputLower.includes("panas") || inputLower.includes("dingin")) {
+          botReply = "Suhu udara di Suoh berkisar 20-25°C. Namun suhu permukaan kawah bisa sangat panas! Cek data live cuaca, suhu air, dan kadar gas H2S di menu Dasbor Sensor (Eco-Monitor) kami! 🌤️";
         } 
-        else if (inputLower.includes("sejarah") || inputLower.includes("mitos") || inputLower.includes("cerita") || inputLower.includes("asal usul")) {
-          botReply = "Kawasan ini terbentuk dari letusan dahsyat gempa Liwa tahun 1933. Temukan cerita geologis lengkap dan mitos warga lokal di menu Ensiklopedia Budaya kami! 📜";
+        else if (inputLower.includes("sejarah") || inputLower.includes("mitos") || inputLower.includes("cerita") || inputLower.includes("asal usul") || inputLower.includes("gempa") || inputLower.includes("legenda")) {
+          botReply = "Kawasan unik ini terbentuk pasca letusan dahsyat gempa Liwa tahun 1933. Banyak cerita mistis soal naga bawah tanah dan air awet muda. Temukan lengkapnya di menu Pesona Suoh! 📜";
         } 
-        else if (inputLower.includes("ngapain") || inputLower.includes("aktivitas") || inputLower.includes("foto") || inputLower.includes("camping") || inputLower.includes("kemah")) {
-          botReply = "Di sini Anda bisa berfoto estetik di kawah belerang, melihat fenomena danau 3 warna, hingga camping di area yang aman. Tersedia juga layanan tour guide lokal! ⛺📸";
+        else if (inputLower.includes("ngapain") || inputLower.includes("aktivitas") || inputLower.includes("foto") || inputLower.includes("camping") || inputLower.includes("kemah") || inputLower.includes("mancing") || inputLower.includes("drone")) {
+          botReply = "Aktivitas favorit pengunjung: Fotografi lanskap, menerbangkan drone di Keramikan, memancing di Danau Lebar, dan camping di pinggir danau. Sangat cocok untuk healing! ⛺📸";
         } 
-        else if (inputLower.includes("kendaraan") || inputLower.includes("mobil") || inputLower.includes("motor") || inputLower.includes("transportasi") || inputLower.includes("ojek")) {
-          botReply = "Anda bisa menggunakan kendaraan pribadi. Namun untuk menjelajahi area kawah tertentu, warga lokal menyediakan jasa ojek motor trail agar lebih seru dan aman! 🚙🏍️";
+        else if (inputLower.includes("kendaraan") || inputLower.includes("mobil") || inputLower.includes("motor") || inputLower.includes("transportasi") || inputLower.includes("ojek") || inputLower.includes("parkir")) {
+          botReply = "Bisa bawa mobil atau motor ke basecamp (area parkir luas & aman). Untuk masuk spot kawah, disarankan menyewa ojek motor trail lokal seharga ~Rp 50.000 agar pengalaman makin seru! 🚙🏍️";
         } 
+        else if (inputLower.includes("makan") || inputLower.includes("minum") || inputLower.includes("kuliner") || inputLower.includes("warung") || inputLower.includes("restoran") || inputLower.includes("lapar") || inputLower.includes("kopi")) {
+          botReply = "Di sekitar basecamp Danau Lebar terdapat warung-warung warga yang menjual makanan hangat, mi instan, dan Kopi Robusta khas Lampung Barat yang wajib Anda coba! ☕🍜";
+        }
+        else if (inputLower.includes("sinyal") || inputLower.includes("internet") || inputLower.includes("wifi") || inputLower.includes("telkomsel") || inputLower.includes("jaringan")) {
+          botReply = "Sinyal seluler (terutama Telkomsel) sudah cukup stabil di area basecamp dan homestay. Namun di area kawah mungkin sedikit blank-spot. Cocok untuk digital detox! 📱🚫";
+        }
+        else if (inputLower.includes("baju") || inputLower.includes("pakaian") || inputLower.includes("outfit") || inputLower.includes("pakai") || inputLower.includes("sandal") || inputLower.includes("sepatu")) {
+          botReply = "WAJIB gunakan sepatu tertutup (sneakers/trekking), dilarang pakai sandal karena tanah bisa sangat panas. Gunakan pakaian yang nyaman menyerap keringat dan bawa jaket jika menginap! 👟🧥";
+        }
+        else if (inputLower.includes("anak") || inputLower.includes("keluarga") || inputLower.includes("bayi") || inputLower.includes("balita") || inputLower.includes("orang tua")) {
+          botReply = "Untuk area Danau (Asam, Lebar) sangat aman untuk anak & lansia. Namun untuk turun langsung ke Kawah Keramikan/Nirwana, anak-anak dan lansia disarankan hanya memantau dari zona pandang yang disediakan demi keamanan. 👨‍👩‍👧‍👦";
+        }
         else if (inputLower.includes("pembuat") || inputLower.includes("developer") || inputLower.includes("hafis") || inputLower.includes("siapa yang buat") || inputLower.includes("teknokrat")) {
           botReply = "Platform canggih AeroSuoh ini dikembangkan oleh Hafis Yulianto, mahasiswa Universitas Teknokrat Indonesia, sebagai dedikasi untuk memajukan pariwisata Lampung Barat! 💻🚀";
         } 
-        else if (inputLower.includes("vtol") || inputLower.includes("drone") || inputLower.includes("pesawat") || inputLower.includes("kamera udara")) {
+        else if (inputLower.includes("vtol") || inputLower.includes("pesawat") || inputLower.includes("kamera udara")) {
           botReply = "AeroSuoh mensimulasikan pemantauan udara menggunakan drone VTOL-X1 untuk memetakan kawasan geotermal dengan aman. Anda bisa melacaknya di menu Aerial Explorer! 🚁";
         } 
-        else if (inputLower.includes("bantuan") || inputLower.includes("admin") || inputLower.includes("tolong") || inputLower.includes("hubungi") || inputLower.includes("kontak")) {
+        else if (inputLower.includes("bantuan") || inputLower.includes("admin") || inputLower.includes("tolong") || inputLower.includes("hubungi") || inputLower.includes("kontak") || inputLower.includes("nomor") || inputLower.includes("wa") || inputLower.includes("whatsapp")) {
           botReply = "Butuh bantuan lebih lanjut? Anda bisa menghubungi Admin/Tour Guide lokal kami via WhatsApp melalui tombol kontak di bagian bawah website ini. 📞";
         } 
+        else if (inputLower.includes("terima kasih") || inputLower.includes("makasih") || inputLower.includes("thanks") || inputLower.includes("ok") || inputLower.includes("oke") || inputLower.includes("baik")) {
+          botReply = "Sama-sama! Senang bisa membantu. Jangan ragu untuk bertanya lagi jika ada yang kurang jelas. Selamat merencanakan liburan ke Suoh! ✨";
+        }
         else {
-          botReply = "Maaf, AeroBot masih terus belajar mengenali kata tersebut. 🙏 Silakan coba gunakan kata kunci lain seperti 'Harga', 'Lokasi', 'Homestay', atau 'Keamanan'.";
+          botReply = "Maaf, AeroBot masih terus belajar mengenali konteks tersebut. 🙏 Silakan coba kata kunci seperti 'Harga', 'Lokasi', 'Homestay', 'Keamanan', 'Makanan', atau 'Outfit'.";
         }
       } 
       
@@ -107,44 +123,59 @@ export default function SmartAssistant() {
         else if (inputLower.includes("ticket") || inputLower.includes("price") || inputLower.includes("cost") || inputLower.includes("pay") || inputLower.includes("fee")) {
           botReply = "The Day Trip Pass is Rp 25.000/person. Eco-Staycation packages start at Rp 175.000/night. You can book directly using the 'Book Ticket' menu! 🎫";
         } 
-        else if (inputLower.includes("homestay") || inputLower.includes("stay") || inputLower.includes("sleep") || inputLower.includes("hotel") || inputLower.includes("accommodation")) {
-          botReply = "We offer local homestays integrated into our Smart Booking system. Enjoy an authentic Suoh experience by booking through our accommodation menu! 🏡";
+        else if (inputLower.includes("homestay") || inputLower.includes("stay") || inputLower.includes("sleep") || inputLower.includes("hotel") || inputLower.includes("accommodation") || inputLower.includes("room")) {
+          botReply = "We offer local homestays integrated into our Smart Booking system. Available options include Lake Asam Homestay and Geothermal Cabin. Book now via the menu! 🏡";
         } 
-        else if (inputLower.includes("safe") || inputLower.includes("danger") || inputLower.includes("gas") || inputLower.includes("toxic") || inputLower.includes("erupt")) {
-          botReply = "The Suoh Geothermal area is strictly monitored in real-time. As long as you stay in the Green Zone and follow guidelines, your visit is completely safe! 🛡️";
+        else if (inputLower.includes("safe") || inputLower.includes("danger") || inputLower.includes("gas") || inputLower.includes("toxic") || inputLower.includes("erupt") || inputLower.includes("risk")) {
+          botReply = "The Suoh Geothermal area is strictly monitored in real-time. As long as you stay in the Green Zone, follow guide instructions, and wear the provided mask, it is completely safe! 🛡️";
         } 
-        else if (inputLower.includes("location") || inputLower.includes("where") || inputLower.includes("route") || inputLower.includes("road") || inputLower.includes("access")) {
-          botReply = "Suoh is located in West Lampung. The road access is suitable for both cars and motorcycles. Check our Interactive Map for the exact route! 🗺️";
+        else if (inputLower.includes("location") || inputLower.includes("where") || inputLower.includes("route") || inputLower.includes("road") || inputLower.includes("access") || inputLower.includes("maps")) {
+          botReply = "Suoh is located in West Lampung. There are 2 main routes: via Liwa (North) and Tanggamus (South). Check our Route Section or Interactive Map for precise coordinates! 🗺️";
         } 
         else if (inputLower.includes("hour") || inputLower.includes("open") || inputLower.includes("close") || inputLower.includes("time") || inputLower.includes("when")) {
-          botReply = "The Suoh tourism area is open daily from 07:00 AM to 05:00 PM (WIB). Morning is the best time to visit when the mist still covers the lakes! 🌅";
+          botReply = "The Suoh tourism area is open daily from 07:00 AM to 05:00 PM (WIB). Morning (07.00 - 09.00) is the best time to visit when the mist still covers the lakes! 🌅";
         } 
-        else if (inputLower.includes("lake") || inputLower.includes("crater") || inputLower.includes("destination") || inputLower.includes("place") || inputLower.includes("spot")) {
-          botReply = "AeroSuoh features 6 main destinations: Lake Asam, Lake Lebar, Lake Minyak, Pasir Kuning, Nirvana Crater, and Keramikan Crater. Explore them on our 3D Map! 🌋";
+        else if (inputLower.includes("lake") || inputLower.includes("crater") || inputLower.includes("destination") || inputLower.includes("place") || inputLower.includes("spot") || inputLower.includes("best")) {
+          botReply = "AeroSuoh features 6 main destinations: Lake Asam, Lake Lebar, Lake Minyak, Pasir Kuning, Nirvana Crater, and Keramikan Crater. You must see them all! 🌋";
         } 
-        else if (inputLower.includes("weather") || inputLower.includes("temperature") || inputLower.includes("rain") || inputLower.includes("monitor") || inputLower.includes("sensor")) {
-          botReply = "You can check live weather, water temperature, and H2S gas levels directly through our Eco-Monitor Dashboard! 🌤️";
+        else if (inputLower.includes("weather") || inputLower.includes("temperature") || inputLower.includes("rain") || inputLower.includes("monitor") || inputLower.includes("sensor") || inputLower.includes("hot") || inputLower.includes("cold")) {
+          botReply = "Air temp is around 20-25°C. But crater surfaces are extremely hot! Check live weather, water pH, and H2S gas levels directly on our Eco-Monitor Dashboard! 🌤️";
         } 
-        else if (inputLower.includes("history") || inputLower.includes("myth") || inputLower.includes("story") || inputLower.includes("origin") || inputLower.includes("legend")) {
-          botReply = "This area was formed by the massive 1933 Liwa earthquake. Discover complete geological stories and local myths in our Cultural Encyclopedia menu! 📜";
+        else if (inputLower.includes("history") || inputLower.includes("myth") || inputLower.includes("story") || inputLower.includes("origin") || inputLower.includes("legend") || inputLower.includes("earthquake")) {
+          botReply = "This area was formed by the massive 1933 Liwa earthquake. Discover complete geological stories and local myths about dragons in our Suoh Charm menu! 📜";
         } 
-        else if (inputLower.includes("activity") || inputLower.includes("photo") || inputLower.includes("camping") || inputLower.includes("camp") || inputLower.includes("what to do")) {
-          botReply = "You can take aesthetic photos at the sulfur craters, see the 3-colored lakes, or go camping in safe zones. Local tour guides are also available! ⛺📸";
+        else if (inputLower.includes("activity") || inputLower.includes("photo") || inputLower.includes("camping") || inputLower.includes("camp") || inputLower.includes("what to do") || inputLower.includes("fishing") || inputLower.includes("drone")) {
+          botReply = "Top activities: Landscape photography, flying drones over Keramikan, fishing at Lebar Lake, and safe-zone camping. It's a perfect healing spot! ⛺📸";
         } 
-        else if (inputLower.includes("transport") || inputLower.includes("car") || inputLower.includes("motorcycle") || inputLower.includes("vehicle") || inputLower.includes("taxi")) {
-          botReply = "You can use private vehicles. However, to explore certain crater areas, locals provide specialized dirt bike taxi services for a fun and safe ride! 🚙🏍️";
-        } 
+        else if (inputLower.includes("transport") || inputLower.includes("car") || inputLower.includes("motorcycle") || inputLower.includes("vehicle") || inputLower.includes("taxi") || inputLower.includes("parking")) {
+          botReply = "You can drive your car/motorcycle to the basecamp (safe parking). To enter crater spots, we recommend renting a local dirt bike taxi (~Rp 50.000) for a fun ride! 🚙🏍️";
+        }
+        else if (inputLower.includes("food") || inputLower.includes("drink") || inputLower.includes("eat") || inputLower.includes("restaurant") || inputLower.includes("cafe") || inputLower.includes("hungry") || inputLower.includes("coffee")) {
+          botReply = "Around the Lebar Lake basecamp, there are local food stalls selling warm meals, instant noodles, and the famous West Lampung Robusta Coffee. You must try it! ☕🍜";
+        }
+        else if (inputLower.includes("signal") || inputLower.includes("internet") || inputLower.includes("wifi") || inputLower.includes("connection") || inputLower.includes("network")) {
+          botReply = "Cellular signal (mainly Telkomsel) is quite stable at the basecamp. However, crater areas might have blank spots. Perfect for a digital detox! 📱🚫";
+        }
+        else if (inputLower.includes("clothes") || inputLower.includes("wear") || inputLower.includes("outfit") || inputLower.includes("shoes") || inputLower.includes("sandal") || inputLower.includes("jacket")) {
+          botReply = "MANDATORY: wear closed shoes (sneakers/trekking). Sandals are prohibited as the ground can be boiling hot. Wear comfortable clothes and bring a jacket if staying overnight! 👟🧥";
+        }
+        else if (inputLower.includes("kid") || inputLower.includes("family") || inputLower.includes("baby") || inputLower.includes("child") || inputLower.includes("parent") || inputLower.includes("old")) {
+          botReply = "The Lake areas are very safe for kids and seniors. However, for active craters (Keramikan/Nirvana), kids and seniors are advised to view only from the designated safe observation zones. 👨‍👩‍👧‍👦";
+        }
         else if (inputLower.includes("developer") || inputLower.includes("creator") || inputLower.includes("hafis") || inputLower.includes("who made") || inputLower.includes("teknokrat")) {
           botReply = "This advanced AeroSuoh platform was developed by Hafis Yulianto, a student at Universitas Teknokrat Indonesia, dedicated to advancing West Lampung's tourism! 💻🚀";
         } 
-        else if (inputLower.includes("vtol") || inputLower.includes("drone") || inputLower.includes("plane") || inputLower.includes("camera")) {
+        else if (inputLower.includes("vtol") || inputLower.includes("plane") || inputLower.includes("camera")) {
           botReply = "AeroSuoh simulates aerial monitoring using a VTOL-X1 drone to map the geothermal area safely. You can track it in our Aerial Explorer menu! 🚁";
         } 
-        else if (inputLower.includes("help") || inputLower.includes("admin") || inputLower.includes("support") || inputLower.includes("contact") || inputLower.includes("call")) {
+        else if (inputLower.includes("help") || inputLower.includes("admin") || inputLower.includes("support") || inputLower.includes("contact") || inputLower.includes("call") || inputLower.includes("whatsapp")) {
           botReply = "Need more help? You can contact our Admin/Local Tour Guide via WhatsApp using the contact button at the bottom of the page. 📞";
         } 
+        else if (inputLower.includes("thank") || inputLower.includes("thanks") || inputLower.includes("ok") || inputLower.includes("okay") || inputLower.includes("good")) {
+          botReply = "You're welcome! Glad I could help. Feel free to ask more questions if needed. Enjoy your trip to Suoh! ✨";
+        }
         else {
-          botReply = "Sorry, AeroBot is still learning to recognize that word. 🙏 Please try using keywords like 'Price', 'Location', 'Homestay', or 'Safety'.";
+          botReply = "Sorry, AeroBot is still learning to recognize that word. 🙏 Please try using keywords like 'Price', 'Location', 'Homestay', 'Safety', 'Food', or 'Outfit'.";
         }
       }
 
@@ -167,6 +198,32 @@ export default function SmartAssistant() {
     window.open(waUrl, "_blank");
     setActiveModal(null);
     setBookingStep(1);
+    setBookingErrors({});
+  };
+
+  // === VALIDASI FORM BOOKING STEP 1 ===
+  const validateStep1 = (): boolean => {
+    const errors: {date?: string; guests?: string} = {};
+    
+    if (!bookingData.date) {
+      errors.date = lang === "ID" ? "Tanggal kunjungan wajib diisi" : "Visit date is required";
+    } else {
+      const selectedDate = new Date(bookingData.date + "T00:00:00");
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      if (selectedDate < today) {
+        errors.date = lang === "ID" ? "Tanggal tidak boleh di masa lalu" : "Date cannot be in the past";
+      }
+    }
+    
+    if (!bookingData.guests || bookingData.guests < 1 || isNaN(bookingData.guests)) {
+      errors.guests = lang === "ID" ? "Minimal 1 pengunjung" : "At least 1 guest required";
+    } else if (bookingData.guests > 100) {
+      errors.guests = lang === "ID" ? "Maksimal 100 pengunjung per pesanan" : "Max 100 guests per booking";
+    }
+    
+    setBookingErrors(errors);
+    return Object.keys(errors).length === 0;
   };
 
   // === MODAL 1: SMART BOOKING ===
@@ -206,17 +263,48 @@ export default function SmartAssistant() {
                 <label className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5 block">{lang === "ID" ? "Tanggal Kunjungan" : "Visit Date"}</label>
                 <div className="relative">
                   <Calendar size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-emerald-600" />
-                  <input type="date" className="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-all font-medium text-slate-700" onChange={(e) => setBookingData({...bookingData, date: e.target.value})} />
+                  <input 
+                    type="date" 
+                    value={bookingData.date}
+                    min={new Date().toISOString().split('T')[0]}
+                    className={`w-full pl-11 pr-4 py-3 bg-slate-50 border rounded-xl outline-none focus:ring-2 transition-all font-medium text-slate-700 ${
+                      bookingErrors.date 
+                        ? "border-red-400 focus:border-red-500 focus:ring-red-500/20" 
+                        : "border-slate-200 focus:border-emerald-500 focus:ring-emerald-500/20"
+                    }`} 
+                    onChange={(e) => { setBookingData({...bookingData, date: e.target.value}); setBookingErrors({...bookingErrors, date: undefined}); }} 
+                  />
                 </div>
+                {bookingErrors.date && (
+                  <p className="text-xs text-red-500 font-medium mt-1.5 flex items-center gap-1">
+                    <span className="inline-block w-1 h-1 bg-red-500 rounded-full"></span> {bookingErrors.date}
+                  </p>
+                )}
               </div>
               <div>
                 <label className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5 block">{lang === "ID" ? "Jumlah Pengunjung" : "Number of Guests"}</label>
                 <div className="relative">
                   <Users size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-emerald-600" />
-                  <input type="number" min="1" placeholder="1" className="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-all font-medium text-slate-700" onChange={(e) => setBookingData({...bookingData, guests: parseInt(e.target.value)})} />
+                  <input 
+                    type="number" 
+                    min="1" 
+                    max="100"
+                    value={bookingData.guests}
+                    className={`w-full pl-11 pr-4 py-3 bg-slate-50 border rounded-xl outline-none focus:ring-2 transition-all font-medium text-slate-700 ${
+                      bookingErrors.guests 
+                        ? "border-red-400 focus:border-red-500 focus:ring-red-500/20" 
+                        : "border-slate-200 focus:border-emerald-500 focus:ring-emerald-500/20"
+                    }`} 
+                    onChange={(e) => { setBookingData({...bookingData, guests: parseInt(e.target.value) || 0}); setBookingErrors({...bookingErrors, guests: undefined}); }} 
+                  />
                 </div>
+                {bookingErrors.guests && (
+                  <p className="text-xs text-red-500 font-medium mt-1.5 flex items-center gap-1">
+                    <span className="inline-block w-1 h-1 bg-red-500 rounded-full"></span> {bookingErrors.guests}
+                  </p>
+                )}
               </div>
-              <button onClick={() => setBookingStep(2)} className="w-full py-3 mt-6 bg-slate-900 text-white font-bold rounded-xl hover:bg-slate-800 transition-all hover:shadow-lg flex justify-center items-center gap-2">
+              <button onClick={() => { if (validateStep1()) setBookingStep(2); }} className="w-full py-3 mt-6 bg-slate-900 text-white font-bold rounded-xl hover:bg-slate-800 transition-all hover:shadow-lg flex justify-center items-center gap-2">
                 {lang === "ID" ? "Lanjutkan" : "Next"} <ArrowRight size={18} />
               </button>
             </div>
