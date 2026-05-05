@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useRef } from "react";
-// === TAMBAHAN: Import ikon 'Menu', 'X', 'Volume2', dan 'VolumeX' ===
+import { useState, useRef, useEffect } from "react";
+import Image from "next/image";
 import { Map, Activity, Home, Camera, Globe, Info, Menu, X, Volume2, VolumeX } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
 
@@ -26,6 +26,13 @@ export default function Navbar() {
     }
   };
 
+  // === Volume diatur 40% agar elegan, tidak menutupi suara presentasi ===
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = 0.4;
+    }
+  }, []);
+
   return (
     <nav className="fixed top-0 w-full z-50 bg-[#013220] shadow-lg print:hidden">
       
@@ -39,10 +46,12 @@ export default function Navbar() {
           
           {/* Logo */}
           <div className="flex items-center">
-            <img 
+            <Image 
               src="/logo-aerosuoh2.png" 
               alt="Logo AeroSuoh" 
-              className="h-33 w-auto object-contain cursor-pointer"
+              width={132}
+              height={132}
+              className="h-[8.25rem] w-auto object-contain cursor-pointer"
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             />
           </div>

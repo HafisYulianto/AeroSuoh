@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
+import Image from "next/image";
 import { ChevronLeft, ChevronRight, Camera, MapPin, X, BookOpen, ScrollText, Sparkles, Info as InfoIcon } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "../context/LanguageContext";
@@ -141,11 +142,13 @@ export default function PhotoSlider() {
                 className="min-w-[85vw] sm:min-w-[400px] snap-center relative rounded-3xl overflow-hidden shadow-xl group/card border border-emerald-900/50 bg-slate-900 cursor-pointer transition-all duration-500 hover:-translate-y-3 hover:shadow-2xl hover:shadow-emerald-500/20 hover:border-emerald-500/50"
               >
                 <div className="aspect-[4/3] w-full bg-slate-800 overflow-hidden relative">
-                  <img 
+                  <Image 
                     src={photo.src} 
                     alt={t(photo.titleKey as any)} 
-                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover/card:scale-110" 
-                    onError={(e) => (e.currentTarget.style.display = 'none')}
+                    fill
+                    sizes="(max-width: 640px) 85vw, 400px"
+                    className="object-cover transition-transform duration-700 ease-out group-hover/card:scale-110" 
+                    onError={(e) => ((e.target as HTMLImageElement).style.display = 'none')}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/40 to-transparent opacity-90 group-hover/card:opacity-100 transition-opacity duration-500"></div>
                 </div>
@@ -201,11 +204,13 @@ export default function PhotoSlider() {
                 <X size={20} />
               </button>
 
-              <div className="w-full md:w-1/2 h-48 md:h-auto relative bg-slate-800">
-                <img 
+              <div className="w-full md:w-1/2 h-48 md:h-auto min-h-[200px] relative bg-slate-800">
+                <Image 
                   src={selectedPhoto.src} 
                   alt={t(selectedPhoto.titleKey as any)} 
-                  className="w-full h-full object-cover"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#012518] to-transparent md:bg-gradient-to-r md:from-transparent md:to-[#012518] opacity-80 md:opacity-100"></div>
               </div>
@@ -223,7 +228,7 @@ export default function PhotoSlider() {
                     {t(selectedPhoto.titleKey as any)}
                   </h3>
                   <a 
-                    href={`https://maps.google.com/?q=$${selectedPhoto.lat},${selectedPhoto.lng}`} 
+                    href={`https://maps.google.com/?q=${selectedPhoto.lat},${selectedPhoto.lng}`} 
                     target="_blank" 
                     rel="noopener noreferrer" 
                     className="inline-flex items-center gap-2 bg-emerald-950 border border-emerald-800/80 rounded-full px-4 py-2 hover:bg-emerald-800 transition-colors shadow-sm"
