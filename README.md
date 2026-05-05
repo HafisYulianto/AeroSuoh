@@ -1,6 +1,6 @@
 # 🌋 AeroSuoh Eco-Monitor & Smart Tourism
 
-![AeroSuoh Hero Banner](public/images/danau-lebar-hd.png)
+![AeroSuoh Hero Banner](public/images/bannerRm.png)
 
 AeroSuoh adalah platform **Pariwisata Ekologis Pintar** dan **Dasbor Pemantauan Geotermal Real-Time** yang didedikasikan untuk mengangkat "Surga Tersembunyi" kawasan Suoh, Lampung Barat ke kancah global. Proyek ini memadukan eksplorasi alam yang indah dengan teknologi pemantauan masa depan yang berfokus pada keselamatan dan keberlanjutan.
 
