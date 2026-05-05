@@ -138,6 +138,30 @@ const translations = {
     stat_warn1: "Waspada (Zona Merah)",
     stat_warn2: "Waspada (Zona Kuning)",
 
+    // Testimoni
+    testi_badge: "Ulasan Pengunjung",
+    testi_title: "Kesan Mereka Tentang Suoh",
+    testi_desc: "Cerita dan pengalaman langsung dari para penjelajah yang telah membuktikan pesona alam Suoh.",
+    testi_1_name: "Budi Santoso",
+    testi_1_role: "Fotografer Alam",
+    testi_1_text: "Lanskap Keramikan sangat surealis. Seperti memotret di planet lain! Kabut belerangnya memberikan efek sinematik alami yang luar biasa.",
+    testi_2_name: "Sarah Wijaya",
+    testi_2_role: "Peneliti Geologi",
+    testi_2_text: "Aksesnya cukup menantang, tapi terbayar lunas saat melihat Danau Asam. Manifestasi geotermalnya sangat aktif dan menakjubkan.",
+    testi_3_name: "Rio Pratama",
+    testi_3_role: "Travel Vlogger",
+    testi_3_text: "Gila sih Suoh! Wajib bawa drone kalau ke sini. Danau Lebarnya luas banget, dan warga lokalnya sangat ramah menyambut tamu.",
+
+    // Rute
+    route_badge: "Akses & Transportasi",
+    route_title: "Jalur Menuju Basecamp Suoh",
+    route_desc: "Kawasan Suoh dapat diakses dari dua titik utama. Pastikan kendaraan dalam kondisi prima mengingat medan pegunungan.",
+    route_1_title: "Jalur Liwa (Utara)",
+    route_1_desc: "Via Sekincau - Batu Brak. Jarak ±45 km (1.5 - 2 jam). Jalur ini sudah beraspal cukup mulus namun berkelok tajam melintasi perbukitan kopi.",
+    route_2_title: "Jalur Tanggamus (Selatan)",
+    route_2_desc: "Via Wonosobo - BNS. Akses lebih menantang (motor trail/offroad). Pemandangan melintasi pinggiran Taman Nasional Bukit Barisan Selatan.",
+    route_note: "Saran Transportasi: Kendaraan roda 4 disarankan memiliki ground clearance tinggi (SUV), atau menggunakan kendaraan roda 2.",
+
     // Footer
     foot_nav_title: "Navigasi Sistem",
     foot_nav_safety: "Panduan Keselamatan",
@@ -271,6 +295,30 @@ const translations = {
     stat_safe2: "Safe (Stay on Path)",
     stat_warn1: "Alert (Red Zone)",
     stat_warn2: "Alert (Yellow Zone)",
+
+    // Testimoni
+    testi_badge: "Visitor Reviews",
+    testi_title: "What They Say About Suoh",
+    testi_desc: "Stories and firsthand experiences from explorers who have witnessed the natural charm of Suoh.",
+    testi_1_name: "Budi Santoso",
+    testi_1_role: "Nature Photographer",
+    testi_1_text: "The Keramikan landscape is surreal. It's like photographing on another planet! The sulfur mist provides an incredible natural cinematic effect.",
+    testi_2_name: "Sarah Wijaya",
+    testi_2_role: "Geological Researcher",
+    testi_2_text: "The access is quite challenging, but it pays off completely upon seeing Asam Lake. The geothermal manifestations are very active and amazing.",
+    testi_3_name: "Rio Pratama",
+    testi_3_role: "Travel Vlogger",
+    testi_3_text: "Suoh is insane! Bringing a drone is a must here. Lebar Lake is extremely vast, and the locals are very welcoming to guests.",
+
+    // Rute
+    route_badge: "Access & Transportation",
+    route_title: "Route to Suoh Basecamp",
+    route_desc: "The Suoh area can be accessed from two main points. Ensure your vehicle is in prime condition considering the mountainous terrain.",
+    route_1_title: "Liwa Route (North)",
+    route_1_desc: "Via Sekincau - Batu Brak. Distance ±45 km (1.5 - 2 hours). The road is quite smoothly paved but features sharp curves through coffee hills.",
+    route_2_title: "Tanggamus Route (South)",
+    route_2_desc: "Via Wonosobo - BNS. More challenging access (trail bikes/offroad). Offers views along the edges of the Bukit Barisan Selatan National Park.",
+    route_note: "Transport Suggestion: 4-wheeled vehicles should ideally have high ground clearance (SUV), or use 2-wheeled vehicles.",
 
     // Footer
     foot_nav_title: "System Navigation",

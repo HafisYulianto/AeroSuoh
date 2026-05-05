@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Navbar from "../components/Navbar";
 import About from "../components/About";
 import Dashboard from "../components/Dashboard";
@@ -8,9 +9,9 @@ import AerialExplorer from "../components/AerialExplorer";
 import Footer from "../components/Footer"; 
 import PhotoSlider from "../components/PhotoSlider";
 import SafetyGuide from "../components/SafetyGuide";
+import Testimonials from "../components/Testimonials";
+import RouteAccess from "../components/RouteAccess";
 import GeothermalParticles from "../components/GeothermalParticles";
-import AudioButton from "../components/AudioButton";
-// === TAMBAHAN BARU: Import Smart Assistant kita ===
 import SmartAssistant from "../components/SmartAssistant";
 
 // === TAMBAHAN: Import context bahasa global kita ===
@@ -30,14 +31,23 @@ export default function Home() {
       {/* Hero Section */}
       <div 
         id="home" 
-        className="relative min-h-screen flex flex-col items-center justify-center px-4 text-center z-10 pt-16 bg-cover bg-center bg-no-repeat print:hidden"
-        style={{ backgroundImage: "url('/hero-suoh2.png')" }}
+        className="relative min-h-screen flex flex-col items-center justify-center px-4 text-center pt-16 print:hidden overflow-hidden isolate"
       >
-        {/* Overlay Gelap */}
-        <div className="absolute inset-0 bg-slate-900/70 -z-10"></div>
+        {/* Hero Background Image (Optimized by Next.js) — Layer 0 */}
+        <Image 
+          src="/hero-suoh2.png" 
+          alt="Kawasan Geotermal Suoh" 
+          fill 
+          priority 
+          sizes="100vw"
+          className="object-cover object-center z-0" 
+        />
         
-        {/* === EFEK UAP PANAS BUMI === */}
-        <div className="absolute inset-0 z-0"> 
+        {/* Overlay Gelap — Layer 1 */}
+        <div className="absolute inset-0 bg-slate-900/70 z-[1]"></div>
+        
+        {/* === EFEK UAP PANAS BUMI — Layer 2 === */}
+        <div className="absolute inset-0 z-[2]"> 
           <GeothermalParticles />
         </div>
         
@@ -137,6 +147,28 @@ export default function Home() {
         className="relative z-10 bg-slate-50 print:bg-white print:m-0 print:p-0"
       >
         <Dashboard />
+      </motion.div>
+
+      {/* Rute Akses */}
+      <motion.div 
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.1 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="relative z-10 bg-white"
+      >
+        <RouteAccess />
+      </motion.div>
+
+      {/* Testimoni Pengunjung */}
+      <motion.div 
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.1 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="relative z-10 bg-slate-50"
+      >
+        <Testimonials />
       </motion.div>
 
       <Footer />
