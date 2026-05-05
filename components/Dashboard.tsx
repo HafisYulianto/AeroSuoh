@@ -140,6 +140,22 @@ export default function Dashboard() {
         {/* Kolom Kiri */}
         <div className="lg:col-span-1 space-y-4 print:col-span-1 print:space-y-3">
           
+          {/* === SKELETON LOADER: Tampil saat data API belum dimuat === */}
+          {realTemp === "..." ? (
+            <>
+              {[1, 2, 3, 4].map((i) => (
+                <div key={i} className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-start gap-4 animate-pulse">
+                  <div className="w-14 h-14 bg-slate-200 rounded-xl"></div>
+                  <div className="flex-1 space-y-3 pt-1">
+                    <div className="h-3 bg-slate-200 rounded-full w-2/3"></div>
+                    <div className="h-7 bg-slate-200 rounded-full w-1/2"></div>
+                    <div className="h-2.5 bg-slate-100 rounded-full w-3/4"></div>
+                  </div>
+                </div>
+              ))}
+            </>
+          ) : (
+            <>
           <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-start gap-4 hover:shadow-md transition-all print:p-3 print:shadow-none print:border-slate-300">
             <div className="p-3 bg-rose-50 rounded-xl text-rose-500 print:p-2">
               <Thermometer size={28} className="print:w-5 print:h-5" />
@@ -196,6 +212,8 @@ export default function Dashboard() {
               <p className="text-xs text-emerald-600 mt-1 font-bold print:text-[9px] print:mt-0">{t("dash_ph_desc")}</p>
             </div>
           </div>
+            </>
+          )}
 
         </div>
 

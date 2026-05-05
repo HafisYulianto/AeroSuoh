@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Info, Navigation, MousePointer2, Thermometer, Droplets, Wind, Wifi, BatteryMedium, Compass, Crosshair, Power } from "lucide-react";
+import { X, Info, Navigation, MousePointer2, Thermometer, Droplets, Wind, Wifi, BatteryMedium, Compass, Crosshair, Power, Loader2 } from "lucide-react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 // === TAMBAHAN: Import context bahasa global ===
@@ -79,6 +79,7 @@ export default function AerialExplorer() {
   
   const [liveCoords, setLiveCoords] = useState({ lng: 104.2690, lat: -5.2430 });
   const [isThermalMode, setIsThermalMode] = useState(false);
+  const [mapLoaded, setMapLoaded] = useState(false);
   
   const isRotatingRef = useRef(true);
   const startRotationRef = useRef<(() => void) | null>(null);
@@ -100,6 +101,7 @@ export default function AerialExplorer() {
     mapRef.current = map;
 
     map.on("load", () => {
+      setMapLoaded(true);
       map.addSource("mapbox-dem", {
         type: "raster-dem",
         url: "mapbox://mapbox.mapbox-terrain-dem-v1",
@@ -238,6 +240,36 @@ export default function AerialExplorer() {
               : ""
           }`} 
         />
+
+        {/* === MAP LOADING SKELETON === */}
+        <AnimatePresence>
+          {!mapLoaded && (
+            <motion.div
+              initial={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.8 }}
+              className="absolute inset-0 z-30 bg-slate-900 flex flex-col items-center justify-center"
+            >
+              <div className="relative mb-6">
+                <div className="w-20 h-20 rounded-full border-2 border-emerald-500/30 flex items-center justify-center">
+                  <Loader2 size={36} className="text-emerald-400 animate-spin" />
+                </div>
+                <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-emerald-500 animate-ping"></span>
+              </div>
+              <p className="text-emerald-400 font-mono text-sm font-bold tracking-widest uppercase mb-2">
+                {t("map_title")}
+              </p>
+              <p className="text-emerald-100/50 text-xs font-mono">
+                Initializing Mapbox GL • Terrain DEM • Satellite Layer
+              </p>
+              <div className="mt-6 flex items-center gap-3 text-emerald-500/60 font-mono text-[10px]">
+                <span className="flex items-center gap-1"><Compass size={12} /> LAT: -5.24300</span>
+                <span>|</span>
+                <span className="flex items-center gap-1">LNG: 104.26900</span>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         <div className="absolute top-0 left-0 w-full bg-slate-900/85 backdrop-blur-md border-b border-emerald-500/30 text-emerald-400 font-mono text-[10px] sm:text-xs z-10 px-4 py-2 flex flex-wrap justify-between items-center shadow-lg shadow-emerald-900/20">
           <div className="flex items-center gap-4">
