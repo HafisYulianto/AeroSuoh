@@ -1,36 +1,68 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌋 AeroSuoh Eco-Monitor & Smart Tourism
 
-## Getting Started
+![AeroSuoh Hero Banner](public/images/danau-lebar-hd.png)
 
-First, run the development server:
+AeroSuoh adalah platform **Pariwisata Ekologis Pintar** dan **Dasbor Pemantauan Geotermal Real-Time** yang didedikasikan untuk mengangkat "Surga Tersembunyi" kawasan Suoh, Lampung Barat ke kancah global. Proyek ini memadukan eksplorasi alam yang indah dengan teknologi pemantauan masa depan yang berfokus pada keselamatan dan keberlanjutan.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## ✨ Fitur Utama
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **🗺️ 3D Aerial Explorer (Mapbox GL)**: Pemetaan satelit interaktif 3D kawasan Suoh lengkap dengan mode "Thermal Camera" dan pelacakan titik koordinat satelit.
+- **📊 Real-Time Geothermal Dashboard**: Pemantauan langsung suhu permukaan, arah angin, pH air kawah, dan gas sulfur (H2S) yang terintegrasi dengan API satelit. Tersedia juga animasi *skeleton loader* untuk transisi data yang mulus.
+- **🎫 Smart Booking System**: Sistem pemesanan tiket cerdas (Day Trip Pass & Eco-Staycation) dengan validasi formulir terpadu yang aman.
+- **🤖 AeroBot AI Assistant**: Chatbot asisten pintar yang siap menjawab pertanyaan seputar tiket, kondisi cuaca, keamanan kawah, rute akses, hingga rekomendasi *outfit*.
+- **🌐 Bilingual Support**: Mendukung Bahasa Indonesia (ID) dan Bahasa Inggris (EN) secara penuh tanpa *loading* halaman (Seamless Context-based Translation).
+- **📱 Responsif & Animasi Elegan**: Desain *enterprise-grade* dengan efek *glassmorphism*, transisi *scroll* halus dari Framer Motion, dan *Error Boundaries* global.
+- **🚀 SEO Optimized**: Dilengkapi dengan sitemap otomatis, konfigurasi *robots.txt*, halaman kustom 404, serta metadata SEO canggih.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🛠️ Teknologi yang Digunakan
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Framework**: [Next.js 15](https://nextjs.org/) (App Router)
+- **Library UI**: React 19, Tailwind CSS v4
+- **Animasi**: [Framer Motion](https://www.framer.com/motion/)
+- **Pemetaan**: [Mapbox GL JS](https://www.mapbox.com/)
+- **Ikonografi**: [Lucide React](https://lucide.dev/)
+- **Bahasa**: TypeScript / JavaScript (TSX/JSX)
 
-## Learn More
+## 📦 Panduan Instalasi (Development)
 
-To learn more about Next.js, take a look at the following resources:
+Pastikan Anda telah menginstal [Node.js](https://nodejs.org/) (Versi 18+ direkomendasikan) di komputer Anda.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. **Clone Repositori ini**
+   ```bash
+   git clone https://github.com/HafisYulianto/AeroSuoh.git
+   cd aerosuoh-web
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+2. **Instal Dependensi**
+   ```bash
+   npm install
+   # atau
+   yarn install
+   # atau
+   pnpm install
+   ```
 
-## Deploy on Vercel
+3. **Konfigurasi Environment Variables**
+   Buat file `.env.local` di root direktori proyek dan tambahkan token Mapbox Anda:
+   ```env
+   NEXT_PUBLIC_MAPBOX_TOKEN=pk.your_mapbox_token_here
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+4. **Jalankan Server Development**
+   ```bash
+   npm run dev
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+5. **Buka Browser**
+   Kunjungi [http://localhost:3000](http://localhost:3000) untuk melihat hasilnya.
+
+## 🌍 Tentang Suoh
+
+Suoh merupakan sebuah lembah barisan yang terletak di **Kabupaten Lampung Barat**. Lahir dari bencana letusan gempa dahsyat pada tahun 1933, kawasan ini kini menjadi laboratorium alam yang luar biasa, memiliki ekosistem danau tiga warna (Danau Asam, Lebar, Minyak) serta aktivitas kawah panas bumi ekstrem (Keramikan, Nirwana).
+
+AeroSuoh dibangun dengan tujuan **SDG 8 & 11** (Ekonomi & Komunitas Berkelanjutan) serta **SDG 13 & 15** (Konservasi Ekosistem), untuk mempromosikan wilayah ini sekaligus memberikan peringatan dini (*early warning*) bagi keselamatan wisatawan.
+
+---
+
+**Dikembangkan dengan ❤️ oleh [Hafis Yulianto](https://github.com/HafisYulianto)**  
+*Universitas Teknokrat Indonesia*
