@@ -2,11 +2,11 @@
 
 // === TAMBAHAN: Import useRef dan useEffect untuk autoscroll chat ===
 import { useState, useRef, useEffect } from "react";
-import { MessageCircle, X, Bot, Ticket, Calendar, Users, Home, ArrowRight, CheckCircle2, Send } from "lucide-react";
+import { MessageCircle, X, Bot, Ticket, Calendar, Users, Home, ArrowRight, CheckCircle2, Send, QrCode } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
 
 export default function SmartAssistant() {
-  const { lang } = useLanguage();
+  const { lang, t } = useLanguage();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeModal, setActiveModal] = useState<"chat" | "booking" | null>(null);
 
@@ -376,10 +376,24 @@ export default function SmartAssistant() {
               <div className="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4 border-4 border-white shadow-lg">
                 <CheckCircle2 size={32} />
               </div>
-              <h4 className="font-bold text-xl text-slate-800">{lang === "ID" ? "Pesanan Hampir Selesai!" : "Booking Almost Ready!"}</h4>
+              <h4 className="font-bold text-xl text-slate-800">{t("qris_title" as any)}</h4>
               <p className="text-sm text-slate-500 px-4">
-                {lang === "ID" ? "Tinjau pesanan Anda. Kami akan meneruskan data ini ke WhatsApp Pengelola Lokal." : "Review your booking. We will forward this data to the Local Admin's WhatsApp."}
+                {t("qris_instruction" as any)}
               </p>
+              
+              {/* === MOCKUP QRIS === */}
+              <div className="bg-slate-50 p-6 rounded-2xl border-2 border-dashed border-emerald-300 mx-auto w-48 h-48 my-6 flex flex-col items-center justify-center shadow-inner relative overflow-hidden group">
+                <div className="absolute top-0 w-full h-1 bg-emerald-500 shadow-[0_0_15px_#10b981] animate-[scan_2s_ease-in-out_infinite]"></div>
+                <QrCode size={100} strokeWidth={1} className="text-slate-800" />
+                <span className="font-bold text-slate-800 mt-2">QRIS</span>
+                <span className="text-[10px] font-mono text-slate-500">NMID: ID1029384756</span>
+              </div>
+              <style jsx>{`
+                @keyframes scan {
+                  0%, 100% { top: 0; }
+                  50% { top: 100%; }
+                }
+              `}</style>
               
               {/* Box Ringkasan */}
               <div className="bg-slate-50 p-5 rounded-xl text-left my-6 border border-slate-200 shadow-inner">

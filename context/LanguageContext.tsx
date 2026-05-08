@@ -153,14 +153,54 @@ const translations = {
     testi_3_text: "Gila sih Suoh! Wajib bawa drone kalau ke sini. Danau Lebarnya luas banget, dan warga lokalnya sangat ramah menyambut tamu.",
 
     // Rute
-    route_badge: "Akses & Transportasi",
     route_title: "Jalur Menuju Basecamp Suoh",
     route_desc: "Kawasan Suoh dapat diakses dari dua titik utama. Pastikan kendaraan dalam kondisi prima mengingat medan pegunungan.",
     route_1_title: "Jalur Liwa (Utara)",
     route_1_desc: "Via Sekincau - Batu Brak. Jarak ±45 km (1.5 - 2 jam). Jalur ini sudah beraspal cukup mulus namun berkelok tajam melintasi perbukitan kopi.",
     route_2_title: "Jalur Tanggamus (Selatan)",
-    route_2_desc: "Via Wonosobo - BNS. Akses lebih menantang (motor trail/offroad). Pemandangan melintasi pinggiran Taman Nasional Bukit Barisan Selatan.",
-    route_note: "Saran Transportasi: Kendaraan roda 4 disarankan memiliki ground clearance tinggi (SUV), atau menggunakan kendaraan roda 2.",
+    route_2_desc: "Via Wonosobo - Bandar Negeri Suoh (BNS). Jarak ±80 km (2.5 - 3 jam). Lebih direkomendasikan untuk kendaraan roda dua atau mobil gardan ganda (4x4).",
+    route_note: "Disarankan menggunakan motor atau menyewa ojek trail lokal dari basecamp menuju titik kawah untuk pengalaman maksimal dan aman.",
+
+    // Phase 2: Safety Alert
+    alert_warning: "PERINGATAN: Deteksi H2S Sedang Tinggi di Kawah Keramikan. Ikuti arahan pemandu wisata dan tetap di Zona Hijau.",
+    
+    // Phase 2: Encyclopedia
+    encyclopedia_badge: "Kisah & Pengetahuan",
+    encyclopedia_title: "Pesona Tersembunyi Suoh",
+    encyclopedia_desc: "Jelajahi sejarah terbentuknya kaldera, mitos naga yang melegenda, hingga flora endemik yang mampu bertahan di tanah mendidih.",
+    encyclopedia_tab_history: "Sejarah Gempa 1933",
+    encyclopedia_history_content: "Lembah Suoh lahir dari tragedi. Pada 25 Juni 1933, gempa tektonik berkekuatan 7.5 SR mengguncang Liwa, membuka celah magma dan menciptakan letusan freatik dahsyat yang melahirkan danau-danau panas ini.",
+    encyclopedia_tab_myth: "Legenda Ular Naga",
+    encyclopedia_myth_content: "Masyarakat lokal percaya bahwa letupan uap panas dan suara gemuruh dari perut bumi Suoh berasal dari pergerakan Naga raksasa penjaga mata air yang tertidur di bawah tanah.",
+    encyclopedia_tab_bio: "Ekosistem Ekstrem",
+    encyclopedia_bio_content: "Meski memiliki tingkat keasaman (pH) dan suhu ekstrem, kawasan ini menjadi rumah bagi anggrek langka dan burung liar endemik Sumatera yang beradaptasi sempurna dengan lingkungan sulfurnya.",
+
+    // Phase 2: Itinerary Planner
+    itinerary_badge: "Rencana Perjalanan",
+    itinerary_title: "Pilih Petualangan Anda",
+    itinerary_desc: "Berapa lama Anda berencana mengunjungi Suoh? Pilih durasi dan biarkan sistem merancang jadwal terbaik untuk Anda.",
+    itinerary_half_day: "Setengah Hari",
+    itinerary_one_day: "1 Hari Penuh",
+    itinerary_two_days: "2 Hari 1 Malam",
+    itinerary_btn: "Buat Itinerary",
+    itinerary_timeline_0700: "Menyaksikan kabut pagi di Danau Asam.",
+    itinerary_timeline_0900: "Trekking santai menuju Danau Lebar & Pasir Kuning.",
+    itinerary_timeline_1100: "Menjelajahi keajaiban Kawah Keramikan & Kawah Nirwana bersama guide.",
+    itinerary_timeline_1300: "Makan siang kuliner khas lokal di Basecamp.",
+    itinerary_timeline_1500: "Sesi foto estetik di savana dan perjalanan pulang.",
+    itinerary_timeline_1600: "Mendirikan tenda di Danau Lebar atau check-in Homestay.",
+    itinerary_timeline_1900: "Makan malam api unggun dan istirahat.",
+    itinerary_timeline_day2: "Eksplorasi spot tersembunyi, mandi air hangat alami, dan beli oleh-oleh kopi Robusta.",
+
+    // Phase 2: Virtual Tour
+    virtual_badge: "Virtual Panorama 360",
+    virtual_title: "Jelajahi Dari Mana Saja",
+    virtual_desc: "Geser gambar ke kiri dan kanan untuk mensimulasikan pemandangan 360 derajat di sekitar kawasan Suoh.",
+    virtual_instruction: "← Tahan & Geser untuk Menjelajah →",
+
+    // Phase 2: QRIS
+    qris_title: "Selesaikan Pembayaran",
+    qris_instruction: "Pindai kode QRIS di bawah ini menggunakan aplikasi M-Banking atau e-Wallet Anda.",
 
     // Footer
     foot_nav_title: "Navigasi Sistem",
@@ -311,14 +351,54 @@ const translations = {
     testi_3_text: "Suoh is insane! Bringing a drone is a must here. Lebar Lake is extremely vast, and the locals are very welcoming to guests.",
 
     // Rute
-    route_badge: "Access & Transportation",
     route_title: "Route to Suoh Basecamp",
     route_desc: "The Suoh area can be accessed from two main points. Ensure your vehicle is in prime condition considering the mountainous terrain.",
     route_1_title: "Liwa Route (North)",
-    route_1_desc: "Via Sekincau - Batu Brak. Distance ±45 km (1.5 - 2 hours). The road is quite smoothly paved but features sharp curves through coffee hills.",
+    route_1_desc: "Via Sekincau - Batu Brak. ±45 km (1.5 - 2 hours). The road is smoothly paved but has sharp bends across coffee hills.",
     route_2_title: "Tanggamus Route (South)",
-    route_2_desc: "Via Wonosobo - BNS. More challenging access (trail bikes/offroad). Offers views along the edges of the Bukit Barisan Selatan National Park.",
-    route_note: "Transport Suggestion: 4-wheeled vehicles should ideally have high ground clearance (SUV), or use 2-wheeled vehicles.",
+    route_2_desc: "Via Wonosobo - Bandar Negeri Suoh. ±80 km (2.5 - 3 hours). Highly recommended to use off-road motorcycles or 4x4 vehicles.",
+    route_note: "It is advised to ride a motorcycle or rent a local dirt bike taxi from the basecamp to the crater points for the best and safest experience.",
+
+    // Phase 2: Safety Alert
+    alert_warning: "WARNING: Moderate H2S detected at Keramikan Crater. Please follow your guide and stay in the Green Zone.",
+    
+    // Phase 2: Encyclopedia
+    encyclopedia_badge: "Lore & Knowledge",
+    encyclopedia_title: "The Hidden Charms of Suoh",
+    encyclopedia_desc: "Explore the caldera's history, the legendary dragon myth, and the endemic flora surviving in boiling grounds.",
+    encyclopedia_tab_history: "1933 Earthquake",
+    encyclopedia_history_content: "Suoh Valley was born from tragedy. On June 25, 1933, a 7.5 SR earthquake struck Liwa, opening a magma vent and triggering massive phreatic eruptions that formed these thermal lakes.",
+    encyclopedia_tab_myth: "The Dragon Myth",
+    encyclopedia_myth_content: "Locals believe the hissing steam and subterranean rumblings of Suoh originate from a giant sleeping dragon that guards the spring.",
+    encyclopedia_tab_bio: "Extreme Ecosystem",
+    encyclopedia_bio_content: "Despite the extreme acidity (pH) and temperatures, this area is home to rare orchids and wild Sumatran birds that have perfectly adapted to the sulfurous environment.",
+
+    // Phase 2: Itinerary Planner
+    itinerary_badge: "Trip Planner",
+    itinerary_title: "Choose Your Adventure",
+    itinerary_desc: "How long are you staying in Suoh? Select a duration and let our system craft the perfect itinerary for you.",
+    itinerary_half_day: "Half Day",
+    itinerary_one_day: "Full Day",
+    itinerary_two_days: "2 Days 1 Night",
+    itinerary_btn: "Generate Itinerary",
+    itinerary_timeline_0700: "Watch the morning mist at Lake Asam.",
+    itinerary_timeline_0900: "Leisurely trek to Lake Lebar & Pasir Kuning.",
+    itinerary_timeline_1100: "Explore the wonders of Keramikan & Nirwana Craters with a guide.",
+    itinerary_timeline_1300: "Lunch with local delicacies at the Basecamp.",
+    itinerary_timeline_1500: "Aesthetic photo sessions at the savanna and heading back.",
+    itinerary_timeline_1600: "Set up camp at Lake Lebar or check-in to a Homestay.",
+    itinerary_timeline_1900: "Campfire dinner and resting under the stars.",
+    itinerary_timeline_day2: "Explore hidden spots, enjoy natural hot springs, and buy local Robusta coffee souvenirs.",
+
+    // Phase 2: Virtual Tour
+    virtual_badge: "360 Virtual Panorama",
+    virtual_title: "Explore from Anywhere",
+    virtual_desc: "Drag the image left and right to simulate a 360-degree view around the Suoh area.",
+    virtual_instruction: "← Click & Drag to Explore →",
+
+    // Phase 2: QRIS
+    qris_title: "Complete Payment",
+    qris_instruction: "Scan the QRIS code below using your M-Banking or e-Wallet app.",
 
     // Footer
     foot_nav_title: "System Navigation",

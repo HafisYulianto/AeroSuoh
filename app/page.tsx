@@ -9,6 +9,9 @@ import AerialExplorer from "../components/AerialExplorer";
 import Footer from "../components/Footer"; 
 import PhotoSlider from "../components/PhotoSlider";
 import SafetyGuide from "../components/SafetyGuide";
+import VirtualTour from "../components/VirtualTour";
+import ItineraryPlanner from "../components/ItineraryPlanner";
+import Encyclopedia from "../components/Encyclopedia";
 import Testimonials from "../components/Testimonials";
 import RouteAccess from "../components/RouteAccess";
 import GeothermalParticles from "../components/GeothermalParticles";
@@ -136,6 +139,37 @@ export default function Home() {
         className="relative z-10 bg-slate-100 border-b border-slate-200 shadow-inner print:hidden"
       >
         <AerialExplorer />
+      </motion.div>
+
+      {/* === FASE 2: VIRTUAL TOUR & ENSIKLOPEDIA & ITINERARY === */}
+      <motion.div 
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.1 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="relative z-10 bg-slate-900"
+      >
+        <VirtualTour />
+      </motion.div>
+
+      <motion.div 
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.1 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="relative z-10 bg-white"
+      >
+        <ItineraryPlanner />
+      </motion.div>
+
+      <motion.div 
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.1 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="relative z-10 bg-slate-50"
+      >
+        <Encyclopedia />
       </motion.div>
 
       {/* Animasi Scroll Reveal untuk Dasbor Sensor */}
