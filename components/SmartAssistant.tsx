@@ -381,12 +381,10 @@ export default function SmartAssistant() {
                 {t("qris_instruction" as any)}
               </p>
               
-              {/* === MOCKUP QRIS === */}
-              <div className="bg-slate-50 p-6 rounded-2xl border-2 border-dashed border-emerald-300 mx-auto w-48 h-48 my-6 flex flex-col items-center justify-center shadow-inner relative overflow-hidden group">
+              {/* === REAL QRIS IMAGE === */}
+              <div className="bg-slate-50 p-4 rounded-2xl border-2 border-dashed border-emerald-300 mx-auto w-48 h-48 my-6 flex flex-col items-center justify-center shadow-inner relative overflow-hidden group">
                 <div className="absolute top-0 w-full h-1 bg-emerald-500 shadow-[0_0_15px_#10b981] animate-[scan_2s_ease-in-out_infinite]"></div>
-                <QrCode size={100} strokeWidth={1} className="text-slate-800" />
-                <span className="font-bold text-slate-800 mt-2">QRIS</span>
-                <span className="text-[10px] font-mono text-slate-500">NMID: ID1029384756</span>
+                <img src="/payment/QRIS.png" alt="QRIS Payment" className="w-full h-full object-contain relative z-10" />
               </div>
               <style jsx>{`
                 @keyframes scan {
@@ -397,7 +395,7 @@ export default function SmartAssistant() {
               
               {/* Box Ringkasan */}
               <div className="bg-slate-50 p-5 rounded-xl text-left my-6 border border-slate-200 shadow-inner">
-                <p className="text-xs font-bold text-slate-400 uppercase tracking-widest border-b border-slate-200 pb-2 mb-3">{lang === "ID" ? "Ringkasan Pesanan" : "Order Summary"}</p>
+                <p className="text-xs font-bold text-slate-400 uppercase tracking-widest border-b border-slate-200 pb-2 mb-3">{lang === "ID" ? "Ringkasan Pesanan & Tagihan" : "Order & Bill Summary"}</p>
                 
                 <div className="flex justify-between items-start mb-2">
                   <span className="text-sm text-slate-600">{lang === "ID" ? "Paket" : "Package"}</span>
@@ -416,15 +414,32 @@ export default function SmartAssistant() {
                   <span className="text-sm font-bold text-slate-800 text-right">{bookingData.date || "-"}</span>
                 </div>
                 
-                <div className="flex justify-between items-start">
+                <div className="flex justify-between items-start mb-4 border-b border-slate-200 pb-3">
                   <span className="text-sm text-slate-600">{lang === "ID" ? "Pengunjung" : "Guests"}</span>
                   <span className="text-sm font-bold text-slate-800 text-right">{bookingData.guests} {lang === "ID" ? "Orang" : "Pax"}</span>
+                </div>
+
+                <div className="flex justify-between items-center bg-emerald-50 p-3 rounded-lg border border-emerald-100">
+                  <span className="text-sm font-bold text-emerald-900">{lang === "ID" ? "Total Tagihan" : "Total Bill"}</span>
+                  <span className="text-lg font-black text-emerald-600">
+                    Rp {(bookingData.type === "homestay" ? 175000 : 25000 * bookingData.guests).toLocaleString("id-ID")}
+                  </span>
                 </div>
               </div>
 
               <div className="flex flex-col gap-3">
-                <button onClick={handleCheckout} className="w-full py-3.5 bg-emerald-600 text-white font-bold rounded-xl hover:bg-emerald-700 transition-all shadow-lg hover:shadow-emerald-600/30 flex items-center justify-center gap-2">
-                  <Ticket size={18} /> {lang === "ID" ? "Konfirmasi Pesanan" : "Confirm Booking"}
+                <button 
+                  onClick={() => {
+                    const total = bookingData.type === "homestay" ? 175000 : 25000 * bookingData.guests;
+                    const packageStr = bookingData.type === "homestay" ? "Eco-Staycation" : "Day Trip Pass";
+                    const homeStr = bookingData.homestay ? `%0AHomestay: ${bookingData.homestay}` : "";
+                    const waText = `Halo Admin AeroSuoh, saya ingin konfirmasi pembayaran untuk pesanan:%0A%0APaket: ${packageStr}${homeStr}%0ATanggal: ${bookingData.date}%0AJumlah: ${bookingData.guests} Orang%0A*Total Tagihan: Rp ${total.toLocaleString("id-ID")}*%0A%0A(Bukti transfer QRIS akan saya kirimkan setelah pesan ini).`;
+                    window.open(`https://wa.me/6281234567890?text=${waText}`, "_blank");
+                    handleCheckout();
+                  }} 
+                  className="w-full py-3.5 bg-emerald-600 text-white font-bold rounded-xl hover:bg-emerald-700 transition-all shadow-lg hover:shadow-emerald-600/30 flex items-center justify-center gap-2"
+                >
+                  <Ticket size={18} /> {lang === "ID" ? "Konfirmasi Pembayaran via WA" : "Confirm Payment via WA"}
                 </button>
                 <button onClick={() => setBookingStep(bookingData.type === "homestay" ? 3 : 2)} className="text-sm font-bold text-slate-500 hover:text-slate-800 transition-colors">
                   {lang === "ID" ? "Edit Pesanan" : "Edit Booking"}
