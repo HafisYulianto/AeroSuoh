@@ -229,7 +229,7 @@ export default function SmartAssistant() {
   // === MODAL 1: SMART BOOKING ===
   const renderBooking = () => (
     <div className="fixed inset-0 z-[60] flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4 print:hidden">
-      <div className="bg-white rounded-2xl w-full max-w-lg overflow-hidden shadow-2xl animate-in fade-in zoom-in duration-300">
+      <div className={`bg-white rounded-2xl w-full ${bookingStep === 4 ? 'max-w-2xl' : 'max-w-lg'} overflow-hidden shadow-2xl animate-in fade-in zoom-in duration-300 transition-all`}>
         
         {/* Header Modal Booking */}
         <div className="bg-emerald-900 p-5 flex justify-between items-center text-white relative overflow-hidden">
@@ -372,69 +372,75 @@ export default function SmartAssistant() {
 
           {/* STEP 4: Checkout & Ringkasan */}
           {bookingStep === 4 && (
-            <div className="space-y-4 animate-in slide-in-from-right-4 text-center py-2">
-              <div className="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4 border-4 border-white shadow-lg">
-                <CheckCircle2 size={32} />
-              </div>
-              <h4 className="font-bold text-xl text-slate-800">{t("qris_title" as any)}</h4>
-              <p className="text-sm text-slate-500 px-4">
-                {t("qris_instruction" as any)}
-              </p>
-              
-              {/* === REAL QRIS IMAGE === */}
-              <div className="bg-slate-50 p-4 rounded-2xl border-2 border-dashed border-emerald-300 mx-auto w-48 h-48 my-6 flex flex-col items-center justify-center shadow-inner relative overflow-hidden group">
-                <div className="absolute top-0 w-full h-1 bg-emerald-500 shadow-[0_0_15px_#10b981] animate-[scan_2s_ease-in-out_infinite]"></div>
-                <img src="/payment/QRIS.png" alt="QRIS Payment" className="w-full h-full object-contain relative z-10" />
-              </div>
-              <style jsx>{`
-                @keyframes scan {
-                  0%, 100% { top: 0; }
-                  50% { top: 100%; }
-                }
-              `}</style>
-              
-              {/* Box Ringkasan */}
-              <div className="bg-slate-50 p-5 rounded-xl text-left my-6 border border-slate-200 shadow-inner">
-                <p className="text-xs font-bold text-slate-400 uppercase tracking-widest border-b border-slate-200 pb-2 mb-3">{lang === "ID" ? "Ringkasan Pesanan & Tagihan" : "Order & Bill Summary"}</p>
-                
-                <div className="flex justify-between items-start mb-2">
-                  <span className="text-sm text-slate-600">{lang === "ID" ? "Paket" : "Package"}</span>
-                  <span className="text-sm font-bold text-slate-800 text-right">{bookingData.type === "homestay" ? "Eco-Staycation" : "Day Trip Pass"}</span>
+            <div className="animate-in slide-in-from-right-4 py-2">
+              <div className="text-center mb-6">
+                <div className="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4 border-4 border-white shadow-lg">
+                  <CheckCircle2 size={32} />
                 </div>
+                <h4 className="font-bold text-xl text-slate-800">{t("qris_title" as any)}</h4>
+                <p className="text-sm text-slate-500 px-4">
+                  {t("qris_instruction" as any)}
+                </p>
+              </div>
+              
+              <div className="flex flex-col md:flex-row gap-6 mb-6 items-center md:items-stretch">
+                {/* === REAL QRIS IMAGE === */}
+                <div className="bg-white p-2 rounded-xl border-2 border-dashed border-emerald-300 w-[200px] h-[260px] flex flex-col items-center justify-center shadow-sm relative overflow-hidden group shrink-0">
+                  <div className="absolute top-0 w-full h-1 bg-emerald-500 shadow-[0_0_15px_#10b981] animate-[scan_2s_ease-in-out_infinite] z-20"></div>
+                  <img src="/payment/QRIS.png" alt="QRIS Payment" className="w-full h-full object-contain relative z-10 rounded-lg" />
+                </div>
+                <style jsx>{`
+                  @keyframes scan {
+                    0%, 100% { top: 0; }
+                    50% { top: 100%; }
+                  }
+                `}</style>
                 
-                {bookingData.homestay && (
-                  <div className="flex justify-between items-start mb-2">
-                    <span className="text-sm text-slate-600">Homestay</span>
-                    <span className="text-sm font-bold text-emerald-700 text-right">{bookingData.homestay}</span>
+                {/* Box Ringkasan */}
+                <div className="bg-slate-50 p-5 rounded-xl border border-slate-200 shadow-inner flex-1 w-full flex flex-col justify-center">
+                  <p className="text-xs font-bold text-slate-400 uppercase tracking-widest border-b border-slate-200 pb-2 mb-4">{lang === "ID" ? "Ringkasan Pesanan & Tagihan" : "Order & Bill Summary"}</p>
+                  
+                  <div className="space-y-3 flex-1">
+                    <div className="flex justify-between items-start">
+                      <span className="text-sm text-slate-600">{lang === "ID" ? "Paket" : "Package"}</span>
+                      <span className="text-sm font-bold text-slate-800 text-right">{bookingData.type === "homestay" ? "Eco-Staycation" : "Day Trip Pass"}</span>
+                    </div>
+                    
+                    {bookingData.homestay && (
+                      <div className="flex justify-between items-start">
+                        <span className="text-sm text-slate-600">Homestay</span>
+                        <span className="text-sm font-bold text-emerald-700 text-right">{bookingData.homestay}</span>
+                      </div>
+                    )}
+                    
+                    <div className="flex justify-between items-start">
+                      <span className="text-sm text-slate-600">{lang === "ID" ? "Tanggal" : "Date"}</span>
+                      <span className="text-sm font-bold text-slate-800 text-right">{bookingData.date || "-"}</span>
+                    </div>
+                    
+                    <div className="flex justify-between items-start border-b border-slate-200 pb-3">
+                      <span className="text-sm text-slate-600">{lang === "ID" ? "Pengunjung" : "Guests"}</span>
+                      <span className="text-sm font-bold text-slate-800 text-right">{bookingData.guests} {lang === "ID" ? "Orang" : "Pax"}</span>
+                    </div>
                   </div>
-                )}
-                
-                <div className="flex justify-between items-start mb-2">
-                  <span className="text-sm text-slate-600">{lang === "ID" ? "Tanggal" : "Date"}</span>
-                  <span className="text-sm font-bold text-slate-800 text-right">{bookingData.date || "-"}</span>
-                </div>
-                
-                <div className="flex justify-between items-start mb-4 border-b border-slate-200 pb-3">
-                  <span className="text-sm text-slate-600">{lang === "ID" ? "Pengunjung" : "Guests"}</span>
-                  <span className="text-sm font-bold text-slate-800 text-right">{bookingData.guests} {lang === "ID" ? "Orang" : "Pax"}</span>
-                </div>
 
-                <div className="flex justify-between items-center bg-emerald-50 p-3 rounded-lg border border-emerald-100">
-                  <span className="text-sm font-bold text-emerald-900">{lang === "ID" ? "Total Tagihan" : "Total Bill"}</span>
-                  <span className="text-lg font-black text-emerald-600">
-                    Rp {(bookingData.type === "homestay" ? 175000 : 25000 * bookingData.guests).toLocaleString("id-ID")}
-                  </span>
+                  <div className="flex justify-between items-center bg-emerald-50 p-3 rounded-lg border border-emerald-100 mt-4">
+                    <span className="text-sm font-bold text-emerald-900">{lang === "ID" ? "Total Tagihan" : "Total Bill"}</span>
+                    <span className="text-lg font-black text-emerald-600">
+                      Rp {(bookingData.type === "homestay" ? 175000 * bookingData.guests : 25000 * bookingData.guests).toLocaleString("id-ID")}
+                    </span>
+                  </div>
                 </div>
               </div>
 
               <div className="flex flex-col gap-3">
                 <button 
                   onClick={() => {
-                    const total = bookingData.type === "homestay" ? 175000 : 25000 * bookingData.guests;
+                    const total = bookingData.type === "homestay" ? 175000 * bookingData.guests : 25000 * bookingData.guests;
                     const packageStr = bookingData.type === "homestay" ? "Eco-Staycation" : "Day Trip Pass";
                     const homeStr = bookingData.homestay ? `%0AHomestay: ${bookingData.homestay}` : "";
                     const waText = `Halo Admin AeroSuoh, saya ingin konfirmasi pembayaran untuk pesanan:%0A%0APaket: ${packageStr}${homeStr}%0ATanggal: ${bookingData.date}%0AJumlah: ${bookingData.guests} Orang%0A*Total Tagihan: Rp ${total.toLocaleString("id-ID")}*%0A%0A(Bukti transfer QRIS akan saya kirimkan setelah pesan ini).`;
-                    window.open(`https://wa.me/6281234567890?text=${waText}`, "_blank");
+                    window.open(`https://wa.me/6282279485813?text=${waText}`, "_blank");
                     handleCheckout();
                   }} 
                   className="w-full py-3.5 bg-emerald-600 text-white font-bold rounded-xl hover:bg-emerald-700 transition-all shadow-lg hover:shadow-emerald-600/30 flex items-center justify-center gap-2"

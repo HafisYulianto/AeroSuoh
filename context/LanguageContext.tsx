@@ -192,11 +192,11 @@ const translations = {
     itinerary_timeline_1900: "Makan malam api unggun dan istirahat.",
     itinerary_timeline_day2: "Eksplorasi spot tersembunyi, mandi air hangat alami, dan beli oleh-oleh kopi Robusta.",
 
-    // Phase 2: Virtual Tour
-    virtual_badge: "Virtual Panorama 360",
-    virtual_title: "Jelajahi Dari Mana Saja",
-    virtual_desc: "Geser gambar ke kiri dan kanan untuk mensimulasikan pemandangan 360 derajat di sekitar kawasan Suoh.",
-    virtual_instruction: "← Tahan & Geser untuk Menjelajah →",
+    // Phase 2: Virtual Tour -> Video Showcase
+    virtual_badge: "Cinematic Showcase",
+    virtual_title: "Suoh Dari Udara",
+    virtual_desc: "Saksikan keindahan alam Suoh dan Danau Asam dari sudut pandang udara. Sebuah karya sinematik yang menangkap keajaiban ekosistem geotermal Lampung Barat.",
+    virtual_instruction: "Sumber Video: Dian SaeK",
 
     // Phase 2: QRIS
     qris_title: "Selesaikan Pembayaran",
@@ -390,11 +390,11 @@ const translations = {
     itinerary_timeline_1900: "Campfire dinner and resting under the stars.",
     itinerary_timeline_day2: "Explore hidden spots, enjoy natural hot springs, and buy local Robusta coffee souvenirs.",
 
-    // Phase 2: Virtual Tour
-    virtual_badge: "360 Virtual Panorama",
-    virtual_title: "Explore from Anywhere",
-    virtual_desc: "Drag the image left and right to simulate a 360-degree view around the Suoh area.",
-    virtual_instruction: "← Click & Drag to Explore →",
+    // Phase 2: Virtual Tour -> Video Showcase
+    virtual_badge: "Cinematic Showcase",
+    virtual_title: "Suoh from Above",
+    virtual_desc: "Witness the natural beauty of Suoh and Lake Asam from a bird's-eye view. A cinematic masterpiece capturing the wonders of West Lampung's geothermal ecosystem.",
+    virtual_instruction: "Video Source: YouTube / DRONE VIEW SUOH",
 
     // Phase 2: QRIS
     qris_title: "Complete Payment",

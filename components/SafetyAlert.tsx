@@ -19,19 +19,20 @@ export default function SafetyAlert() {
   if (!isVisible) return null;
 
   return (
-    <div className="bg-amber-500 text-amber-950 px-4 py-3 shadow-md relative z-[60] print:hidden">
-      <div className="max-w-7xl mx-auto flex items-start sm:items-center justify-between gap-4">
-        <div className="flex items-start sm:items-center gap-3">
-          <div className="p-1.5 bg-amber-600/20 rounded-lg shrink-0 animate-pulse">
-            <AlertTriangle size={20} className="text-amber-900" />
-          </div>
-          <p className="text-sm font-semibold leading-snug">
+    <div className="fixed bottom-6 left-4 md:left-6 z-[100] bg-amber-500 text-amber-950 px-4 py-4 rounded-2xl shadow-2xl max-w-sm border-2 border-amber-400 animate-in slide-in-from-bottom-5 fade-in duration-500 print:hidden">
+      <div className="flex items-start gap-4">
+        <div className="p-2 bg-amber-600/20 rounded-xl shrink-0 animate-pulse">
+          <AlertTriangle size={24} className="text-amber-900" />
+        </div>
+        <div className="flex-1">
+          <h4 className="font-bold text-sm mb-1 uppercase tracking-wider text-amber-900">Safety Alert</h4>
+          <p className="text-sm font-medium leading-snug">
             {t("alert_warning" as any)}
           </p>
         </div>
         <button 
           onClick={() => setIsVisible(false)}
-          className="p-1 hover:bg-amber-600/20 rounded-md transition-colors shrink-0"
+          className="p-1.5 bg-amber-600/10 hover:bg-amber-600/30 rounded-lg transition-colors shrink-0"
           aria-label="Tutup Peringatan"
         >
           <X size={18} />
