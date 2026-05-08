@@ -64,5 +64,5 @@ AeroSuoh dibangun dengan tujuan **SDG 8 & 11** (Ekonomi & Komunitas Berkelanjuta
 
 ---
 
-**Dikembangkan dengan ❤️ oleh [Hafis Yulianto](https://github.com/HafisYulianto)**  
+**Developed by [Hafis Yulianto](https://github.com/HafisYulianto)**  
 *Universitas Teknokrat Indonesia*
