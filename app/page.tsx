@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Navbar from "../components/Navbar";
 import About from "../components/About";
+import LogoPhilosophy from "../components/LogoPhilosophy";
 import Dashboard from "../components/Dashboard";
 import AerialExplorer from "../components/AerialExplorer"; 
 import Footer from "../components/Footer"; 
@@ -107,6 +108,9 @@ export default function Home() {
       >
         <About />
       </motion.div>
+
+      {/* === TAMPILAN FILOSOFI LOGO (16:9 Landscape) === */}
+      <LogoPhilosophy />
 
       {/* Animasi Scroll Reveal untuk Slider Foto */}
       <motion.div 
