@@ -28,6 +28,16 @@ export default function About() {
               <p>{t("about_desc_1")}</p>
               <p>{t("about_desc_2")}</p>
             </div>
+
+            <div className="pt-2">
+              <a 
+                href="#logo-philosophy" 
+                className="inline-flex items-center gap-2 text-emerald-600 hover:text-emerald-700 font-bold transition-all duration-300 group/btn"
+              >
+                <span>{t("about_btn_logo" as any)}</span>
+                <span className="transition-transform duration-300 group-hover/btn:translate-x-1.5">→</span>
+              </a>
+            </div>
           </div>
 
           {/* Bagian Kanan: Kartu SDGs */}
